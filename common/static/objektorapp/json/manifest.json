@@ -1,0 +1,40 @@
+{
+    "name": "Objektor",
+    "short_name": "Objektor",
+    "description": "Objektor + Objekt stamina",
+    "lang": "en-US",
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#4F46E5",
+    "icons": [
+        {
+            "src": "/static/objektorapp/img/objektor-icon.svg",
+            "type": "image/svg"
+        },
+        {
+            "src": "/static/objektorapp/img/objektor-icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/objektorapp/img/objektor-icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/objektorapp/img/objektor-icon-150x150.png",
+            "sizes": "150x150",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/objektorapp/img/objektor-icon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/objektorapp/img/objektor-icon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        }
+    ]
+}

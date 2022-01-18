@@ -8,8 +8,6 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import PermissionRequiredMixin
-
-# Create your views here.
 from .models import Location, Object
 from maintenance.models import Work
 from .forms import ObjektForm

@@ -21,9 +21,9 @@ class WorkListView(LoginRequiredMixin, ListView):
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
         qs = (
-            Work.objects.filter(objekt__owner=self.request.user)
-            | Work.objects.filter(objekt__management_team__in=groups_as_list)
-            | Work.objects.filter(objekt__maintenance_team__in=groups_as_list)
+            Work.objects.filter(object__owner=self.request.user)
+            | Work.objects.filter(object__management_team__in=groups_as_list)
+            | Work.objects.filter(object__maintenance_team__in=groups_as_list)
         )
         return qs
 

@@ -1,6 +1,6 @@
 from django import forms
 from .models import Work
-from inventory.models import Objekt
+from inventory.models import Object
 
 
 class WorkForm(forms.ModelForm):
@@ -9,7 +9,7 @@ class WorkForm(forms.ModelForm):
         fields = [
             "name",
             "description",
-            "objekt",
+            "object",
             "due_at",
             "overdue_at",
             "status",
@@ -37,9 +37,9 @@ class WorkForm(forms.ModelForm):
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
         objekt_queryset = (
-            Objekt.objects.filter(owner=self.request.user)
-            | Objekt.objects.filter(management_team__in=groups_as_list)
-            | Objekt.objects.filter(maintenance_team__in=groups_as_list)
+            Object.objects.filter(owner=self.request.user)
+            | Object.objects.filter(management_team__in=groups_as_list)
+            | Object.objects.filter(maintenance_team__in=groups_as_list)
         )
 
-        self.fields["objekt"] = forms.ModelChoiceField(queryset=objekt_queryset)
+        self.fields["object"] = forms.ModelChoiceField(queryset=objekt_queryset)

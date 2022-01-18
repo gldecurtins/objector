@@ -78,7 +78,7 @@ class Location(RulesModel):
         return status_color
 
 
-class Objekt(RulesModel):
+class Object(RulesModel):
     class Statuses(models.IntegerChoices):
         RED = 10, "Alert"
         AMBER = 20, "Warning"
@@ -98,7 +98,7 @@ class Objekt(RulesModel):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        help_text="Owner can view, change or delete this objekt.",
+        help_text="Owner can view, change or delete this object.",
     )
     management_team = models.ForeignKey(
         Team,
@@ -106,7 +106,7 @@ class Objekt(RulesModel):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text="Team members can view or update this objekt.",
+        help_text="Team members can view or update this object.",
     )
     maintenance_team = models.ForeignKey(
         Team,
@@ -114,7 +114,7 @@ class Objekt(RulesModel):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text="Team members can view this objekt.",
+        help_text="Team members can view this object.",
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -129,7 +129,7 @@ class Objekt(RulesModel):
         return name
 
     def get_absolute_url(self):
-        return f"/objekt/{self.id}"
+        return f"/object/{self.id}"
 
     @property
     def get_status_color(self):

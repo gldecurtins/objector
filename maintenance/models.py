@@ -1,7 +1,7 @@
 from django.db import models
 from rules.contrib.models import RulesModel
 from django.utils import timezone
-from inventory.models import Objekt
+from inventory.models import Object
 import uuid
 import pathlib
 
@@ -21,8 +21,8 @@ class Work(RulesModel):
 
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    objekt = models.ForeignKey(
-        Objekt, related_name="work_objekt", on_delete=models.CASCADE
+    object = models.ForeignKey(
+        Object, related_name="work_objekt", on_delete=models.CASCADE
     )
     status = models.PositiveSmallIntegerField(
         choices=Statuses.choices, default=Statuses.PENDING

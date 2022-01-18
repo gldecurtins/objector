@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 import rules
 from .models import Work
-from inventory.models import Objekt
+from inventory.models import Object
 
 
 class WorkRuleTest(TestCase):
@@ -11,14 +11,14 @@ class WorkRuleTest(TestCase):
     def setUpTestData(cls):
         User = get_user_model()
         cls.owner1 = User.objects.create_user(
-            username="owner1@objektor.com", email="owner1@objektor.com", password="foo"
+            username="owner1@objector.com", email="owner1@objector.com", password="foo"
         )
         cls.owner2 = User.objects.create_user(
-            username="owner2@objektor.com", email="owner2@objektor.com", password="foo"
+            username="owner2@objector.com", email="owner2@objector.com", password="foo"
         )
-        cls.objekt = Objekt.objects.create(name="Objekt", owner=cls.owner1)
+        cls.object = Object.objects.create(name="Object", owner=cls.owner1)
         cls.work = Work.objects.create(
-            name="Work", objekt=cls.objekt, due_at=timezone.now()
+            name="Work", object=cls.object, due_at=timezone.now()
         )
 
     def test_work_objekt_owner_permissions(self):

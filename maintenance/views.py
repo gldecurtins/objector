@@ -37,7 +37,7 @@ class WorkCreateView(LoginRequiredMixin, CreateView):
         initial = {}
         initial["owner"] = self.request.user.id
         try:
-            initial["objekt"] = int(self.request.GET["objekt"])
+            initial["object"] = int(self.request.GET["object"])
         except:
             pass
 

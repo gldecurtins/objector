@@ -1,11 +1,11 @@
 from email.policy import default
 from django import forms
-from .models import Location, Objekt
+from .models import Location, Object
 
 
 class ObjektForm(forms.ModelForm):
     class Meta:
-        model = Objekt
+        model = Object
         fields = [
             "name",
             "description",

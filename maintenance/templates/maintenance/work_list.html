@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Objektor + Work list{% endblock %}
+{% block title %}Objector + Work list{% endblock %}
 {% block h1 %}Work list{% endblock %}
 {% block h2 %}All your work{% endblock %}
 {% block content %}
@@ -17,7 +17,7 @@
                 Name
               </th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Objekt
+                Object
               </th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
                 Due
@@ -40,8 +40,8 @@
               </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
-                <a href="{% url 'inventory:objekt-detail' work.objekt.id %}">
-                  {{ work.objekt }}
+                <a href="{% url 'inventory:object-detail' work.object.id %}">
+                  {{ work.object }}
                 </a>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">

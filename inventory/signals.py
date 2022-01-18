@@ -2,7 +2,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import transaction
 from maintenance.models import Work
-from .models import Location, Objekt
+from .models import Location, Object
 
 
 @receiver(post_save, sender=Work)
@@ -12,24 +12,24 @@ def update_status(sender, instance, created, **kwargs):
 
 
 def objekt_update_status(work_instance):
-    objekt = Objekt.objects.get(id=work_instance.objekt.id)
+    object = Object.objects.get(id=work_instance.object.id)
 
-    new_objekt_status = Objekt.Statuses.GREEN
+    new_objekt_status = Object.Statuses.GREEN
     if Work.objects.filter(
-        objekt=work_instance.objekt.id, status=Work.Statuses.OVERDUE
+        object=work_instance.object.id, status=Work.Statuses.OVERDUE
     ).exists():
-        new_objekt_status = Objekt.Statuses.RED
+        new_objekt_status = Object.Statuses.RED
     elif Work.objects.filter(
-        objekt=work_instance.objekt.id, status=Work.Statuses.DUE
+        object=work_instance.object.id, status=Work.Statuses.DUE
     ).exists():
-        new_objekt_status = Objekt.Statuses.AMBER
+        new_objekt_status = Object.Statuses.AMBER
 
-    if objekt.status != new_objekt_status:
-        objekt.status = new_objekt_status
-        objekt.save()
+    if object.status != new_objekt_status:
+        object.status = new_objekt_status
+        object.save()
 
 
-@receiver(post_save, sender=Objekt)
+@receiver(post_save, sender=Object)
 def update_status(sender, instance, created, **kwargs):
     # TODO: Use celery for async operation: https://docs.djangoproject.com/en/3.2/topics/db/transactions/
     if instance.location:
@@ -40,12 +40,12 @@ def location_update_status(objekt_instance):
     location = Location.objects.get(id=objekt_instance.location.id)
 
     new_location_status = Location.Statuses.GREEN
-    if Objekt.objects.filter(
-        location=objekt_instance.location.id, status=Objekt.Statuses.RED
+    if Object.objects.filter(
+        location=objekt_instance.location.id, status=Object.Statuses.RED
     ).exists():
         new_location_status = Location.Statuses.RED
-    elif Objekt.objects.filter(
-        location=objekt_instance.location.id, status=Objekt.Statuses.AMBER
+    elif Object.objects.filter(
+        location=objekt_instance.location.id, status=Object.Statuses.AMBER
     ).exists():
         new_location_status = Location.Statuses.AMBER
 

@@ -10,13 +10,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import PermissionRequiredMixin
 
 # Create your views here.
-from .models import Location, Objekt
+from .models import Location, Object
 from maintenance.models import Work
 from .forms import ObjektForm
 
 
 class ObjektListView(LoginRequiredMixin, ListView):
-    model = Objekt
+    model = Object
     paginate_by = 10
 
     def get_queryset(self):
@@ -24,17 +24,17 @@ class ObjektListView(LoginRequiredMixin, ListView):
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
         qs = (
-            Objekt.objects.filter(owner=self.request.user)
-            | Objekt.objects.filter(management_team__in=groups_as_list)
-            | Objekt.objects.filter(maintenance_team__in=groups_as_list)
+            Object.objects.filter(owner=self.request.user)
+            | Object.objects.filter(management_team__in=groups_as_list)
+            | Object.objects.filter(maintenance_team__in=groups_as_list)
         )
         return qs
 
 
 class ObjektCreateView(LoginRequiredMixin, CreateView):
-    model = Objekt
+    model = Object
     form_class = ObjektForm
-    success_url = reverse_lazy("inventory:objekt-list")
+    success_url = reverse_lazy("inventory:object-list")
 
     def get_initial(self):
         initial = {}
@@ -63,22 +63,22 @@ class ObjektCreateView(LoginRequiredMixin, CreateView):
 
 
 class ObjektDetailView(PermissionRequiredMixin, DetailView):
-    model = Objekt
+    model = Object
     permission_required = "inventory.view_objekt"
     raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["work"] = Work.objects.filter(objekt=self.object.id)
+        context["work"] = Work.objects.filter(object=self.object.id)
         return context
 
 
 class ObjektUpdateView(PermissionRequiredMixin, UpdateView):
-    model = Objekt
+    model = Object
     permission_required = "inventory.change_objekt"
     raise_exception = True
     form_class = ObjektForm
-    success_url = reverse_lazy("inventory:objekt-list")
+    success_url = reverse_lazy("inventory:object-list")
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -87,10 +87,10 @@ class ObjektUpdateView(PermissionRequiredMixin, UpdateView):
 
 
 class ObjektDeleteView(PermissionRequiredMixin, DeleteView):
-    model = Objekt
+    model = Object
     permission_required = "inventory.delete_objekt"
     raise_exception = True
-    success_url = reverse_lazy("inventory:objekt-list")
+    success_url = reverse_lazy("inventory:object-list")
 
 
 class LocationListView(LoginRequiredMixin, ListView):
@@ -149,7 +149,7 @@ class LocationDetailView(PermissionRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["objekts"] = Objekt.objects.filter(location=self.object.id)
+        context["objekts"] = Object.objects.filter(location=self.object.id)
         return context
 
 

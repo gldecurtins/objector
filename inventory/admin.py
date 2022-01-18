@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Location, Objekt
+from .models import Location, Object
 
-admin.site.register(Objekt)
+admin.site.register(Object)
 admin.site.register(Location)

@@ -1,14 +1,14 @@
-# Objektor
-Objekt stamina
+# Objector
+Object stamina
 
 ## Documentation
-https://github.com/gldecurtins/objektor/wiki
+https://github.com/gldecurtins/objector/wiki
 
 ## Installation
 
 ```
 cd ~
-git clone https://github.com/gldecurtins/objektor
+git clone https://github.com/gldecurtins/objector
 python3 -m venv venv
 source venv/bin/activate
 pip install --upgrade pip

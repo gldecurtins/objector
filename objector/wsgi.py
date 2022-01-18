@@ -1,5 +1,5 @@
 """
-WSGI config for objektor project.
+WSGI config for objector project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'objektor.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'objector.settings')
 
 application = get_wsgi_application()

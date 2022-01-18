@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Objektor + Work detail + {{ object.name }}{% endblock %}
+{% block title %}Objector + Work detail + {{ object.name }}{% endblock %}
 {% block h1 %}Work detail{% endblock %}
 {% block h2 %}{{ object.name }}{% endblock %}
 {% block content %}
@@ -48,34 +48,34 @@
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
-            Objekt
+            Object
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            <a href="{% url 'inventory:objekt-detail' work.objekt.id %}">{{ work.objekt }}</a>
+            <a href="{% url 'inventory:object-detail' work.object.id %}">{{ work.object }}</a>
           </dd>
         </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
-            Objekt owner
+            Object owner
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ work.objekt.owner }}
+            {{ work.object.owner }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            Objekt management team
+            Object management team
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ work.objekt.management_team }}
+            {{ work.object.management_team }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            Objekt maintenance team
+            Object maintenance team
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ work.objekt.maintenance_team }}
+            {{ work.object.maintenance_team }}
           </dd>
         </div>
         <div class="sm:col-span-1">

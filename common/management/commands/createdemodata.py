@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from common.models import Team
-from inventory.models import Objekt, Location
+from inventory.models import Object, Location
 from maintenance.models import Work
 
 
@@ -19,9 +19,9 @@ class Command(BaseCommand):
 
     def create_users(self):
         User = get_user_model()
-        # Objektor
+        # Objector
         self.user_luca_objektor, created = User.objects.get_or_create(
-            username="luca@objektor.local"
+            username="luca@objector.local"
         )
         # Facility Management Frauenfeld Ltd
         self.user_mia_facility, created = User.objects.get_or_create(
@@ -110,7 +110,7 @@ class Command(BaseCommand):
         )
 
     def create_objekts(self):
-        self.objekt_boiler_restaurant, created = Objekt.objects.get_or_create(
+        self.objekt_boiler_restaurant, created = Object.objects.get_or_create(
             name="Boiler 500L",
             description="DEMO: Big",
             location=self.location_restaurant_zurich,
@@ -118,7 +118,7 @@ class Command(BaseCommand):
             management_team=self.team_facility,
             maintenance_team=self.team_best,
         )
-        self.objekt_aircon_restaurant, created = Objekt.objects.get_or_create(
+        self.objekt_aircon_restaurant, created = Object.objects.get_or_create(
             name="AirConditioner",
             description="DEMO: Requires frequent replacement of filter ABC.",
             location=self.location_restaurant_zurich,
@@ -126,7 +126,7 @@ class Command(BaseCommand):
             management_team=self.team_facility,
             maintenance_team=self.team_best,
         )
-        self.objekt_gas_heater_flat, created = Objekt.objects.get_or_create(
+        self.objekt_gas_heater_flat, created = Object.objects.get_or_create(
             name="Gas heater",
             description="DEMO: Hot water provider, manual injection.",
             location=self.location_flat_winterthur,
@@ -134,7 +134,7 @@ class Command(BaseCommand):
             management_team=self.team_facility,
             maintenance_team=self.team_best,
         )
-        self.objekt_fireplace_chalet, created = Objekt.objects.get_or_create(
+        self.objekt_fireplace_chalet, created = Object.objects.get_or_create(
             name="Fireplace",
             description="DEMO: Requires a pile of wood.",
             location=self.location_chalet_zermatt,
@@ -142,13 +142,13 @@ class Command(BaseCommand):
             management_team=self.team_facility,
             maintenance_team=self.team_chimney,
         )
-        self.objekt_garden_chalet, created = Objekt.objects.get_or_create(
+        self.objekt_garden_chalet, created = Object.objects.get_or_create(
             name="Garden",
             description="DEMO: Gras hight 4cm.",
             location=self.location_chalet_zermatt,
             owner=self.user_luca_objektor,
         )
-        self.objekt_solar_business, created = Objekt.objects.get_or_create(
+        self.objekt_solar_business, created = Object.objects.get_or_create(
             name="Solar system",
             description="DEMO: Solar panels, 1.5 kW",
             location=self.location_business_frauenfeld,
@@ -162,7 +162,7 @@ class Command(BaseCommand):
             name="Descale boiler",
             description="DEMO: Use vinegar.",
             defaults={
-                "objekt": self.objekt_boiler_restaurant,
+                "object": self.objekt_boiler_restaurant,
                 "due_at": timezone.now() + timezone.timedelta(days=100),
                 "overdue_at": timezone.now() + timezone.timedelta(days=110),
             },
@@ -171,7 +171,7 @@ class Command(BaseCommand):
             name="Replace filter",
             description="DEMO: Use the square one.",
             defaults={
-                "objekt": self.objekt_aircon_restaurant,
+                "object": self.objekt_aircon_restaurant,
                 "due_at": timezone.now() + timezone.timedelta(days=90),
                 "overdue_at": timezone.now() + timezone.timedelta(days=120),
             },
@@ -180,7 +180,7 @@ class Command(BaseCommand):
             name="Add fragrance",
             description="DEMO: Lavendel No 6.",
             defaults={
-                "objekt": self.objekt_aircon_restaurant,
+                "object": self.objekt_aircon_restaurant,
                 "due_at": timezone.now() + timezone.timedelta(days=30),
                 "overdue_at": timezone.now() + timezone.timedelta(days=40),
             },
@@ -189,7 +189,7 @@ class Command(BaseCommand):
             name="Gas service",
             description="DEMO: Yearly device maintenance.",
             defaults={
-                "objekt": self.objekt_gas_heater_flat,
+                "object": self.objekt_gas_heater_flat,
                 "due_at": timezone.now() + timezone.timedelta(days=200),
                 "overdue_at": timezone.now() + timezone.timedelta(days=210),
             },
@@ -198,7 +198,7 @@ class Command(BaseCommand):
             name="Clean chimney",
             description="DEMO: Clean the chimney, 15cm.",
             defaults={
-                "objekt": self.objekt_fireplace_chalet,
+                "object": self.objekt_fireplace_chalet,
                 "due_at": timezone.now() + timezone.timedelta(days=250),
                 "overdue_at": timezone.now() + timezone.timedelta(days=260),
             },
@@ -207,7 +207,7 @@ class Command(BaseCommand):
             name="Add wood",
             description="DEMO: Add birch wood, 25cm.",
             defaults={
-                "objekt": self.objekt_fireplace_chalet,
+                "object": self.objekt_fireplace_chalet,
                 "due_at": timezone.now() + timezone.timedelta(days=250),
                 "overdue_at": timezone.now() + timezone.timedelta(days=260),
             },
@@ -216,7 +216,7 @@ class Command(BaseCommand):
             name="Remove ash",
             description="DEMO: Put into regular rubbish for now.",
             defaults={
-                "objekt": self.objekt_fireplace_chalet,
+                "object": self.objekt_fireplace_chalet,
                 "due_at": timezone.now() + timezone.timedelta(days=250),
                 "overdue_at": timezone.now() + timezone.timedelta(days=260),
             },
@@ -225,7 +225,7 @@ class Command(BaseCommand):
             name="Mow grass",
             description="DEMO: Charge batteries prior mowing.",
             defaults={
-                "objekt": self.objekt_garden_chalet,
+                "object": self.objekt_garden_chalet,
                 "due_at": timezone.now() + timezone.timedelta(days=50),
                 "overdue_at": timezone.now() + timezone.timedelta(days=75),
             },
@@ -234,7 +234,7 @@ class Command(BaseCommand):
             name="Remove weed",
             description="DEMO: Just the big ones.",
             defaults={
-                "objekt": self.objekt_garden_chalet,
+                "object": self.objekt_garden_chalet,
                 "due_at": timezone.now() + timezone.timedelta(days=50),
                 "overdue_at": timezone.now() + timezone.timedelta(days=75),
             },
@@ -243,7 +243,7 @@ class Command(BaseCommand):
             name="Clear solar panels",
             description="DEMO: Remove dust.",
             defaults={
-                "objekt": self.objekt_solar_business,
+                "object": self.objekt_solar_business,
                 "due_at": timezone.now() + timezone.timedelta(days=120),
                 "overdue_at": timezone.now() + timezone.timedelta(days=150),
             },
@@ -252,7 +252,7 @@ class Command(BaseCommand):
             name="Check batteries",
             description="DEMO: Check voltage and if there are any leaks.",
             defaults={
-                "objekt": self.objekt_solar_business,
+                "object": self.objekt_solar_business,
                 "due_at": timezone.now() + timezone.timedelta(days=220),
                 "overdue_at": timezone.now() + timezone.timedelta(days=250),
             },
@@ -261,7 +261,7 @@ class Command(BaseCommand):
             name="Check panels",
             description="DEMO: Check for scratches and shadows falling on the panels.",
             defaults={
-                "objekt": self.objekt_solar_business,
+                "object": self.objekt_solar_business,
                 "due_at": timezone.now() + timezone.timedelta(days=120),
                 "overdue_at": timezone.now() + timezone.timedelta(days=150),
             },

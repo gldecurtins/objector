@@ -3,20 +3,20 @@ import rules
 
 @rules.predicate
 def is_work_objekt_owner(user, obj):
-    return obj.objekt.owner == user
+    return obj.object.owner == user
 
 
 @rules.predicate
 def is_work_objekt_manager(user, obj):
-    return obj.objekt.management_team is not None and rules.is_group_member(
-        str(obj.objekt.management_team)
+    return obj.object.management_team is not None and rules.is_group_member(
+        str(obj.object.management_team)
     )
 
 
 @rules.predicate
 def is_work_objekt_maintainer(user, obj):
-    return obj.objekt.maintenance_team is not None and rules.is_group_member(
-        str(obj.objekt.maintenance_team)
+    return obj.object.maintenance_team is not None and rules.is_group_member(
+        str(obj.object.maintenance_team)
     )
 
 

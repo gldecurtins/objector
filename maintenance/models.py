@@ -1,6 +1,7 @@
 from django.db import models
-from rules.contrib.models import RulesModel
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+from rules.contrib.models import RulesModel
 from inventory.models import Object
 import uuid
 import pathlib
@@ -14,25 +15,30 @@ def log_image_upload_handler(instance, filename):
 
 class Work(RulesModel):
     class Statuses(models.IntegerChoices):
-        OVERDUE = 10, "Overdue"
-        DUE = 20, "Due"
-        PENDING = 30, "Pending"
-        INACTIVE = 40, "Inactive"
+        OVERDUE = 10, _("Overdue")
+        DUE = 20, _("Due")
+        PENDING = 30, _("Pending")
+        INACTIVE = 40, _("Inactive")
 
-    name = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
+    name = models.CharField(_("name"), max_length=200)
+    description = models.TextField(_("description"), blank=True)
     object = models.ForeignKey(
-        Object, related_name="work_object", on_delete=models.CASCADE
+        Object,
+        verbose_name=_("object"),
+        related_name="work_object",
+        on_delete=models.CASCADE,
     )
     status = models.PositiveSmallIntegerField(
-        choices=Statuses.choices, default=Statuses.PENDING
+        _("status"), choices=Statuses.choices, default=Statuses.PENDING
     )
-    due_at = models.DateTimeField(blank=True, null=True)
-    overdue_at = models.DateTimeField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    due_at = models.DateTimeField(_("due at"), blank=True, null=True)
+    overdue_at = models.DateTimeField(_("overdue at"), blank=True, null=True)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     class Meta:
+        verbose_name = _("work")
+        verbose_name_plural = _("work")
         ordering = ["status", "overdue_at", "due_at", "updated_at"]
 
     def __str__(self):

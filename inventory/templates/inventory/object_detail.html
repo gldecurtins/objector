@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block title %}Objector + Object detail + {{ object.name }}{% endblock %}
-{% block h1 %}Object detail{% endblock %}
+{% block h1 %}{% translate "Object detail" %}{% endblock %}
 {% block h2 %}{{ object.name }}{% endblock %}
 {% block content %}
 <section aria-labelledby="applicant-information-title">
   <div class="bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6">
       <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-        Object detail
+        {% translate "Object detail" %}
       </h2>
       <p class="mt-1 max-w-2xl text-sm text-gray-500">
         {{ object.name }}
@@ -17,7 +18,7 @@
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            Name
+            {% translate "Name" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ object.name }}
@@ -25,7 +26,7 @@
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            Status
+            {% translate "Status" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             <div
@@ -36,7 +37,7 @@
         </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
-            Description
+            {% translate "Description" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ object.description|linebreaksbr }}
@@ -48,7 +49,7 @@
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
-            Owner
+            {% translate "Owner" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ object.owner }}
@@ -56,7 +57,7 @@
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            Management team
+            {% translate "Management team" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ object.management_team }}
@@ -64,7 +65,7 @@
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            Maintenance team
+            {% translate "Maintenance team" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ object.maintenance_team }}
@@ -72,7 +73,7 @@
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            Created at
+            {% translate "Created at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ object.created_at }}
@@ -80,7 +81,7 @@
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            Updated at
+            {% translate "Updated at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ object.updated_at }}
@@ -92,18 +93,18 @@
       <div class="pt-5">
         <div class="flex justify-end">
           <a href="{% url 'inventory:object-update' object.id %}"><button type="button"
-              class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Change</button></a>
+              class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Change" %}</button></a>
           <a href="{% url 'inventory:object-list' %}"><button type="button"
-              class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">List</button></a>
+              class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "List" %}</button></a>
           <a href="{% url 'inventory:object-delete' object.id %}"><button type="button"
-              class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Delete</button></a>
+              class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Delete" %}</button></a>
         </div>
       </div>
     </div>
   </div>
   <div class="px-4 py-5 sm:px-6">
     <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-      Related work
+      {% translate "Related work" %}
     </h2>
   </div>
   {% if work %}
@@ -116,28 +117,28 @@
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Name
+                  {% translate "Name" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Description
+                  {% translate "Description" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Object
+                  {% translate "Object" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
+                  {% translate "Status" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Due on
+                  {% translate "Due on" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Overdue on
+                  {% translate "Overdue on" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Updated at
+                  {% translate "Updated at" %}
                 </th>
                 <th scope="col" class="relative px-6 py-3">
-                  <span class="sr-only">Action</span>
+                  <span class="sr-only">{% translate "Action" %}</span>
                 </th>
               </tr>
             </thead>
@@ -180,21 +181,21 @@
                     {% if can_view_work %}
                     <a href="{% url 'maintenance:work-detail' work.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        View
+                        {% translate "View" %}
                       </button></a>
                     {% endif %}
                     {% has_perm 'journal.change_work' user work as can_change_work %}
                     {% if can_change_work %}
                     <a href="{% url 'maintenance:work-update' work.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Change
+                        {% translate "Change" %}
                       </button></a>
                     {% endif %}
                     {% has_perm 'journal.delete_work' user work as can_delete_work %}
                     {% if can_delete_work %}
                     <a href="{% url 'maintenance:work-delete' work.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Delete
+                        {% translate "Delete" %}
                       </button></a>
                     {% endif %}
                   </div>

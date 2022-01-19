@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block title %}Objector + Location form + {{ object.name }}{% endblock %}
-{% block h1 %}Location form{% endblock %}
+{% block h1 %}{% translate "Location form" %}{% endblock %}
 {% block h2 %}{{ object.name }}{% endblock %}
 {% block content %}
 <form method="POST" enctype="multipart/form-data" class="space-y-8 divide-y divide-gray-200">{% csrf_token %}

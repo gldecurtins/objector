@@ -8,24 +8,24 @@ from .models import Location, Object
 @receiver(post_save, sender=Work)
 def update_status(sender, instance, created, **kwargs):
     # TODO: Use celery for async operation: https://docs.djangoproject.com/en/3.2/topics/db/transactions/
-    transaction.on_commit(lambda: objekt_update_status(instance))
+    transaction.on_commit(lambda: object_update_status(instance))
 
 
-def objekt_update_status(work_instance):
+def object_update_status(work_instance):
     object = Object.objects.get(id=work_instance.object.id)
 
-    new_objekt_status = Object.Statuses.GREEN
+    new_object_status = Object.Statuses.GREEN
     if Work.objects.filter(
         object=work_instance.object.id, status=Work.Statuses.OVERDUE
     ).exists():
-        new_objekt_status = Object.Statuses.RED
+        new_object_status = Object.Statuses.RED
     elif Work.objects.filter(
         object=work_instance.object.id, status=Work.Statuses.DUE
     ).exists():
-        new_objekt_status = Object.Statuses.AMBER
+        new_object_status = Object.Statuses.AMBER
 
-    if object.status != new_objekt_status:
-        object.status = new_objekt_status
+    if object.status != new_object_status:
+        object.status = new_object_status
         object.save()
 
 
@@ -36,16 +36,16 @@ def update_status(sender, instance, created, **kwargs):
         transaction.on_commit(lambda: location_update_status(instance))
 
 
-def location_update_status(objekt_instance):
-    location = Location.objects.get(id=objekt_instance.location.id)
+def location_update_status(object_instance):
+    location = Location.objects.get(id=object_instance.location.id)
 
     new_location_status = Location.Statuses.GREEN
     if Object.objects.filter(
-        location=objekt_instance.location.id, status=Object.Statuses.RED
+        location=object_instance.location.id, status=Object.Statuses.RED
     ).exists():
         new_location_status = Location.Statuses.RED
     elif Object.objects.filter(
-        location=objekt_instance.location.id, status=Object.Statuses.AMBER
+        location=object_instance.location.id, status=Object.Statuses.AMBER
     ).exists():
         new_location_status = Location.Statuses.AMBER
 

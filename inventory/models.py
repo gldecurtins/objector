@@ -6,10 +6,10 @@ import pathlib
 from common.models import Team
 
 
-def objekt_image_upload_handler(instance, filename):
+def object_image_upload_handler(instance, filename):
     file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
     file_suffix = pathlib.Path(filename).suffix
-    return f"objekt_image/{file_name}{file_suffix}"
+    return f"object_image/{file_name}{file_suffix}"
 
 
 def location_image_upload_handler(instance, filename):
@@ -87,7 +87,7 @@ class Object(RulesModel):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     image = models.ImageField(
-        upload_to=objekt_image_upload_handler, blank=True, null=True
+        upload_to=object_image_upload_handler, blank=True, null=True
     )
     location = models.ForeignKey(
         Location, on_delete=models.SET_NULL, null=True, blank=True
@@ -102,7 +102,7 @@ class Object(RulesModel):
     )
     management_team = models.ForeignKey(
         Team,
-        related_name="objekt_management_team",
+        related_name="object_management_team",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -110,7 +110,7 @@ class Object(RulesModel):
     )
     maintenance_team = models.ForeignKey(
         Team,
-        related_name="objekt_maintenance_team",
+        related_name="object_maintenance_team",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

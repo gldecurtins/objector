@@ -3,7 +3,7 @@ from django import forms
 from .models import Location, Object
 
 
-class ObjektForm(forms.ModelForm):
+class ObjectForm(forms.ModelForm):
     class Meta:
         model = Object
         fields = [

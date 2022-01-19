@@ -36,10 +36,10 @@ class WorkForm(forms.ModelForm):
         # all groups for user
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
-        objekt_queryset = (
+        object_queryset = (
             Object.objects.filter(owner=self.request.user)
             | Object.objects.filter(management_team__in=groups_as_list)
             | Object.objects.filter(maintenance_team__in=groups_as_list)
         )
 
-        self.fields["object"] = forms.ModelChoiceField(queryset=objekt_queryset)
+        self.fields["object"] = forms.ModelChoiceField(queryset=object_queryset)

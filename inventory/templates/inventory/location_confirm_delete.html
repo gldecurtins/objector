@@ -5,7 +5,7 @@
 {% block content %}
 <form method="post">{% csrf_token %}
     <p>Are you sure you want to delete "{{ object }}"?</p>
-    <p>All related objekts will be deleted as well.</p>
+    <p>All related objects will be deleted as well.</p>
     <div class="pt-5">
         <div class="flex justify-end">
             <a href="{% url 'inventory:location-list' %}"><button type="button"

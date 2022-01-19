@@ -4,17 +4,17 @@ from . import views
 app_name = "inventory"
 
 urlpatterns = [
-    path("object/", views.ObjektListView.as_view(), name="object-list"),
-    path("object/add/", views.ObjektCreateView.as_view(), name="object-create"),
-    path("object/<int:pk>/", views.ObjektDetailView.as_view(), name="object-detail"),
+    path("object/", views.ObjectListView.as_view(), name="object-list"),
+    path("object/add/", views.ObjectCreateView.as_view(), name="object-create"),
+    path("object/<int:pk>/", views.ObjectDetailView.as_view(), name="object-detail"),
     path(
         "object/<int:pk>/change/",
-        views.ObjektUpdateView.as_view(),
+        views.ObjectUpdateView.as_view(),
         name="object-update",
     ),
     path(
         "object/<int:pk>/delete/",
-        views.ObjektDeleteView.as_view(),
+        views.ObjectDeleteView.as_view(),
         name="object-delete",
     ),
     path("location/", views.LocationListView.as_view(), name="location-list"),

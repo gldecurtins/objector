@@ -4,7 +4,7 @@ import rules
 from .models import Location, Object
 
 
-class ObjektRuleTest(TestCase):
+class ObjectRuleTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         User = get_user_model()
@@ -16,31 +16,31 @@ class ObjektRuleTest(TestCase):
         )
         cls.object = Object.objects.create(name="object", owner=cls.owner1)
 
-    def test_objekt_owner_permissions(self):
+    def test_object_owner_permissions(self):
         self.assertEqual(
-            rules.has_perm("inventory.view_objekt", self.owner1, self.object),
+            rules.has_perm("inventory.view_object", self.owner1, self.object),
             True,
         )
         self.assertEqual(
-            rules.has_perm("inventory.change_objekt", self.owner1, self.object),
+            rules.has_perm("inventory.change_object", self.owner1, self.object),
             True,
         )
         self.assertEqual(
-            rules.has_perm("inventory.delete_objekt", self.owner1, self.object),
+            rules.has_perm("inventory.delete_object", self.owner1, self.object),
             True,
         )
 
-    def test_objekt_non_owner_permissions(self):
+    def test_object_non_owner_permissions(self):
         self.assertEqual(
-            rules.has_perm("inventory.view_objekt", self.owner2, self.object),
+            rules.has_perm("inventory.view_object", self.owner2, self.object),
             False,
         )
         self.assertEqual(
-            rules.has_perm("inventory.change_objekt", self.owner2, self.object),
+            rules.has_perm("inventory.change_object", self.owner2, self.object),
             False,
         )
         self.assertEqual(
-            rules.has_perm("inventory.delete_objekt", self.owner2, self.object),
+            rules.has_perm("inventory.delete_object", self.owner2, self.object),
             False,
         )
 

@@ -9,7 +9,7 @@ import pathlib
 def log_image_upload_handler(instance, filename):
     file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
     file_suffix = pathlib.Path(filename).suffix
-    return f"objekt_image/{file_name}{file_suffix}"
+    return f"object_image/{file_name}{file_suffix}"
 
 
 class Work(RulesModel):
@@ -22,7 +22,7 @@ class Work(RulesModel):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     object = models.ForeignKey(
-        Object, related_name="work_objekt", on_delete=models.CASCADE
+        Object, related_name="work_object", on_delete=models.CASCADE
     )
     status = models.PositiveSmallIntegerField(
         choices=Statuses.choices, default=Statuses.PENDING

@@ -10,10 +10,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import PermissionRequiredMixin
 from .models import Location, Object
 from maintenance.models import Work
-from .forms import ObjektForm
+from .forms import ObjectForm
 
 
-class ObjektListView(LoginRequiredMixin, ListView):
+class ObjectListView(LoginRequiredMixin, ListView):
     model = Object
     paginate_by = 10
 
@@ -29,9 +29,9 @@ class ObjektListView(LoginRequiredMixin, ListView):
         return qs
 
 
-class ObjektCreateView(LoginRequiredMixin, CreateView):
+class ObjectCreateView(LoginRequiredMixin, CreateView):
     model = Object
-    form_class = ObjektForm
+    form_class = ObjectForm
     success_url = reverse_lazy("inventory:object-list")
 
     def get_initial(self):
@@ -60,9 +60,9 @@ class ObjektCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
 
-class ObjektDetailView(PermissionRequiredMixin, DetailView):
+class ObjectDetailView(PermissionRequiredMixin, DetailView):
     model = Object
-    permission_required = "inventory.view_objekt"
+    permission_required = "inventory.view_object"
     raise_exception = True
 
     def get_context_data(self, **kwargs):
@@ -71,11 +71,11 @@ class ObjektDetailView(PermissionRequiredMixin, DetailView):
         return context
 
 
-class ObjektUpdateView(PermissionRequiredMixin, UpdateView):
+class ObjectUpdateView(PermissionRequiredMixin, UpdateView):
     model = Object
-    permission_required = "inventory.change_objekt"
+    permission_required = "inventory.change_object"
     raise_exception = True
-    form_class = ObjektForm
+    form_class = ObjectForm
     success_url = reverse_lazy("inventory:object-list")
 
     def get_form_kwargs(self):
@@ -84,9 +84,9 @@ class ObjektUpdateView(PermissionRequiredMixin, UpdateView):
         return kwargs
 
 
-class ObjektDeleteView(PermissionRequiredMixin, DeleteView):
+class ObjectDeleteView(PermissionRequiredMixin, DeleteView):
     model = Object
-    permission_required = "inventory.delete_objekt"
+    permission_required = "inventory.delete_object"
     raise_exception = True
     success_url = reverse_lazy("inventory:object-list")
 
@@ -147,7 +147,7 @@ class LocationDetailView(PermissionRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["objekts"] = Object.objects.filter(location=self.object.id)
+        context["objects"] = Object.objects.filter(location=self.object.id)
         return context
 
 

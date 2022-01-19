@@ -101,10 +101,10 @@
   </div>
   <div class="px-4 py-5 sm:px-6">
     <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-      Objekts
+      Objects
     </h2>
   </div>
-  {% if objekts %}
+  {% if objects %}
   {% load rules %}
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -134,7 +134,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for object in objekts %}
+              {% for object in objects %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   <a href="{% url 'inventory:object-detail' object.id %}">{{ object.name }}</a>
@@ -162,22 +162,22 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div class="ml-4 flex-shrink-0 flex space-x-4">
-                    {% has_perm 'inventory.view_objekt' user object as can_view_objekt %}
-                    {% if can_view_objekt %}
+                    {% has_perm 'inventory.view_object' user object as can_view_object %}
+                    {% if can_view_object %}
                     <a href="{% url 'inventory:object-detail' object.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         View
                       </button></a>
                     {% endif %}
-                    {% has_perm 'inventory.change_objekt' user object as can_change_objekt %}
-                    {% if can_change_objekt %}
+                    {% has_perm 'inventory.change_object' user object as can_change_object %}
+                    {% if can_change_object %}
                     <a href="{% url 'inventory:object-update' object.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Change
                       </button></a>
                     {% endif %}
-                    {% has_perm 'inventory.delete_objekt' user object as can_delete_objekt %}
-                    {% if can_delete_objekt %}
+                    {% has_perm 'inventory.delete_object' user object as can_delete_object %}
+                    {% if can_delete_object %}
                     <a href="{% url 'inventory:object-delete' object.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Delete

@@ -21,7 +21,7 @@ class WorkRuleTest(TestCase):
             name="Work", object=cls.object, due_at=timezone.now()
         )
 
-    def test_work_objekt_owner_permissions(self):
+    def test_work_object_owner_permissions(self):
         self.assertEqual(
             rules.has_perm("journal.view_work", self.owner1, self.work),
             True,
@@ -35,7 +35,7 @@ class WorkRuleTest(TestCase):
             True,
         )
 
-    def test_work_objekt_non_owner_permissions(self):
+    def test_work_object_non_owner_permissions(self):
         self.assertEqual(
             rules.has_perm("journal.view_work", self.owner2, self.work),
             False,

@@ -68,28 +68,24 @@
           </div>
           <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div class="flex-shrink-0 flex items-center">
-              <img class="block lg:hidden h-8 w-auto" src="{% static 'common/img/objector-mark.svg' %}"
-                alt="Objector">
-              <img class="hidden lg:block h-8 w-auto" src="{% static 'common/img/objector-logo.svg' %}"
-                alt="Objector">
+              <a href="{% url 'common:home' %}"><img class="block lg:hidden h-8 w-auto" src="{% static 'common/img/objector-mark.svg' %}"
+                alt="Objector"></a>
+                <a href="{% url 'common:home' %}"><img class="hidden lg:block h-8 w-auto" src="{% static 'common/img/objector-logo.svg' %}"
+                alt="Objector"></a>
             </div>
             <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
               <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-              <a href="{% url 'common:home' %}"
-                class="text-gray-900 border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                Home
-              </a>
               {% if user.is_authenticated %}
               <a href="{% url 'common:dashboard' %}"
-                class="{% url_active 'common:dashboard' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Dashboard</a>
+                class="{% url_active 'common:dashboard' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Dashboard" %}</a>
               <a href="{% url 'common:team-list' %}"
-                class="{% url_active 'common:team-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Team</a>
+                class="{% url_active 'common:team-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Team" %}</a>
               <a href="{% url 'inventory:location-list' %}"
-              class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Location</a>
+                class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Location" %}</a>
               <a href="{% url 'inventory:object-list' %}"
-                class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Object</a>
+                class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Object" %}</a>
               <a href="{% url 'maintenance:work-list' %}"
-                class="{% url_active 'maintenance:work-list' %} border-transparent hover:text-gray-700 hover:border-indigo-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Work</a>
+                class="{% url_active 'maintenance:work-list' %} border-transparent hover:text-gray-700 hover:border-indigo-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Work" %}</a>
               {% endif %}
             </div>
           </div>
@@ -98,14 +94,14 @@
             <a href="/logout">
               <button type="button"
                 class="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Log out
+                {% translate "Log out" %}
               </button>
             </a>
             {% else %}
             <a href="/login/auth0">
               <button type="button"
                 class="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Log in
+                {% translate "Log in" %}
               </button>
             </a>
             {% endif %}
@@ -115,19 +111,17 @@
           x-show="open" style="display: none;">
           <div class="pt-2 pb-4 space-y-1">
             <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
-            <a href="{% url 'common:home' %}"
-              class="text-gray-900 border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Home</a>
             {% if user.is_authenticated %}
             <a href="{% url 'common:dashboard' %}"
-              class="{% url_active 'common:dashboard' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">Dashboard</a>
+              class="{% url_active 'common:dashboard' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Dashboard" %}</a>
               <a href="{% url 'common:team-list' %}"
-              class="{% url_active 'common:team-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">Team</a>
+              class="{% url_active 'common:team-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Team" %}</a>
             <a href="{% url 'inventory:location-list' %}"
-              class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">Location</a>
+              class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Location" %}</a>
             <a href="{% url 'inventory:object-list' %}"
-              class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">Object</a>
+              class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Object" %}</a>
             <a href="{% url 'maintenance:work-list' %}"
-              class="{% url_active 'maintenance:work-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">Work</a>
+              class="{% url_active 'maintenance:work-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Work" %}</a>
             {% endif %}
           </div>
         </div>

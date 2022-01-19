@@ -4,6 +4,7 @@ from rules.contrib.models import RulesModel
 import uuid
 import pathlib
 from common.models import Team
+from django.utils.translation import gettext_lazy as _
 
 
 def object_image_upload_handler(instance, filename):
@@ -20,46 +21,51 @@ def location_image_upload_handler(instance, filename):
 
 class Location(RulesModel):
     class Statuses(models.IntegerChoices):
-        RED = 10, "Alert"
-        AMBER = 20, "Warning"
-        GREEN = 30, "Good"
+        RED = 10, _("alert")
+        AMBER = 20, _("warning")
+        GREEN = 30, _("good")
 
-    name = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
+    name = models.CharField(_("name"), max_length=200)
+    description = models.TextField(_("description"), blank=True)
     image = models.ImageField(
-        upload_to=location_image_upload_handler, blank=True, null=True
+        _("image"), upload_to=location_image_upload_handler, blank=True, null=True
     )
-    address = models.TextField(blank=True)
-    latitude = models.FloatField(blank=True, null=True)
-    longitude = models.FloatField(blank=True, null=True)
+    address = models.TextField(_("address"), blank=True)
+    latitude = models.FloatField(_("latitude"), blank=True, null=True)
+    longitude = models.FloatField(_("longitude"), blank=True, null=True)
     status = models.PositiveSmallIntegerField(
-        choices=Statuses.choices, default=Statuses.GREEN
+        _("status"), choices=Statuses.choices, default=Statuses.GREEN
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        verbose_name=_("owner"),
         on_delete=models.CASCADE,
-        help_text="Owner can view, change or delete this location.",
+        help_text=_("Owner can view, change or delete this location."),
     )
     management_team = models.ForeignKey(
         Team,
+        verbose_name=_("management team"),
         related_name="location_management_team",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text="Team members can view, change or delete this location.",
+        help_text=_("Team members can view, change or delete this location."),
     )
     maintenance_team = models.ForeignKey(
         Team,
+        verbose_name=_("maintenance team"),
         related_name="location_maintenance_team",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text="Team members can view this location.",
+        help_text=_("Team members can view this location."),
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     class Meta:
+        verbose_name = _("location")
+        verbose_name_plural = _("locations")
         ordering = ["status", "name"]
 
     def __str__(self):
@@ -80,46 +86,55 @@ class Location(RulesModel):
 
 class Object(RulesModel):
     class Statuses(models.IntegerChoices):
-        RED = 10, "Alert"
-        AMBER = 20, "Warning"
-        GREEN = 30, "Good"
+        RED = 10, _("alert")
+        AMBER = 20, _("warning")
+        GREEN = 30, _("good")
 
-    name = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
+    name = models.CharField(_("name"), max_length=200)
+    description = models.TextField(_("description"), blank=True)
     image = models.ImageField(
-        upload_to=object_image_upload_handler, blank=True, null=True
+        _("image"), upload_to=object_image_upload_handler, blank=True, null=True
     )
     location = models.ForeignKey(
-        Location, on_delete=models.SET_NULL, null=True, blank=True
+        Location,
+        verbose_name=_("location"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
     )
     status = models.PositiveSmallIntegerField(
-        choices=Statuses.choices, default=Statuses.GREEN
+        _("status"), choices=Statuses.choices, default=Statuses.GREEN
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
+        verbose_name=_("owner"),
         on_delete=models.CASCADE,
-        help_text="Owner can view, change or delete this object.",
+        help_text=_("Owner can view, change or delete this object."),
     )
     management_team = models.ForeignKey(
         Team,
+        verbose_name=_("management team"),
         related_name="object_management_team",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text="Team members can view or update this object.",
+        help_text=_("Team members can view or update this object."),
     )
     maintenance_team = models.ForeignKey(
         Team,
+        verbose_name=_("maintenance team"),
         related_name="object_maintenance_team",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text="Team members can view this object.",
+        help_text=_("Team members can view this object."),
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     class Meta:
+        verbose_name = _("object")
+        verbose_name_plural = _("objects")
         ordering = ["status", "name"]
 
     def __str__(self):

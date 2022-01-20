@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-20 11:48+0000\n"
+"POT-Creation-Date: 2022-01-20 16:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,53 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: common/forms.py:7
+msgid "email"
+msgstr ""
+
+#: common/models.py:22
+msgid "group"
+msgstr ""
+
+#: common/models.py:27 inventory/models.py:28 inventory/models.py:94
+#: maintenance/models.py:23
+msgid "name"
+msgstr "Name"
+
+#: common/models.py:28 inventory/models.py:29 inventory/models.py:95
+#: maintenance/models.py:24
+msgid "description"
+msgstr "Beschreibung"
+
+#: common/models.py:30 inventory/models.py:31 inventory/models.py:97
+#: maintenance/models.py:88
+msgid "image"
+msgstr "Bild"
+
+#: common/models.py:34 inventory/models.py:41 inventory/models.py:112
+msgid "owner"
+msgstr "Eigentümer"
+
+#: common/models.py:39 inventory/models.py:64 inventory/models.py:135
+#: maintenance/models.py:36 maintenance/models.py:96
+msgid "created at"
+msgstr "Erstellt"
+
+#: common/models.py:40 inventory/models.py:65 inventory/models.py:136
+#: maintenance/models.py:37
+msgid "updated at"
+msgstr "Aktualisiert"
+
+#: common/templates/403.html:7
+msgid "Forbidden"
+msgstr ""
+
+#: common/templates/404.html:7
+msgid "Not found"
+msgstr ""
+
 #: common/templates/base.html:80 common/templates/base.html:116
+#: common/templates/common/dashboard.html:18
 msgid "Dashboard"
 msgstr ""
 
@@ -51,116 +97,13 @@ msgstr "Abmelden"
 msgid "Log in"
 msgstr "Anmelden"
 
-#: inventory/models.py:24 inventory/models.py:89
-msgid "alert"
+#: common/templates/common/home.html:4
+msgid "Welcome"
 msgstr ""
 
-#: inventory/models.py:25 inventory/models.py:90
-msgid "warning"
-msgstr ""
-
-#: inventory/models.py:26 inventory/models.py:91
-msgid "good"
-msgstr ""
-
-#: inventory/models.py:28 inventory/models.py:93 maintenance/models.py:23
-msgid "name"
-msgstr "Name"
-
-#: inventory/models.py:29 inventory/models.py:94 maintenance/models.py:24
-msgid "description"
-msgstr "Beschreibung"
-
-#: inventory/models.py:31 inventory/models.py:96
-msgid "image"
-msgstr "Bild"
-
-#: inventory/models.py:33
-msgid "address"
-msgstr "Adresse"
-
-#: inventory/models.py:34
-msgid "latitude"
-msgstr "Breite (latitude)"
-
-#: inventory/models.py:35
-msgid "longitude"
-msgstr "Länge (longitude)"
-
-#: inventory/models.py:37 inventory/models.py:106 maintenance/models.py:32
-msgid "status"
-msgstr "Status"
-
-#: inventory/models.py:41 inventory/models.py:110
-msgid "owner"
-msgstr "Eigentümer"
-
-#: inventory/models.py:43
-msgid "Owner can view, change or delete this location."
-msgstr ""
-
-#: inventory/models.py:47 inventory/models.py:116
-msgid "management team"
-msgstr ""
-
-#: inventory/models.py:52
-msgid "Team members can view, change or delete this location."
-msgstr ""
-
-#: inventory/models.py:56 inventory/models.py:125
-msgid "maintenance team"
-msgstr ""
-
-#: inventory/models.py:61
-msgid "Team members can view this location."
-msgstr ""
-
-#: inventory/models.py:63 inventory/models.py:132 maintenance/models.py:36
-msgid "created at"
-msgstr "Erstellt"
-
-#: inventory/models.py:64 inventory/models.py:133 maintenance/models.py:37
-msgid "updated at"
-msgstr "Aktualisiert"
-
-#: inventory/models.py:67 inventory/models.py:100
-msgid "location"
-msgstr "Standort"
-
-#: inventory/models.py:68
-msgid "locations"
-msgstr "Standorte"
-
-#: inventory/models.py:112
-msgid "Owner can view, change or delete this object."
-msgstr ""
-
-#: inventory/models.py:121
-msgid "Team members can view or update this object."
-msgstr ""
-
-#: inventory/models.py:130
-msgid "Team members can view this object."
-msgstr ""
-
-#: inventory/models.py:136 maintenance/models.py:27
-msgid "object"
-msgstr "Objekt"
-
-#: inventory/models.py:137
-msgid "objects"
-msgstr "Objekte"
-
-#: inventory/templates/inventory/location_confirm_delete.html:4
-msgid "Location delete"
-msgstr ""
-
-#: inventory/templates/inventory/location_confirm_delete.html:8
-#: inventory/templates/inventory/object_confirm_delete.html:8
-#: maintenance/templates/maintenance/work_confirm_delete.html:8
-msgid "Are you sure you want to delete"
-msgstr ""
-
+#: common/templates/common/team_confirm_delete.html:12
+#: common/templates/common/team_detail.html:69
+#: common/templates/common/team_member_confirm_delete.html:11
 #: inventory/templates/inventory/location_confirm_delete.html:12
 #: inventory/templates/inventory/location_detail.html:96
 #: inventory/templates/inventory/object_confirm_delete.html:12
@@ -170,6 +113,11 @@ msgstr ""
 msgid "List"
 msgstr "Liste"
 
+#: common/templates/common/team_confirm_delete.html:14
+#: common/templates/common/team_detail.html:71
+#: common/templates/common/team_detail.html:114
+#: common/templates/common/team_list.html:64
+#: common/templates/common/team_member_confirm_delete.html:13
 #: inventory/templates/inventory/location_confirm_delete.html:14
 #: inventory/templates/inventory/location_detail.html:98
 #: inventory/templates/inventory/location_detail.html:184
@@ -184,10 +132,12 @@ msgstr "Liste"
 msgid "Delete"
 msgstr "Löschen"
 
-#: inventory/templates/inventory/location_detail.html:9
-msgid "Location detail"
+#: common/templates/common/team_detail.html:9
+msgid "Team detail"
 msgstr ""
 
+#: common/templates/common/team_detail.html:19
+#: common/templates/common/team_list.html:18
 #: inventory/templates/inventory/location_detail.html:19
 #: inventory/templates/inventory/location_detail.html:118
 #: inventory/templates/inventory/location_list.html:18
@@ -199,16 +149,8 @@ msgstr ""
 msgid "Name"
 msgstr "Name"
 
-#: inventory/templates/inventory/location_detail.html:27
-#: inventory/templates/inventory/location_detail.html:127
-#: inventory/templates/inventory/location_list.html:21
-#: inventory/templates/inventory/object_detail.html:29
-#: inventory/templates/inventory/object_detail.html:129
-#: inventory/templates/inventory/object_list.html:24
-#: maintenance/templates/maintenance/work_detail.html:29
-msgid "Status"
-msgstr "Status"
-
+#: common/templates/common/team_detail.html:27
+#: common/templates/common/team_list.html:21
 #: inventory/templates/inventory/location_detail.html:38
 #: inventory/templates/inventory/location_detail.html:121
 #: inventory/templates/inventory/object_detail.html:40
@@ -217,27 +159,21 @@ msgstr "Status"
 msgid "Description"
 msgstr "Beschreibung"
 
+#: common/templates/common/team_detail.html:39
 #: inventory/templates/inventory/location_detail.html:50
 #: inventory/templates/inventory/object_detail.html:52
 msgid "Owner"
 msgstr "Eigentümer"
 
-#: inventory/templates/inventory/location_detail.html:58
-#: inventory/templates/inventory/object_detail.html:60
-msgid "Management team"
-msgstr ""
-
-#: inventory/templates/inventory/location_detail.html:66
-#: inventory/templates/inventory/object_detail.html:68
-msgid "Maintenance team"
-msgstr ""
-
+#: common/templates/common/team_detail.html:47
 #: inventory/templates/inventory/location_detail.html:74
 #: inventory/templates/inventory/object_detail.html:76
 #: maintenance/templates/maintenance/work_detail.html:84
 msgid "Created at"
 msgstr "Erstellt"
 
+#: common/templates/common/team_detail.html:55
+#: common/templates/common/team_list.html:24
 #: inventory/templates/inventory/location_detail.html:82
 #: inventory/templates/inventory/location_detail.html:130
 #: inventory/templates/inventory/object_detail.html:84
@@ -246,6 +182,8 @@ msgstr "Erstellt"
 msgid "Updated at"
 msgstr "Aktualisiert"
 
+#: common/templates/common/team_detail.html:67
+#: common/templates/common/team_list.html:57
 #: inventory/templates/inventory/location_detail.html:94
 #: inventory/templates/inventory/location_detail.html:177
 #: inventory/templates/inventory/location_list.html:60
@@ -257,10 +195,22 @@ msgstr "Aktualisiert"
 msgid "Change"
 msgstr "Ändern"
 
-#: inventory/templates/inventory/location_detail.html:105
-msgid "Objects"
-msgstr "Objekte"
+#: common/templates/common/team_detail.html:78
+msgid "Members"
+msgstr ""
 
+#: common/templates/common/team_detail.html:91
+#, fuzzy
+#| msgid "name"
+msgid "Username"
+msgstr "Name"
+
+#: common/templates/common/team_detail.html:94
+msgid "Email"
+msgstr ""
+
+#: common/templates/common/team_detail.html:97
+#: common/templates/common/team_list.html:27
 #: inventory/templates/inventory/location_detail.html:133
 #: inventory/templates/inventory/location_list.html:27
 #: inventory/templates/inventory/object_detail.html:141
@@ -269,6 +219,30 @@ msgstr "Objekte"
 msgid "Action"
 msgstr "Aktion"
 
+#: common/templates/common/team_form.html:5
+msgid "Team form"
+msgstr ""
+
+#: common/templates/common/team_form.html:13
+#: common/templates/common/team_member_form.html:13
+#: inventory/templates/inventory/location_form.html:13
+#: inventory/templates/inventory/object_form.html:14
+#: maintenance/templates/maintenance/work_form.html:14
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: common/templates/common/team_form.html:18
+#: inventory/templates/inventory/location_form.html:18
+#: inventory/templates/inventory/object_form.html:18
+#: maintenance/templates/maintenance/work_form.html:18
+msgid "Save"
+msgstr "Speichern"
+
+#: common/templates/common/team_list.html:6
+msgid "Team list"
+msgstr "Teamliste"
+
+#: common/templates/common/team_list.html:50
 #: inventory/templates/inventory/location_detail.html:170
 #: inventory/templates/inventory/location_list.html:53
 #: inventory/templates/inventory/object_detail.html:184
@@ -277,63 +251,181 @@ msgstr "Aktion"
 msgid "View"
 msgstr "Ansehen"
 
-#: inventory/templates/inventory/location_form.html:5
-msgid "Location form"
-msgstr ""
-
-#: inventory/templates/inventory/location_form.html:13
-#: inventory/templates/inventory/object_form.html:14
-#: maintenance/templates/maintenance/work_form.html:14
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: inventory/templates/inventory/location_form.html:18
-#: inventory/templates/inventory/object_form.html:18
-#: maintenance/templates/maintenance/work_form.html:18
-msgid "Save"
-msgstr "Speichern"
-
-#: inventory/templates/inventory/location_list.html:4
-msgid "Location list"
-msgstr ""
-
-#: inventory/templates/inventory/location_list.html:24
-#: inventory/templates/inventory/object_list.html:27
-msgid "Updated"
-msgstr "Aktualisiert"
-
+#: common/templates/common/team_list.html:77
 #: inventory/templates/inventory/location_list.html:80
 #: inventory/templates/inventory/object_list.html:91
 #: maintenance/templates/maintenance/work_list.html:87
 msgid "Showing page"
 msgstr "Seite"
 
+#: common/templates/common/team_list.html:79
 #: inventory/templates/inventory/location_list.html:82
 #: inventory/templates/inventory/object_list.html:93
 #: maintenance/templates/maintenance/work_list.html:89
 msgid "of"
 msgstr "von"
 
+#: common/templates/common/team_list.html:87
 #: inventory/templates/inventory/location_list.html:90
 #: inventory/templates/inventory/object_list.html:101
 #: maintenance/templates/maintenance/work_list.html:97
 msgid "Previous"
 msgstr "Vorherige"
 
+#: common/templates/common/team_list.html:93
 #: inventory/templates/inventory/location_list.html:96
 #: inventory/templates/inventory/object_list.html:107
 #: maintenance/templates/maintenance/work_list.html:103
 msgid "Next"
 msgstr "Nächste"
 
+#: common/templates/common/team_member_confirm_delete.html:3
+msgid "Team member delete"
+msgstr ""
+
+#: common/templates/common/team_member_form.html:5
+msgid "Team member form"
+msgstr ""
+
+#: common/templates/common/team_member_form.html:18
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: inventory/models.py:24 inventory/models.py:90
+msgid "alert"
+msgstr ""
+
+#: inventory/models.py:25 inventory/models.py:91
+msgid "warning"
+msgstr ""
+
+#: inventory/models.py:26 inventory/models.py:92
+msgid "good"
+msgstr ""
+
+#: inventory/models.py:33
+msgid "address"
+msgstr "Adresse"
+
+#: inventory/models.py:34
+msgid "latitude"
+msgstr "Breite (latitude)"
+
+#: inventory/models.py:35
+msgid "longitude"
+msgstr "Länge (longitude)"
+
+#: inventory/models.py:37 inventory/models.py:108 maintenance/models.py:32
+msgid "status"
+msgstr "Status"
+
+#: inventory/models.py:44
+msgid "Owner can view, change or delete this location."
+msgstr ""
+
+#: inventory/models.py:48 inventory/models.py:119
+msgid "management team"
+msgstr ""
+
+#: inventory/models.py:53
+msgid "Team members can view, change or delete this location."
+msgstr ""
+
+#: inventory/models.py:57 inventory/models.py:128
+msgid "maintenance team"
+msgstr ""
+
+#: inventory/models.py:62
+msgid "Team members can view this location."
+msgstr ""
+
+#: inventory/models.py:68 inventory/models.py:101
+msgid "location"
+msgstr "Standort"
+
+#: inventory/models.py:69
+msgid "locations"
+msgstr "Standorte"
+
+#: inventory/models.py:115
+msgid "Owner can view, change or delete this object."
+msgstr ""
+
+#: inventory/models.py:124
+msgid "Team members can view or update this object."
+msgstr ""
+
+#: inventory/models.py:133
+msgid "Team members can view this object."
+msgstr ""
+
+#: inventory/models.py:139 maintenance/models.py:27 maintenance/models.py:82
+msgid "object"
+msgstr "Objekt"
+
+#: inventory/models.py:140
+msgid "objects"
+msgstr "Objekte"
+
+#: inventory/templates/inventory/location_confirm_delete.html:4
+msgid "Location delete"
+msgstr "Standort löschen"
+
+#: inventory/templates/inventory/location_confirm_delete.html:8
+#: inventory/templates/inventory/object_confirm_delete.html:8
+#: maintenance/templates/maintenance/work_confirm_delete.html:8
+msgid "Are you sure you want to delete"
+msgstr ""
+
+#: inventory/templates/inventory/location_detail.html:9
+msgid "Location detail"
+msgstr "Standort Details"
+
+#: inventory/templates/inventory/location_detail.html:27
+#: inventory/templates/inventory/location_detail.html:127
+#: inventory/templates/inventory/location_list.html:21
+#: inventory/templates/inventory/object_detail.html:29
+#: inventory/templates/inventory/object_detail.html:129
+#: inventory/templates/inventory/object_list.html:24
+#: maintenance/templates/maintenance/work_detail.html:29
+msgid "Status"
+msgstr "Status"
+
+#: inventory/templates/inventory/location_detail.html:58
+#: inventory/templates/inventory/object_detail.html:60
+msgid "Management team"
+msgstr ""
+
+#: inventory/templates/inventory/location_detail.html:66
+#: inventory/templates/inventory/object_detail.html:68
+msgid "Maintenance team"
+msgstr ""
+
+#: inventory/templates/inventory/location_detail.html:105
+msgid "Objects"
+msgstr "Objekte"
+
+#: inventory/templates/inventory/location_form.html:5
+msgid "Location form"
+msgstr "Standort"
+
+#: inventory/templates/inventory/location_list.html:4
+msgid "Location list"
+msgstr "Standortliste"
+
+#: inventory/templates/inventory/location_list.html:24
+#: inventory/templates/inventory/object_list.html:27
+msgid "Updated"
+msgstr "Aktualisiert"
+
 #: inventory/templates/inventory/object_confirm_delete.html:4
 msgid "Delete object"
-msgstr ""
+msgstr "Objekt löschen"
 
 #: inventory/templates/inventory/object_detail.html:4
 #: inventory/templates/inventory/object_detail.html:11
 msgid "Object detail"
-msgstr ""
+msgstr "Objekt Details"
 
 #: inventory/templates/inventory/object_detail.html:107
 msgid "Related work"
@@ -341,31 +433,31 @@ msgstr ""
 
 #: inventory/templates/inventory/object_detail.html:132
 msgid "Due on"
-msgstr ""
+msgstr "Fällig am"
 
 #: inventory/templates/inventory/object_detail.html:135
 msgid "Overdue on"
-msgstr ""
+msgstr "Überfällig am"
 
 #: inventory/templates/inventory/object_form.html:5
 msgid "Object form"
-msgstr ""
+msgstr "Objekt"
 
 #: inventory/templates/inventory/object_list.html:4
 msgid "Object list"
-msgstr ""
+msgstr "Objektliste"
 
 #: maintenance/models.py:18 maintenance/templates/maintenance/work_list.html:27
 msgid "Overdue"
-msgstr ""
+msgstr "Überfällig"
 
 #: maintenance/models.py:19 maintenance/templates/maintenance/work_list.html:24
 msgid "Due"
-msgstr ""
+msgstr "Fällig"
 
 #: maintenance/models.py:20
 msgid "Pending"
-msgstr ""
+msgstr "Pendent"
 
 #: maintenance/models.py:21
 msgid "Inactive"
@@ -373,28 +465,40 @@ msgstr ""
 
 #: maintenance/models.py:34
 msgid "due at"
-msgstr ""
+msgstr "Fällig am"
 
 #: maintenance/models.py:35
 msgid "overdue at"
-msgstr ""
+msgstr "Fällig am"
 
-#: maintenance/models.py:40 maintenance/models.py:41
+#: maintenance/models.py:40 maintenance/models.py:41 maintenance/models.py:74
 msgid "work"
 msgstr "Arbeit"
 
+#: maintenance/models.py:86
+msgid "notes"
+msgstr "Notizen"
+
+#: maintenance/models.py:91
+msgid "labor costs"
+msgstr "Arbeitskosten"
+
+#: maintenance/models.py:94
+msgid "material costs"
+msgstr "Materialkosten"
+
 #: maintenance/templates/maintenance/work_confirm_delete.html:4
 msgid "Delete work"
-msgstr ""
+msgstr "Arbeit löschen"
 
 #: maintenance/templates/maintenance/work_detail.html:4
 #: maintenance/templates/maintenance/work_detail.html:11
 msgid "Work detail"
-msgstr ""
+msgstr "Arbeit Details"
 
 #: maintenance/templates/maintenance/work_detail.html:60
 msgid "Object owner"
-msgstr ""
+msgstr "Objekt Eigentümer"
 
 #: maintenance/templates/maintenance/work_detail.html:68
 msgid "Object management team"
@@ -404,6 +508,12 @@ msgstr ""
 msgid "Object maintenance team"
 msgstr ""
 
-#: maintenance/templates/maintenance/work_list.html:4
+#: maintenance/templates/maintenance/work_form.html:5
+#, fuzzy
+#| msgid "Work"
+msgid "Work form"
+msgstr "Arbeit"
+
+#: maintenance/templates/maintenance/work_list.html:6
 msgid "Work list"
-msgstr ""
+msgstr "Arbeitsliste"

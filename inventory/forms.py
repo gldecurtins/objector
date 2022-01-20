@@ -1,4 +1,3 @@
-from email.policy import default
 from django import forms
 from .models import Location, Object
 
@@ -28,6 +27,4 @@ class ObjectForm(forms.ModelForm):
             | Location.objects.filter(maintenance_team__in=groups_as_list)
         )
 
-        self.fields["location"] = forms.ModelChoiceField(
-            queryset=location_queryset, required=False
-        )
+        self.fields["location"].queryset = location_queryset

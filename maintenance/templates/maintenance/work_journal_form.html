@@ -1,8 +1,7 @@
 {% extends "base.html" %}
-{% load i18n %}
 {% load crispy_forms_tags %}
-{% block title %}Objector + Team form + {{ team.name }}{% endblock %}
-{% block h1 %}{% translate "Team form" %}{% endblock %}
+{% block title %}Objector + Journal form {% endblock %}
+{% block h1 %}Journal form{% endblock %}
 {% block h2 %}{{ team.name }}{% endblock %}
 {% block content %}
 <form method="POST" enctype="multipart/form-data" class="space-y-8 divide-y divide-gray-200">{% csrf_token %}
@@ -10,12 +9,12 @@
   <div class="flex justify-end">
     <a href="{% url 'common:team-list' %}"><button type="button"
         class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        {% translate "Cancel" %}
+        Cancel
       </button>
     </a>
     <button type="submit"
       class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-      {% translate "Save" %}
+      Add
     </button>
   </div>
   </div>

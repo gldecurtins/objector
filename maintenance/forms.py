@@ -42,4 +42,4 @@ class WorkForm(forms.ModelForm):
             | Object.objects.filter(maintenance_team__in=groups_as_list)
         )
 
-        self.fields["object"] = forms.ModelChoiceField(queryset=object_queryset)
+        self.fields["object"].queryset = object_queryset

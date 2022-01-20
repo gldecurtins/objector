@@ -20,12 +20,12 @@ class WorkListView(LoginRequiredMixin, ListView):
         # all groups for user
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
-        qs = (
+        work_queryset = (
             Work.objects.filter(object__owner=self.request.user)
             | Work.objects.filter(object__management_team__in=groups_as_list)
             | Work.objects.filter(object__maintenance_team__in=groups_as_list)
         )
-        return qs
+        return work_queryset
 
 
 class WorkCreateView(LoginRequiredMixin, CreateView):

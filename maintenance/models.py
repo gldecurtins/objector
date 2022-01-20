@@ -70,14 +70,27 @@ class Work(RulesModel):
 
 class Journal(RulesModel):
     work = models.ForeignKey(
-        Work, related_name="work_journal", on_delete=models.RESTRICT
+        Work,
+        verbose_name=_("work"),
+        related_name="journal_work",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
     )
-    notes = models.TextField(blank=True)
-    image = models.ImageField(upload_to=log_image_upload_handler, blank=True, null=True)
+    object = models.ForeignKey(
+        Object,
+        verbose_name=_("object"),
+        related_name="journal_object",
+        on_delete=models.CASCADE,
+    )
+    notes = models.TextField(_("notes"), blank=True)
+    image = models.ImageField(
+        _("image"), upload_to=log_image_upload_handler, blank=True, null=True
+    )
     labor_costs = models.DecimalField(
-        blank=True, null=True, decimal_places=2, max_digits=9
+        _("labor costs"), blank=True, null=True, decimal_places=2, max_digits=9
     )
     material_costs = models.DecimalField(
-        blank=True, null=True, decimal_places=2, max_digits=9
+        _("material costs"), blank=True, null=True, decimal_places=2, max_digits=9
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)

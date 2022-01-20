@@ -1,12 +1,12 @@
 {% extends "base.html" %}
+{% load rules %}
 {% load i18n %}
+{% load humanize %}
 {% block title %}Objector + Work list{% endblock %}
 {% block h1 %}{% translate "Work list" %}{% endblock %}
 {% block h2 %}All your work{% endblock %}
 {% block content %}
-{% if object_list %}
-{% load rules %}
-{% load humanize %}
+{% if work_list %}
 <div class="flex flex-col">
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

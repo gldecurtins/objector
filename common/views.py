@@ -44,12 +44,12 @@ class DashboardTemplateView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
-        queryset = (
+        location_queryset = (
             Location.objects.filter(owner=self.request.user)
             | Location.objects.filter(management_team__in=groups_as_list)
             | Location.objects.filter(maintenance_team__in=groups_as_list)
         )
-        context["locations"] = queryset
+        context["locations"] = location_queryset
         return context
 
 

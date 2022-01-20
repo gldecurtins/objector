@@ -1,6 +1,7 @@
 from django.db import models
-from rules.contrib.models import RulesModel
 from django.contrib.auth.models import AbstractUser, Group
+from django.utils.translation import gettext_lazy as _
+from rules.contrib.models import RulesModel
 import uuid
 import pathlib
 
@@ -18,22 +19,25 @@ def team_image_upload_handler(instance, filename):
 class Team(RulesModel):
     group = models.OneToOneField(
         Group,
+        verbose_name=_("group"),
+        related_name="team_group",
         on_delete=models.CASCADE,
         primary_key=True,
     )
-    name = models.CharField(max_length=80)
-    description = models.TextField(blank=True)
+    name = models.CharField(_("name"), max_length=80)
+    description = models.TextField(_("description"), blank=True)
     image = models.ImageField(
-        upload_to=team_image_upload_handler, blank=True, null=True
+        _("image"), upload_to=team_image_upload_handler, blank=True, null=True
     )
     owner = models.ForeignKey(
         User,
+        verbose_name=_("owner"),
+        related_name="team_owner",
         on_delete=models.CASCADE,
         help_text="Owner can view, change or delete this team.",
-        related_name="team_owner",
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     class Meta:
         ordering = ["name"]

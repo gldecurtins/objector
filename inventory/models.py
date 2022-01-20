@@ -39,6 +39,7 @@ class Location(RulesModel):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("owner"),
+        related_name="location_owner",
         on_delete=models.CASCADE,
         help_text=_("Owner can view, change or delete this location."),
     )
@@ -98,6 +99,7 @@ class Object(RulesModel):
     location = models.ForeignKey(
         Location,
         verbose_name=_("location"),
+        related_name="object_location",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -108,6 +110,7 @@ class Object(RulesModel):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("owner"),
+        related_name="object_owner",
         on_delete=models.CASCADE,
         help_text=_("Owner can view, change or delete this object."),
     )

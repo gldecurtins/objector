@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-19 19:27+0000\n"
+"POT-Creation-Date: 2022-01-20 09:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,39 +45,39 @@ msgstr "Arbeit"
 
 #: common/templates/base.html:97
 msgid "Log out"
-msgstr ""
+msgstr "Abmelden"
 
 #: common/templates/base.html:104
 msgid "Log in"
-msgstr ""
+msgstr "Anmelden"
 
 #: inventory/models.py:24 inventory/models.py:89
 msgid "alert"
-msgstr ""
+msgstr "Alarm"
 
 #: inventory/models.py:25 inventory/models.py:90
 msgid "warning"
-msgstr ""
+msgstr "Warnung"
 
 #: inventory/models.py:26 inventory/models.py:91
 msgid "good"
-msgstr ""
+msgstr "Normal"
 
 #: inventory/models.py:28 inventory/models.py:93 maintenance/models.py:23
 msgid "name"
-msgstr ""
+msgstr "Name"
 
 #: inventory/models.py:29 inventory/models.py:94 maintenance/models.py:24
 msgid "description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: inventory/models.py:31 inventory/models.py:96
 msgid "image"
-msgstr ""
+msgstr "Bild"
 
 #: inventory/models.py:33
 msgid "address"
-msgstr ""
+msgstr "Adresse"
 
 #: inventory/models.py:34
 msgid "latitude"
@@ -89,11 +89,11 @@ msgstr ""
 
 #: inventory/models.py:37 inventory/models.py:106 maintenance/models.py:32
 msgid "status"
-msgstr ""
+msgstr "Status"
 
 #: inventory/models.py:41 inventory/models.py:110
 msgid "owner"
-msgstr ""
+msgstr "Eigentümer"
 
 #: inventory/models.py:43
 msgid "Owner can view, change or delete this location."
@@ -125,11 +125,11 @@ msgstr ""
 
 #: inventory/models.py:67 inventory/models.py:100
 msgid "location"
-msgstr ""
+msgstr "Standort"
 
 #: inventory/models.py:68
 msgid "locations"
-msgstr ""
+msgstr "Standorte"
 
 #: inventory/models.py:112
 msgid "Owner can view, change or delete this object."
@@ -145,11 +145,11 @@ msgstr ""
 
 #: inventory/models.py:136 maintenance/models.py:27
 msgid "object"
-msgstr ""
+msgstr "Objekt"
 
 #: inventory/models.py:137
 msgid "objects"
-msgstr ""
+msgstr "Objekte"
 
 #: inventory/templates/inventory/location_confirm_delete.html:4
 msgid "Location delete"
@@ -168,7 +168,7 @@ msgstr ""
 #: maintenance/templates/maintenance/work_confirm_delete.html:12
 #: maintenance/templates/maintenance/work_detail.html:106
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #: inventory/templates/inventory/location_confirm_delete.html:14
 #: inventory/templates/inventory/location_detail.html:98
@@ -182,7 +182,7 @@ msgstr ""
 #: maintenance/templates/maintenance/work_detail.html:108
 #: maintenance/templates/maintenance/work_list.html:74
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: inventory/templates/inventory/location_detail.html:9
 #, fuzzy
@@ -217,12 +217,12 @@ msgstr ""
 #: inventory/templates/inventory/object_detail.html:123
 #: maintenance/templates/maintenance/work_detail.html:40
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: inventory/templates/inventory/location_detail.html:50
 #: inventory/templates/inventory/object_detail.html:52
 msgid "Owner"
-msgstr ""
+msgstr "Eigentümer"
 
 #: inventory/templates/inventory/location_detail.html:58
 #: inventory/templates/inventory/object_detail.html:60
@@ -257,7 +257,7 @@ msgstr ""
 #: maintenance/templates/maintenance/work_detail.html:104
 #: maintenance/templates/maintenance/work_list.html:67
 msgid "Change"
-msgstr ""
+msgstr "Ändern"
 
 #: inventory/templates/inventory/location_detail.html:105
 #, fuzzy
@@ -271,7 +271,7 @@ msgstr "Objekt"
 #: inventory/templates/inventory/object_list.html:30
 #: maintenance/templates/maintenance/work_list.html:30
 msgid "Action"
-msgstr ""
+msgstr "Aktion"
 
 #: inventory/templates/inventory/location_detail.html:170
 #: inventory/templates/inventory/location_list.html:53
@@ -279,7 +279,7 @@ msgstr ""
 #: inventory/templates/inventory/object_list.html:64
 #: maintenance/templates/maintenance/work_list.html:60
 msgid "View"
-msgstr ""
+msgstr "Ansehen"
 
 #: inventory/templates/inventory/location_form.html:5
 msgid "Location form"
@@ -289,13 +289,13 @@ msgstr ""
 #: inventory/templates/inventory/object_form.html:14
 #: maintenance/templates/maintenance/work_form.html:14
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: inventory/templates/inventory/location_form.html:18
 #: inventory/templates/inventory/object_form.html:18
 #: maintenance/templates/maintenance/work_form.html:18
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: inventory/templates/inventory/location_list.html:4
 msgid "Location list"
@@ -304,19 +304,19 @@ msgstr ""
 #: inventory/templates/inventory/location_list.html:24
 #: inventory/templates/inventory/object_list.html:27
 msgid "Updated"
-msgstr ""
+msgstr "Aktualisiert"
 
 #: inventory/templates/inventory/location_list.html:80
 #: inventory/templates/inventory/object_list.html:91
 #: maintenance/templates/maintenance/work_list.html:87
 msgid "Showing page"
-msgstr ""
+msgstr "Zeige Seite"
 
 #: inventory/templates/inventory/location_list.html:82
 #: inventory/templates/inventory/object_list.html:93
 #: maintenance/templates/maintenance/work_list.html:89
 msgid "of"
-msgstr ""
+msgstr "von"
 
 #: inventory/templates/inventory/location_list.html:90
 #: inventory/templates/inventory/object_list.html:101
@@ -347,11 +347,11 @@ msgstr ""
 
 #: inventory/templates/inventory/object_detail.html:132
 msgid "Due on"
-msgstr ""
+msgstr "Fällig am"
 
 #: inventory/templates/inventory/object_detail.html:135
 msgid "Overdue on"
-msgstr ""
+msgstr "Überfällig am"
 
 #: inventory/templates/inventory/object_form.html:5
 msgid "Object form"
@@ -363,19 +363,19 @@ msgstr ""
 
 #: maintenance/models.py:18 maintenance/templates/maintenance/work_list.html:27
 msgid "Overdue"
-msgstr ""
+msgstr "Überfällig"
 
 #: maintenance/models.py:19 maintenance/templates/maintenance/work_list.html:24
 msgid "Due"
-msgstr ""
+msgstr "Fällig"
 
 #: maintenance/models.py:20
 msgid "Pending"
-msgstr ""
+msgstr "Pendent"
 
 #: maintenance/models.py:21
 msgid "Inactive"
-msgstr ""
+msgstr "Inaktiv"
 
 #: maintenance/models.py:34
 msgid "due at"
@@ -387,7 +387,7 @@ msgstr ""
 
 #: maintenance/models.py:40 maintenance/models.py:41
 msgid "work"
-msgstr ""
+msgstr "Arbeit"
 
 #: maintenance/templates/maintenance/work_confirm_delete.html:4
 msgid "Delete work"

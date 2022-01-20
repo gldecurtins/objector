@@ -20,3 +20,6 @@ _media
 
 # SQLite
 *.sqlite3
+
+# Node
+node_modules/

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-20 09:52+0000\n"
+"POT-Creation-Date: 2022-01-20 11:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,15 +53,15 @@ msgstr "Anmelden"
 
 #: inventory/models.py:24 inventory/models.py:89
 msgid "alert"
-msgstr "Alarm"
+msgstr ""
 
 #: inventory/models.py:25 inventory/models.py:90
 msgid "warning"
-msgstr "Warnung"
+msgstr ""
 
 #: inventory/models.py:26 inventory/models.py:91
 msgid "good"
-msgstr "Normal"
+msgstr ""
 
 #: inventory/models.py:28 inventory/models.py:93 maintenance/models.py:23
 msgid "name"
@@ -81,11 +81,11 @@ msgstr "Adresse"
 
 #: inventory/models.py:34
 msgid "latitude"
-msgstr ""
+msgstr "Breite (latitude)"
 
 #: inventory/models.py:35
 msgid "longitude"
-msgstr ""
+msgstr "Länge (longitude)"
 
 #: inventory/models.py:37 inventory/models.py:106 maintenance/models.py:32
 msgid "status"
@@ -117,11 +117,11 @@ msgstr ""
 
 #: inventory/models.py:63 inventory/models.py:132 maintenance/models.py:36
 msgid "created at"
-msgstr ""
+msgstr "Erstellt"
 
 #: inventory/models.py:64 inventory/models.py:133 maintenance/models.py:37
 msgid "updated at"
-msgstr ""
+msgstr "Aktualisiert"
 
 #: inventory/models.py:67 inventory/models.py:100
 msgid "location"
@@ -185,10 +185,8 @@ msgid "Delete"
 msgstr "Löschen"
 
 #: inventory/templates/inventory/location_detail.html:9
-#, fuzzy
-#| msgid "Location"
 msgid "Location detail"
-msgstr "Standort"
+msgstr ""
 
 #: inventory/templates/inventory/location_detail.html:19
 #: inventory/templates/inventory/location_detail.html:118
@@ -199,7 +197,7 @@ msgstr "Standort"
 #: maintenance/templates/maintenance/work_detail.html:21
 #: maintenance/templates/maintenance/work_list.html:18
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: inventory/templates/inventory/location_detail.html:27
 #: inventory/templates/inventory/location_detail.html:127
@@ -209,7 +207,7 @@ msgstr ""
 #: inventory/templates/inventory/object_list.html:24
 #: maintenance/templates/maintenance/work_detail.html:29
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: inventory/templates/inventory/location_detail.html:38
 #: inventory/templates/inventory/location_detail.html:121
@@ -238,7 +236,7 @@ msgstr ""
 #: inventory/templates/inventory/object_detail.html:76
 #: maintenance/templates/maintenance/work_detail.html:84
 msgid "Created at"
-msgstr ""
+msgstr "Erstellt"
 
 #: inventory/templates/inventory/location_detail.html:82
 #: inventory/templates/inventory/location_detail.html:130
@@ -246,7 +244,7 @@ msgstr ""
 #: inventory/templates/inventory/object_detail.html:138
 #: maintenance/templates/maintenance/work_detail.html:92
 msgid "Updated at"
-msgstr ""
+msgstr "Aktualisiert"
 
 #: inventory/templates/inventory/location_detail.html:94
 #: inventory/templates/inventory/location_detail.html:177
@@ -260,10 +258,8 @@ msgid "Change"
 msgstr "Ändern"
 
 #: inventory/templates/inventory/location_detail.html:105
-#, fuzzy
-#| msgid "Object"
 msgid "Objects"
-msgstr "Objekt"
+msgstr "Objekte"
 
 #: inventory/templates/inventory/location_detail.html:133
 #: inventory/templates/inventory/location_list.html:27
@@ -310,7 +306,7 @@ msgstr "Aktualisiert"
 #: inventory/templates/inventory/object_list.html:91
 #: maintenance/templates/maintenance/work_list.html:87
 msgid "Showing page"
-msgstr "Zeige Seite"
+msgstr "Seite"
 
 #: inventory/templates/inventory/location_list.html:82
 #: inventory/templates/inventory/object_list.html:93
@@ -322,13 +318,13 @@ msgstr "von"
 #: inventory/templates/inventory/object_list.html:101
 #: maintenance/templates/maintenance/work_list.html:97
 msgid "Previous"
-msgstr ""
+msgstr "Vorherige"
 
 #: inventory/templates/inventory/location_list.html:96
 #: inventory/templates/inventory/object_list.html:107
 #: maintenance/templates/maintenance/work_list.html:103
 msgid "Next"
-msgstr ""
+msgstr "Nächste"
 
 #: inventory/templates/inventory/object_confirm_delete.html:4
 msgid "Delete object"
@@ -336,10 +332,8 @@ msgstr ""
 
 #: inventory/templates/inventory/object_detail.html:4
 #: inventory/templates/inventory/object_detail.html:11
-#, fuzzy
-#| msgid "Object"
 msgid "Object detail"
-msgstr "Objekt"
+msgstr ""
 
 #: inventory/templates/inventory/object_detail.html:107
 msgid "Related work"
@@ -347,11 +341,11 @@ msgstr ""
 
 #: inventory/templates/inventory/object_detail.html:132
 msgid "Due on"
-msgstr "Fällig am"
+msgstr ""
 
 #: inventory/templates/inventory/object_detail.html:135
 msgid "Overdue on"
-msgstr "Überfällig am"
+msgstr ""
 
 #: inventory/templates/inventory/object_form.html:5
 msgid "Object form"
@@ -363,19 +357,19 @@ msgstr ""
 
 #: maintenance/models.py:18 maintenance/templates/maintenance/work_list.html:27
 msgid "Overdue"
-msgstr "Überfällig"
+msgstr ""
 
 #: maintenance/models.py:19 maintenance/templates/maintenance/work_list.html:24
 msgid "Due"
-msgstr "Fällig"
+msgstr ""
 
 #: maintenance/models.py:20
 msgid "Pending"
-msgstr "Pendent"
+msgstr ""
 
 #: maintenance/models.py:21
 msgid "Inactive"
-msgstr "Inaktiv"
+msgstr ""
 
 #: maintenance/models.py:34
 msgid "due at"
@@ -399,10 +393,8 @@ msgid "Work detail"
 msgstr ""
 
 #: maintenance/templates/maintenance/work_detail.html:60
-#, fuzzy
-#| msgid "Object"
 msgid "Object owner"
-msgstr "Objekt"
+msgstr ""
 
 #: maintenance/templates/maintenance/work_detail.html:68
 msgid "Object management team"

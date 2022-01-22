@@ -23,28 +23,28 @@ class taskRuleTest(TestCase):
 
     def test_task_object_owner_permissions(self):
         self.assertEqual(
-            rules.has_perm("journal.view_task", self.owner1, self.task),
+            rules.has_perm("maintenance.view_task", self.owner1, self.task),
             True,
         )
         self.assertEqual(
-            rules.has_perm("journal.change_task", self.owner1, self.task),
+            rules.has_perm("maintenance.change_task", self.owner1, self.task),
             True,
         )
         self.assertEqual(
-            rules.has_perm("journal.delete_task", self.owner1, self.task),
+            rules.has_perm("maintenance.delete_task", self.owner1, self.task),
             True,
         )
 
     def test_task_object_non_owner_permissions(self):
         self.assertEqual(
-            rules.has_perm("journal.view_task", self.owner2, self.task),
+            rules.has_perm("maintenance.view_task", self.owner2, self.task),
             False,
         )
         self.assertEqual(
-            rules.has_perm("journal.change_task", self.owner2, self.task),
+            rules.has_perm("maintenance.change_task", self.owner2, self.task),
             False,
         )
         self.assertEqual(
-            rules.has_perm("journal.delete_task", self.owner2, self.task),
+            rules.has_perm("maintenance.delete_task", self.owner2, self.task),
             False,
         )

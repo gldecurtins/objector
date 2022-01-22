@@ -9,7 +9,7 @@ from django.views.generic import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import PermissionRequiredMixin
 from .models import Location, Object
-from maintenance.models import Work
+from maintenance.models import Task, Journal
 from .forms import ObjectForm
 
 
@@ -67,7 +67,8 @@ class ObjectDetailView(PermissionRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["work"] = Work.objects.filter(object=self.object.id)
+        context["task"] = Task.objects.filter(object=self.object.id)
+        context["journal"] = Journal.objects.filter(object=self.object.id)
         return context
 
 

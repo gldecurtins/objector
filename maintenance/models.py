@@ -13,7 +13,7 @@ def log_image_upload_handler(instance, filename):
     return f"object_image/{file_name}{file_suffix}"
 
 
-class Work(RulesModel):
+class Task(RulesModel):
     class Statuses(models.IntegerChoices):
         OVERDUE = 10, _("Overdue")
         DUE = 20, _("Due")
@@ -25,7 +25,7 @@ class Work(RulesModel):
     object = models.ForeignKey(
         Object,
         verbose_name=_("object"),
-        related_name="work_object",
+        related_name="task_object",
         on_delete=models.CASCADE,
     )
     status = models.PositiveSmallIntegerField(
@@ -37,24 +37,24 @@ class Work(RulesModel):
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     class Meta:
-        verbose_name = _("work")
-        verbose_name_plural = _("work")
+        verbose_name = _("task")
+        verbose_name_plural = _("tasks")
         ordering = ["status", "overdue_at", "due_at", "updated_at"]
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return f"/work/{self.id}"
+        return f"/object/{self.object.id}/task/{self.id}"
 
-    def get_new_work_status(self):
+    def get_new_task_status(self):
         now = timezone.now()
-        new_work_status = Work.Statuses.PENDING
+        new_task_status = Task.Statuses.PENDING
         if self.overdue_at and now >= self.overdue_at:
-            new_work_status = Work.Statuses.OVERDUE
+            new_task_status = Task.Statuses.OVERDUE
         elif self.due_at and now >= self.due_at:
-            new_work_status = Work.Statuses.DUE
-        return new_work_status
+            new_task_status = Task.Statuses.DUE
+        return new_task_status
 
     @property
     def get_status_color(self):
@@ -69,19 +69,19 @@ class Work(RulesModel):
 
 
 class Journal(RulesModel):
-    work = models.ForeignKey(
-        Work,
-        verbose_name=_("work"),
-        related_name="journal_work",
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-    )
     object = models.ForeignKey(
         Object,
         verbose_name=_("object"),
         related_name="journal_object",
         on_delete=models.CASCADE,
+    )
+    task = models.ForeignKey(
+        Task,
+        verbose_name=_("task"),
+        related_name="journal_task",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
     )
     notes = models.TextField(_("notes"), blank=True)
     image = models.ImageField(
@@ -94,3 +94,9 @@ class Journal(RulesModel):
         _("material costs"), blank=True, null=True, decimal_places=2, max_digits=9
     )
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+
+    def __str__(self):
+        return self.notes
+
+    def get_absolute_url(self):
+        return f"/object/{self.object.id}/journal/{self.id}"

@@ -84,8 +84,8 @@
                 class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Location" %}</a>
               <a href="{% url 'inventory:object-list' %}"
                 class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Object" %}</a>
-              <a href="{% url 'maintenance:work-list' %}"
-                class="{% url_active 'maintenance:work-list' %} border-transparent hover:text-gray-700 hover:border-indigo-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Work" %}</a>
+              <a href="{% url 'maintenance:task-list' %}"
+                class="{% url_active 'maintenance:task-list' %} border-transparent hover:text-gray-700 hover:border-indigo-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Task" %}</a>
               {% endif %}
             </div>
           </div>
@@ -120,8 +120,8 @@
               class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Location" %}</a>
             <a href="{% url 'inventory:object-list' %}"
               class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Object" %}</a>
-            <a href="{% url 'maintenance:work-list' %}"
-              class="{% url_active 'maintenance:work-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Work" %}</a>
+            <a href="{% url 'maintenance:task-list' %}"
+              class="{% url_active 'maintenance:task-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Task" %}</a>
             {% endif %}
           </div>
         </div>

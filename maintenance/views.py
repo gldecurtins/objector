@@ -7,40 +7,43 @@ from django.views.generic import (
     DeleteView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rules.contrib.views import PermissionRequiredMixin
-from .models import Work, Journal
-from .forms import WorkForm
+from django.shortcuts import get_object_or_404
+from rules.contrib.views import (
+    PermissionRequiredMixin,
+    permission_required,
+    objectgetter,
+)
+from inventory.models import Object
+from .models import Task, Journal
+from .forms import TaskForm, JournalForm
 
 
-class WorkListView(LoginRequiredMixin, ListView):
-    model = Work
+class TaskListView(LoginRequiredMixin, ListView):
+    model = Task
     paginate_by = 10
 
     def get_queryset(self):
         # all groups for user
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
-        work_queryset = (
-            Work.objects.filter(object__owner=self.request.user)
-            | Work.objects.filter(object__management_team__in=groups_as_list)
-            | Work.objects.filter(object__maintenance_team__in=groups_as_list)
+        task_queryset = (
+            Task.objects.filter(object__owner=self.request.user)
+            | Task.objects.filter(object__management_team__in=groups_as_list)
+            | Task.objects.filter(object__maintenance_team__in=groups_as_list)
         )
-        return work_queryset
+        return task_queryset
 
 
-class WorkCreateView(LoginRequiredMixin, CreateView):
-    model = Work
-    form_class = WorkForm
-    success_url = reverse_lazy("maintenance:work-list")
+class TaskCreateView(LoginRequiredMixin, CreateView):
+    model = Task
+    form_class = TaskForm
 
     def get_initial(self):
         initial = {}
-        initial["owner"] = self.request.user.id
         try:
             initial["object"] = int(self.request.GET["object"])
         except:
             pass
-
         return initial
 
     def get_form_kwargs(self):
@@ -49,18 +52,22 @@ class WorkCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
 
-class WorkDetailView(PermissionRequiredMixin, DetailView):
-    model = Work
-    permission_required = "journal.view_work"
+class TaskDetailView(PermissionRequiredMixin, DetailView):
+    model = Task
+    permission_required = "maintenance.view_task"
     raise_exception = True
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["journal"] = Journal.objects.filter(task=self.object.id)
+        return context
 
-class WorkUpdateView(PermissionRequiredMixin, UpdateView):
-    model = Work
-    permission_required = "journal.change_work"
+
+class TaskUpdateView(PermissionRequiredMixin, UpdateView):
+    model = Task
+    permission_required = "maintenance.change_task"
     raise_exception = True
-    form_class = WorkForm
-    success_url = reverse_lazy("maintenance:work-list")
+    form_class = TaskForm
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -69,17 +76,63 @@ class WorkUpdateView(PermissionRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         instance = form.save(commit=False)
-        instance.status = Work.get_new_work_status(instance)
+        instance.status = Task.get_new_task_status(instance)
         instance.save()
-        return super(WorkUpdateView, self).form_valid(form)
+        return super(TaskUpdateView, self).form_valid(form)
 
 
-class WorkDeleteView(PermissionRequiredMixin, DeleteView):
-    model = Work
-    permission_required = "journal.delete_work"
+class TaskDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Task
+    permission_required = "maintenance.delete_task"
     raise_exception = True
-    success_url = reverse_lazy("maintenance:work-list")
+    success_url = reverse_lazy("maintenance:task-list")
 
 
-class WorkJournalCreate(PermissionRequiredMixin, CreateView):
-    pass
+class JournalCreate(LoginRequiredMixin, CreateView):
+    model = Journal
+    form_class = JournalForm
+
+    def get_initial(self):
+        initial = {}
+        try:
+            initial["object"] = int(self.request.GET["object"])
+        except:
+            pass
+        try:
+            initial["task"] = int(self.request.GET["task"])
+        except:
+            pass
+        return initial
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
+
+
+class JournalDetailView(PermissionRequiredMixin, DetailView):
+    model = Journal
+    permission_required = "maintenance.view_journal"
+    raise_exception = True
+
+
+class JournalUpdateView(PermissionRequiredMixin, UpdateView):
+    model = Journal
+    permission_required = "maintenance.change_journal"
+    raise_exception = True
+    form_class = JournalForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
+
+
+class JournalDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Journal
+    permission_required = "maintenance.delete_journal"
+    raise_exception = True
+
+    def get_success_url(self) -> str:
+        object_id = self.object.object.id
+        return reverse_lazy("inventory:object-detail", kwargs={"pk": object_id})

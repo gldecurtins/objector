@@ -1,26 +1,26 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import transaction
-from maintenance.models import Work
+from maintenance.models import Task
 from .models import Location, Object
 
 
-@receiver(post_save, sender=Work)
+@receiver(post_save, sender=Task)
 def update_status(sender, instance, created, **kwargs):
     # TODO: Use celery for async operation: https://docs.djangoproject.com/en/3.2/topics/db/transactions/
     transaction.on_commit(lambda: object_update_status(instance))
 
 
-def object_update_status(work_instance):
-    object = Object.objects.get(id=work_instance.object.id)
+def object_update_status(task_instance):
+    object = Object.objects.get(id=task_instance.object.id)
 
     new_object_status = Object.Statuses.GREEN
-    if Work.objects.filter(
-        object=work_instance.object.id, status=Work.Statuses.OVERDUE
+    if Task.objects.filter(
+        object=task_instance.object.id, status=Task.Statuses.OVERDUE
     ).exists():
         new_object_status = Object.Statuses.RED
-    elif Work.objects.filter(
-        object=work_instance.object.id, status=Work.Statuses.DUE
+    elif Task.objects.filter(
+        object=task_instance.object.id, status=Task.Statuses.DUE
     ).exists():
         new_object_status = Object.Statuses.AMBER
 

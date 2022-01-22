@@ -4,14 +4,45 @@ from . import views
 app_name = "maintenance"
 
 urlpatterns = [
-    path("work/", views.WorkListView.as_view(), name="work-list"),
-    path("work/add/", views.WorkCreateView.as_view(), name="work-create"),
-    path("work/<int:pk>/", views.WorkDetailView.as_view(), name="work-detail"),
-    path("work/<int:pk>/change/", views.WorkUpdateView.as_view(), name="work-update"),
-    path("work/<int:pk>/delete/", views.WorkDeleteView.as_view(), name="work-delete"),
+    path("task/", views.TaskListView.as_view(), name="task-list"),
     path(
-        "work/<int:pk>/journal/add",
-        views.WorkJournalCreate.as_view(),
-        name="work-journal-create",
+        "object/task/add/",
+        views.TaskCreateView.as_view(),
+        name="task-create",
+    ),
+    path(
+        "object/<int:object_id>/task/<int:pk>/",
+        views.TaskDetailView.as_view(),
+        name="task-detail",
+    ),
+    path(
+        "object/<int:object_id>/task/<int:pk>/change/",
+        views.TaskUpdateView.as_view(),
+        name="task-update",
+    ),
+    path(
+        "object/<int:object_id>/task/<int:pk>/delete/",
+        views.TaskDeleteView.as_view(),
+        name="task-delete",
+    ),
+    path(
+        "object/journal/add",
+        views.JournalCreate.as_view(),
+        name="journal-create",
+    ),
+    path(
+        "object/<int:object_id>/journal/<int:pk>/",
+        views.JournalDetailView.as_view(),
+        name="journal-detail",
+    ),
+    path(
+        "object/<int:object_id>/journal/<int:pk>/change/",
+        views.JournalUpdateView.as_view(),
+        name="journal-update",
+    ),
+    path(
+        "object/<int:object_id>/journal/<int:pk>/delete/",
+        views.JournalDeleteView.as_view(),
+        name="journal-delete",
     ),
 ]

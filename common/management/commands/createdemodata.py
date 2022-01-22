@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from common.models import Team
 from inventory.models import Object, Location
-from maintenance.models import Work
+from maintenance.models import Task
 
 
 class Command(BaseCommand):
@@ -15,7 +15,7 @@ class Command(BaseCommand):
         self.create_teams()
         self.create_locations()
         self.create_objects()
-        self.create_work()
+        self.create_task()
 
     def create_users(self):
         User = get_user_model()
@@ -157,8 +157,8 @@ class Command(BaseCommand):
             maintenance_team=self.team_best,
         )
 
-    def create_work(self):
-        self.work_descale_boiler, created = Work.objects.get_or_create(
+    def create_task(self):
+        self.task_descale_boiler, created = Task.objects.get_or_create(
             name="Descale boiler",
             description="DEMO: Use vinegar.",
             defaults={
@@ -167,7 +167,7 @@ class Command(BaseCommand):
                 "overdue_at": timezone.now() + timezone.timedelta(days=110),
             },
         )
-        self.work_replace_filter_aircon, created = Work.objects.get_or_create(
+        self.task_replace_filter_aircon, created = Task.objects.get_or_create(
             name="Replace filter",
             description="DEMO: Use the square one.",
             defaults={
@@ -176,7 +176,7 @@ class Command(BaseCommand):
                 "overdue_at": timezone.now() + timezone.timedelta(days=120),
             },
         )
-        self.work_add_fragrance_aircon, created = Work.objects.get_or_create(
+        self.task_add_fragrance_aircon, created = Task.objects.get_or_create(
             name="Add fragrance",
             description="DEMO: Lavendel No 6.",
             defaults={
@@ -185,7 +185,7 @@ class Command(BaseCommand):
                 "overdue_at": timezone.now() + timezone.timedelta(days=40),
             },
         )
-        self.work_service_gas_heater, created = Work.objects.get_or_create(
+        self.task_service_gas_heater, created = Task.objects.get_or_create(
             name="Gas service",
             description="DEMO: Yearly device maintenance.",
             defaults={
@@ -194,7 +194,7 @@ class Command(BaseCommand):
                 "overdue_at": timezone.now() + timezone.timedelta(days=210),
             },
         )
-        self.work_clean_chimney_fireplace, created = Work.objects.get_or_create(
+        self.task_clean_chimney_fireplace, created = Task.objects.get_or_create(
             name="Clean chimney",
             description="DEMO: Clean the chimney, 15cm.",
             defaults={
@@ -203,7 +203,7 @@ class Command(BaseCommand):
                 "overdue_at": timezone.now() + timezone.timedelta(days=260),
             },
         )
-        self.work_add_wood_fireplace, created = Work.objects.get_or_create(
+        self.task_add_wood_fireplace, created = Task.objects.get_or_create(
             name="Add wood",
             description="DEMO: Add birch wood, 25cm.",
             defaults={
@@ -212,7 +212,7 @@ class Command(BaseCommand):
                 "overdue_at": timezone.now() + timezone.timedelta(days=260),
             },
         )
-        self.work_remove_ash_fireplace, created = Work.objects.get_or_create(
+        self.task_remove_ash_fireplace, created = Task.objects.get_or_create(
             name="Remove ash",
             description="DEMO: Put into regular rubbish for now.",
             defaults={
@@ -221,7 +221,7 @@ class Command(BaseCommand):
                 "overdue_at": timezone.now() + timezone.timedelta(days=260),
             },
         )
-        self.work_mow_grass_garden, created = Work.objects.get_or_create(
+        self.task_mow_grass_garden, created = Task.objects.get_or_create(
             name="Mow grass",
             description="DEMO: Charge batteries prior mowing.",
             defaults={
@@ -230,7 +230,7 @@ class Command(BaseCommand):
                 "overdue_at": timezone.now() + timezone.timedelta(days=75),
             },
         )
-        self.work_remove_weed_garden, created = Work.objects.get_or_create(
+        self.task_remove_weed_garden, created = Task.objects.get_or_create(
             name="Remove weed",
             description="DEMO: Just the big ones.",
             defaults={
@@ -239,7 +239,7 @@ class Command(BaseCommand):
                 "overdue_at": timezone.now() + timezone.timedelta(days=75),
             },
         )
-        self.work_clean_panels_solar, created = Work.objects.get_or_create(
+        self.task_clean_panels_solar, created = Task.objects.get_or_create(
             name="Clear solar panels",
             description="DEMO: Remove dust.",
             defaults={
@@ -248,7 +248,7 @@ class Command(BaseCommand):
                 "overdue_at": timezone.now() + timezone.timedelta(days=150),
             },
         )
-        self.work_check_batteries_solar, created = Work.objects.get_or_create(
+        self.task_check_batteries_solar, created = Task.objects.get_or_create(
             name="Check batteries",
             description="DEMO: Check voltage and if there are any leaks.",
             defaults={
@@ -257,7 +257,7 @@ class Command(BaseCommand):
                 "overdue_at": timezone.now() + timezone.timedelta(days=250),
             },
         )
-        self.work_check_panels_solar, created = Work.objects.get_or_create(
+        self.task_check_panels_solar, created = Task.objects.get_or_create(
             name="Check panels",
             description="DEMO: Check for scratches and shadows falling on the panels.",
             defaults={

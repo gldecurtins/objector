@@ -2,11 +2,11 @@
 {% load rules %}
 {% load i18n %}
 {% load humanize %}
-{% block title %}Objector + Work list{% endblock %}
-{% block h1 %}{% translate "Work list" %}{% endblock %}
-{% block h2 %}All your work{% endblock %}
+{% block title %}Objector + Task list{% endblock %}
+{% block h1 %}{% translate "Task list" %}{% endblock %}
+{% block h2 %}All your task{% endblock %}
 {% block content %}
-{% if work_list %}
+{% if task_list %}
 <div class="flex flex-col">
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -32,44 +32,44 @@
             </tr>
           </thead>
           <tbody>
-            {% for work in work_list %}
+            {% for task in task_list %}
             <tr class="bg-white">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 <div
-                  class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ work.get_status_color }}-100 text-{{ work.get_status_color }}-800">
-                <a href="{% url 'maintenance:work-detail' work.id %}">{{ work.name|truncatewords:"5" }}</a>
+                  class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ task.get_status_color }}-100 text-{{ task.get_status_color }}-800">
+                <a href="{% url 'maintenance:task-detail' task.object.id task.id %}">{{ task.name|truncatewords:"5" }}</a>
               </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
-                <a href="{% url 'inventory:object-detail' work.object.id %}">
-                  {{ work.object }}
+                <a href="{% url 'inventory:object-detail' task.object.id %}">
+                  {{ task.object }}
                 </a>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
-                {{ work.due_at|naturaltime }}
+                {{ task.due_at|naturaltime }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
-                {{ work.overdue_at|naturaltime }}
+                {{ task.overdue_at|naturaltime }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium hidden lg:table-cell">
                 <div class="ml-4 flex-shrink-0 flex space-x-4">
-                  {% has_perm 'journal.view_work' user work as can_view_work %}
-                  {% if can_view_work %}
-                  <a href="{% url 'maintenance:work-detail' work.id %}"><button type="button"
+                  {% has_perm 'journal.view_task' user task as can_view_task %}
+                  {% if can_view_task %}
+                  <a href="{% url 'maintenance:task-detail' task.id %}"><button type="button"
                       class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                       {% translate "View" %}
                     </button></a>
                   {% endif %}
-                  {% has_perm 'journal.change_work' user work as can_change_work %}
-                  {% if can_change_work %}
-                  <a href="{% url 'maintenance:work-update' work.id %}"><button type="button"
+                  {% has_perm 'journal.change_task' user task as can_change_task %}
+                  {% if can_change_task %}
+                  <a href="{% url 'maintenance:task-update' task.id %}"><button type="button"
                       class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                       {% translate "Change" %}
                     </button></a>
                   {% endif %}
-                  {% has_perm 'journal.delete_work' user work as can_delete_work %}
-                  {% if can_delete_work %}
-                  <a href="{% url 'maintenance:work-delete' work.id %}"><button type="button"
+                  {% has_perm 'journal.delete_task' user task as can_delete_task %}
+                  {% if can_delete_task %}
+                  <a href="{% url 'maintenance:task-delete' task.id %}"><button type="button"
                       class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                       {% translate "Delete" %}
                     </button></a>
@@ -111,7 +111,7 @@
 </div>
 {% endif %}
 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-  <a href="{% url 'maintenance:work-create' %}">
+  <a href="{% url 'maintenance:task-create' %}">
     <button type="button"
       class="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
       <!-- Heroicon name: outline/plus-sm -->

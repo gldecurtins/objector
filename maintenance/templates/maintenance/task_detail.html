@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Location detail + {{ object.name }}{% endblock %}
+{% block title %}Objector + Task detail + {{ object.name }}{% endblock %}
+{% block h1 %}{% translate "Task detail" %}{% endblock %}
+{% block h2 %}{{ object.name }}{% endblock %}
 {% block content %}
 <section aria-labelledby="applicant-information-title">
   <div class="bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6">
       <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-        {% translate "Location detail" %}
+        {% translate "Task detail" %}
       </h2>
       <p class="mt-1 max-w-2xl text-sm text-gray-500">
-        {{ object.name }}
+        {{ task.name }}
       </p>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
@@ -19,7 +21,7 @@
             {% translate "Name" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ location.name }}
+            {{ task.name }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -28,8 +30,8 @@
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             <div
-              class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ location.get_status_color }}-100 text-{{ location.get_status_color }}-800">
-              {{ location.get_status_display }}
+              class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ task.get_status_color }}-100 text-{{ task.get_status_color }}-800">
+              {{ task.get_status_display }}
             </div>
           </dd>
         </div>
@@ -38,7 +40,7 @@
             {% translate "Description" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ location.description|linebreaksbr }}
+            {{ task.description|linebreaksbr }}
           </dd>
         </div>
       </dl>
@@ -47,26 +49,34 @@
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Owner" %}
+            {% translate "Object" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ location.owner }}
+            <a href="{% url 'inventory:object-detail' task.object.id %}">{{ task.object }}</a>
+          </dd>
+        </div>
+        <div class="sm:col-span-2">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Object owner" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ task.object.owner }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Management team" %}
+            {% translate "Object management team" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ location.management_team }}
+            {{ task.object.management_team }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Maintenance team" %}
+            {% translate "Object maintenance team" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ location.maintenance_team }}
+            {{ task.object.maintenance_team }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -74,7 +84,7 @@
             {% translate "Created at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ location.created_at }}
+            {{ task.created_at }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -82,7 +92,7 @@
             {% translate "Updated at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ location.updated_at }}
+            {{ task.updated_at }}
           </dd>
         </div>
       </dl>
@@ -90,11 +100,11 @@
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <div class="pt-5">
         <div class="flex justify-end">
-          <a href="{% url 'inventory:location-update' location.id %}"><button type="button"
+          <a href="{% url 'maintenance:task-update' task.object.id task.id %}"><button type="button"
               class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Change" %}</button></a>
-          <a href="{% url 'inventory:location-list' %}"><button type="button"
+          <a href="{% url 'maintenance:task-list' %}"><button type="button"
               class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "List" %}</button></a>
-          <a href="{% url 'inventory:location-delete' location.id %}"><button type="button"
+          <a href="{% url 'maintenance:task-delete' task.object.id task.id %}"><button type="button"
               class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Delete" %}</button></a>
         </div>
       </div>
@@ -102,10 +112,10 @@
   </div>
   <div class="px-4 py-5 sm:px-6">
     <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-      {% translate "Objects" %}
+      {% translate "Related journal" %}
     </h2>
   </div>
-  {% if objects %}
+  {% if journal %}
   {% load rules %}
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -115,19 +125,13 @@
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {% translate "Name" %}
+                  {% translate "Notes" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {% translate "Description" %}
+                  {% translate "labor costs" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {% translate "Location" %}
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {% translate "Status" %}
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {% translate "Updated at" %}
+                  {% translate "material costs" %}
                 </th>
                 <th scope="col" class="relative px-6 py-3">
                   <span class="sr-only">{% translate "Action" %}</span>
@@ -135,51 +139,36 @@
               </tr>
             </thead>
             <tbody>
-              {% for object in objects %}
+              {% for journal in journal %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  <a href="{% url 'inventory:object-detail' object.id %}">{{ object.name }}</a>
+                  <a href="{% url 'maintenance:journal-detail' journal.object.id journal.id %}">{{ journal.notes }}</a>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ object.description|truncatewords:"5" }}
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {{ journal.labor_costs }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {% if object.location %}
-                  <a href="{% url 'inventory:location-detail' object.location.id %}">
-                    {{ object.location }}
-                  </a>
-                  {% else %}
-                  {{ object.location }}
-                  {% endif %}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <div
-                    class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ object.get_status_color }}-100 text-{{ object.get_status_color }}-800">
-                    {{ object.get_status_display }}
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ object.updated_at|date:'Y-m-d H:i' }}
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {{ journal.material_costs }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div class="ml-4 flex-shrink-0 flex space-x-4">
-                    {% has_perm 'inventory.view_object' user object as can_view_object %}
-                    {% if can_view_object %}
-                    <a href="{% url 'inventory:object-detail' object.id %}"><button type="button"
+                    {% has_perm 'maintenance.view_journal' user journal as can_view_journal %}
+                    {% if can_view_journal %}
+                    <a href="{% url 'maintenance:journal-detail' journal.object.id journal.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "View" %}
                       </button></a>
                     {% endif %}
-                    {% has_perm 'inventory.change_object' user object as can_change_object %}
-                    {% if can_change_object %}
-                    <a href="{% url 'inventory:object-update' object.id %}"><button type="button"
+                    {% has_perm 'maintenance.change_journal' user journal as can_change_journal %}
+                    {% if can_change_journal %}
+                    <a href="{% url 'maintenance:journal-update' journal.object.id journal.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "Change" %}
                       </button></a>
                     {% endif %}
-                    {% has_perm 'inventory.delete_object' user object as can_delete_object %}
-                    {% if can_delete_object %}
-                    <a href="{% url 'inventory:object-delete' object.id %}"><button type="button"
+                    {% has_perm 'maintenance.delete_journal' user journal as can_delete_journal %}
+                    {% if can_delete_journal %}
+                    <a href="{% url 'maintenance:journal-delete' journal.object.id journal.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "Delete" %}
                       </button></a>
@@ -196,7 +185,7 @@
   </div>
   {% endif %}
   <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-    <a href="{% url 'inventory:object-create' %}?location={{ location.id }}">
+    <a href="{% url 'maintenance:journal-create' %}?object={{ task.object.id }}&task={{ task.id }}">
       <button type="button"
         class="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
         <!-- Heroicon name: outline/plus-sm -->

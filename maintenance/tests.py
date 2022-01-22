@@ -2,11 +2,11 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 import rules
-from .models import Work
+from .models import Task
 from inventory.models import Object
 
 
-class WorkRuleTest(TestCase):
+class taskRuleTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         User = get_user_model()
@@ -17,34 +17,34 @@ class WorkRuleTest(TestCase):
             username="owner2@objector.com", email="owner2@objector.com", password="foo"
         )
         cls.object = Object.objects.create(name="Object", owner=cls.owner1)
-        cls.work = Work.objects.create(
-            name="Work", object=cls.object, due_at=timezone.now()
+        cls.task = Task.objects.create(
+            name="Task", object=cls.object, due_at=timezone.now()
         )
 
-    def test_work_object_owner_permissions(self):
+    def test_task_object_owner_permissions(self):
         self.assertEqual(
-            rules.has_perm("journal.view_work", self.owner1, self.work),
+            rules.has_perm("journal.view_task", self.owner1, self.task),
             True,
         )
         self.assertEqual(
-            rules.has_perm("journal.change_work", self.owner1, self.work),
+            rules.has_perm("journal.change_task", self.owner1, self.task),
             True,
         )
         self.assertEqual(
-            rules.has_perm("journal.delete_work", self.owner1, self.work),
+            rules.has_perm("journal.delete_task", self.owner1, self.task),
             True,
         )
 
-    def test_work_object_non_owner_permissions(self):
+    def test_task_object_non_owner_permissions(self):
         self.assertEqual(
-            rules.has_perm("journal.view_work", self.owner2, self.work),
+            rules.has_perm("journal.view_task", self.owner2, self.task),
             False,
         )
         self.assertEqual(
-            rules.has_perm("journal.change_work", self.owner2, self.work),
+            rules.has_perm("journal.change_task", self.owner2, self.task),
             False,
         )
         self.assertEqual(
-            rules.has_perm("journal.delete_work", self.owner2, self.work),
+            rules.has_perm("journal.delete_task", self.owner2, self.task),
             False,
         )

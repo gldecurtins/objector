@@ -23,7 +23,7 @@ class Location(RulesModel):
     class Statuses(models.IntegerChoices):
         RED = 10, _("alert")
         AMBER = 20, _("warning")
-        GREEN = 30, _("good")
+        GREEN = 30, _("normal")
 
     name = models.CharField(_("name"), max_length=200)
     description = models.TextField(_("description"), blank=True)
@@ -89,7 +89,7 @@ class Object(RulesModel):
     class Statuses(models.IntegerChoices):
         RED = 10, _("alert")
         AMBER = 20, _("warning")
-        GREEN = 30, _("good")
+        GREEN = 30, _("normal")
 
     name = models.CharField(_("name"), max_length=200)
     description = models.TextField(_("description"), blank=True)

@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Work detail + {{ object.name }}{% endblock %}
-{% block h1 %}{% translate "Work detail" %}{% endblock %}
+{% block title %}Objector + Journal detail + {{ object.name }}{% endblock %}
+{% block h1 %}{% translate "Journal detail" %}{% endblock %}
 {% block h2 %}{{ object.name }}{% endblock %}
 {% block content %}
 <section aria-labelledby="applicant-information-title">
   <div class="bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6">
       <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-        {% translate "Work detail" %}
+        {% translate "Task detail" %}
       </h2>
       <p class="mt-1 max-w-2xl text-sm text-gray-500">
-        {{ work.name }}
+        {{ task.name }}
       </p>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
@@ -21,7 +21,7 @@
             {% translate "Name" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ work.name }}
+            {{ task.name }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -30,8 +30,8 @@
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             <div
-              class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ work.get_status_color }}-100 text-{{ work.get_status_color }}-800">
-              {{ work.get_status_display }}
+              class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ task.get_status_color }}-100 text-{{ task.get_status_color }}-800">
+              {{ task.get_status_display }}
             </div>
           </dd>
         </div>
@@ -40,7 +40,7 @@
             {% translate "Description" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ work.description|linebreaksbr }}
+            {{ task.description|linebreaksbr }}
           </dd>
         </div>
       </dl>
@@ -52,7 +52,7 @@
             {% translate "Object" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            <a href="{% url 'inventory:object-detail' work.object.id %}">{{ work.object }}</a>
+            <a href="{% url 'inventory:object-detail' journal.object.id %}">{{ journal.object }}</a>
           </dd>
         </div>
         <div class="sm:col-span-2">
@@ -60,7 +60,7 @@
             {% translate "Object owner" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ work.object.owner }}
+            {{ task.object.owner }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -68,7 +68,7 @@
             {% translate "Object management team" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ work.object.management_team }}
+            {{ task.object.management_team }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -76,7 +76,7 @@
             {% translate "Object maintenance team" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ work.object.maintenance_team }}
+            {{ task.object.maintenance_team }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -84,7 +84,7 @@
             {% translate "Created at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ work.created_at }}
+            {{ task.created_at }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -92,7 +92,7 @@
             {% translate "Updated at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ work.updated_at }}
+            {{ task.updated_at }}
           </dd>
         </div>
       </dl>
@@ -100,12 +100,16 @@
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <div class="pt-5">
         <div class="flex justify-end">
-          <a href="{% url 'maintenance:work-update' work.id %}"><button type="button"
+          <a href="{% url 'maintenance:journal-update' journal.object.id journal.id %}"><button type="button"
               class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Change" %}</button></a>
-          <a href="{% url 'maintenance:work-list' %}"><button type="button"
-              class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "List" %}</button></a>
-          <a href="{% url 'maintenance:work-delete' work.id %}"><button type="button"
-              class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Delete" %}</button></a>
+          <a href="{% url 'inventory:object-detail' journal.object.id %}"><button type="button"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Object" %}</button></a>
+          {% if journal.task %}
+          <a href="{% url 'maintenance:task-detail' journal.object.id journal.task.id%}"><button type="button"
+            class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Task" %}</button></a>
+          {% endif %}
+          <a href="{% url 'maintenance:journal-delete' journal.object.id journal.id %}"><button type="button"
+              class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Delete" %}</button></a>
         </div>
       </div>
     </div>

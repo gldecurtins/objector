@@ -1,10 +1,9 @@
-import unittest
-from django.test import Client
+from django.test import Client, TestCase
 from .models import Team
 from django.contrib.auth import get_user_model
 
 
-class NoAccessTest(unittest.TestCase):
+class NoAccessTest(TestCase):
     def setUp(self):
         self.client = Client()
 
@@ -17,7 +16,7 @@ class NoAccessTest(unittest.TestCase):
         self.assertEqual(response.status_code, 302)
 
 
-class TeamCreateTest(unittest.TestCase):
+class TeamCreateTest(TestCase):
     def setUp(self):
         User = get_user_model()
         self.user1, created = User.objects.get_or_create(
@@ -30,6 +29,11 @@ class TeamCreateTest(unittest.TestCase):
 
     def test_team_create_access(self):
         response = self.client1.get("/team/add/")
+        self.assertTemplateUsed(response, "common/team_form.html")
+        self.assertContains(response, "name")
+        self.assertContains(response, "description")
+        self.assertContains(response, "image")
+        self.assertContains(response, "owner")
         self.assertEqual(response.status_code, 200)
 
     def test_team_create_form(self):
@@ -37,6 +41,7 @@ class TeamCreateTest(unittest.TestCase):
             "/team/add/",
             {"name": ""},
         )
+        self.assertContains(response, "This field is required")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Team.objects.count(), 0)
 

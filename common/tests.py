@@ -1,24 +1,60 @@
-from django.test import TestCase
+import unittest
+from django.test import Client
+from .models import Team
 from django.contrib.auth import get_user_model
 
-# Create your tests here.
+
+class NoAccessTest(unittest.TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_no_access_team_create(self):
+        response = self.client.get("/team/add/")
+        self.assertEqual(response.status_code, 302)
+
+    def test_no_access_team_list(self):
+        response = self.client.get("/team/")
+        self.assertEqual(response.status_code, 302)
 
 
-class UserTest(TestCase):
-    def test_create_owner1(self):
+class TeamCreateTest(unittest.TestCase):
+    def setUp(self):
         User = get_user_model()
-        self.owner1 = User.objects.create_user(
-            username="owner1@objector.com", email="owner1@objector.com", password="foo"
+        self.user1, created = User.objects.get_or_create(
+            username="user1@objector.local",
+            email="user1@objector.local",
+            password="foo",
         )
-        self.assertEqual(self.owner1.email, "owner1@objector.com")
-        self.assertFalse(self.owner1.is_staff)
-        self.assertFalse(self.owner1.is_superuser)
+        self.client1 = Client()
+        self.client1.force_login(self.user1)
 
-    def test_create_owner2(self):
-        User = get_user_model()
-        self.owner2 = User.objects.create_user(
-            username="owner2@objector.com", email="owner2@objector.com", password="foo"
+    def test_team_create_access(self):
+        response = self.client1.get("/team/add/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_team_create_form(self):
+        response = self.client1.post(
+            "/team/add/",
+            {"name": ""},
         )
-        self.assertEqual(self.owner2.email, "owner2@objector.com")
-        self.assertFalse(self.owner2.is_staff)
-        self.assertFalse(self.owner2.is_superuser)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Team.objects.count(), 0)
+
+    def test_team_create_form_ok(self):
+        name = "test team name"
+        description = "test team description"
+        owner = self.user1
+        self.client1.post(
+            "/team/add/",
+            {
+                "name": name,
+                "description": description,
+                "owner": owner.id,
+            },
+        )
+        self.assertEqual(
+            Team.objects.filter(
+                name=name, description=description, owner=self.user1
+            ).count(),
+            1,
+        )

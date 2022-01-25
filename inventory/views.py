@@ -32,7 +32,6 @@ class ObjectListView(LoginRequiredMixin, ListView):
 class ObjectCreateView(LoginRequiredMixin, CreateView):
     model = Object
     form_class = ObjectForm
-    success_url = reverse_lazy("inventory:object-list")
 
     def get_initial(self):
         initial = {}
@@ -77,7 +76,6 @@ class ObjectUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = "inventory.change_object"
     raise_exception = True
     form_class = ObjectForm
-    success_url = reverse_lazy("inventory:object-list")
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -122,7 +120,6 @@ class LocationCreateView(LoginRequiredMixin, CreateView):
         "management_team",
         "maintenance_team",
     ]
-    success_url = reverse_lazy("inventory:location-list")
 
     def get_initial(self):
         initial = {}
@@ -167,7 +164,6 @@ class LocationUpdateView(PermissionRequiredMixin, UpdateView):
         "management_team",
         "maintenance_team",
     ]
-    success_url = reverse_lazy("inventory:location-list")
 
 
 class LocationDeleteView(PermissionRequiredMixin, DeleteView):

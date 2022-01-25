@@ -7,16 +7,16 @@ from common.models import Team
 from django.utils.translation import gettext_lazy as _
 
 
-def object_image_upload_handler(instance, filename):
-    file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
-    file_suffix = pathlib.Path(filename).suffix
-    return f"object_image/{file_name}{file_suffix}"
-
-
 def location_image_upload_handler(instance, filename):
     file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
     file_suffix = pathlib.Path(filename).suffix
     return f"location_image/{file_name}{file_suffix}"
+
+
+def object_image_upload_handler(instance, filename):
+    file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
+    file_suffix = pathlib.Path(filename).suffix
+    return f"object_image/{file_name}{file_suffix}"
 
 
 class Location(RulesModel):

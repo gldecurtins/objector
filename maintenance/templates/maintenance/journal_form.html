@@ -5,7 +5,7 @@
 {% block h1 %}{% translate "Journal form" %}{% endblock %}
 {% block h2 %}{{ object.name }}{% endblock %}
 {% block content %}
-<form class="space-y-8 divide-y divide-gray-200" method="post">{% csrf_token %}
+<form method="POST" enctype="multipart/form-data" class="space-y-8 divide-y divide-gray-200">{% csrf_token %}
     {{ form | crispy }}
     <div class="pt-5">
         <div class="flex justify-end">

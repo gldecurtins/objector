@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-25 15:32+0000\n"
+"POT-Creation-Date: 2022-01-25 16:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgid "created at"
 msgstr "Erstellt"
 
 #: common/models.py:40 inventory/models.py:65 inventory/models.py:136
-#: maintenance/models.py:37
+#: maintenance/models.py:37 maintenance/models.py:97
 msgid "updated at"
 msgstr "Aktualisiert"
 
@@ -80,15 +80,16 @@ msgstr "Standort"
 
 #: common/templates/base.html:86 common/templates/base.html:122
 #: inventory/templates/inventory/object_detail.html:126
-#: maintenance/templates/maintenance/journal_detail.html:52
-#: maintenance/templates/maintenance/journal_detail.html:106
+#: maintenance/templates/maintenance/journal_detail.html:18
+#: maintenance/templates/maintenance/journal_detail.html:102
 #: maintenance/templates/maintenance/task_detail.html:52
 #: maintenance/templates/maintenance/task_list.html:21
 msgid "Object"
 msgstr "Objekt"
 
 #: common/templates/base.html:88 common/templates/base.html:124
-#: maintenance/templates/maintenance/journal_detail.html:109
+#: maintenance/templates/maintenance/journal_detail.html:32
+#: maintenance/templates/maintenance/journal_detail.html:105
 msgid "Task"
 msgstr "Auftrag"
 
@@ -129,10 +130,10 @@ msgstr "Liste"
 #: inventory/templates/inventory/object_confirm_delete.html:14
 #: inventory/templates/inventory/object_detail.html:100
 #: inventory/templates/inventory/object_detail.html:198
-#: inventory/templates/inventory/object_detail.html:284
+#: inventory/templates/inventory/object_detail.html:296
 #: inventory/templates/inventory/object_list.html:78
 #: maintenance/templates/maintenance/journal_confirm_delete.html:14
-#: maintenance/templates/maintenance/journal_detail.html:112
+#: maintenance/templates/maintenance/journal_detail.html:108
 #: maintenance/templates/maintenance/task_confirm_delete.html:14
 #: maintenance/templates/maintenance/task_detail.html:108
 #: maintenance/templates/maintenance/task_detail.html:173
@@ -152,7 +153,6 @@ msgstr "Team Details"
 #: inventory/templates/inventory/object_detail.html:21
 #: inventory/templates/inventory/object_detail.html:120
 #: inventory/templates/inventory/object_list.html:18
-#: maintenance/templates/maintenance/journal_detail.html:21
 #: maintenance/templates/maintenance/task_detail.html:21
 #: maintenance/templates/maintenance/task_list.html:18
 msgid "Name"
@@ -164,7 +164,6 @@ msgstr ""
 #: inventory/templates/inventory/location_detail.html:136
 #: inventory/templates/inventory/object_detail.html:40
 #: inventory/templates/inventory/object_detail.html:123
-#: maintenance/templates/maintenance/journal_detail.html:40
 #: maintenance/templates/maintenance/task_detail.html:40
 msgid "Description"
 msgstr "Beschreibung"
@@ -178,7 +177,7 @@ msgstr "Eigentümer"
 #: common/templates/common/team_detail.html:47
 #: inventory/templates/inventory/location_detail.html:89
 #: inventory/templates/inventory/object_detail.html:76
-#: maintenance/templates/maintenance/journal_detail.html:84
+#: maintenance/templates/maintenance/journal_detail.html:80
 #: maintenance/templates/maintenance/task_detail.html:84
 msgid "Created at"
 msgstr "Erstellt"
@@ -189,7 +188,7 @@ msgstr "Erstellt"
 #: inventory/templates/inventory/location_detail.html:145
 #: inventory/templates/inventory/object_detail.html:84
 #: inventory/templates/inventory/object_detail.html:138
-#: maintenance/templates/maintenance/journal_detail.html:92
+#: maintenance/templates/maintenance/journal_detail.html:88
 #: maintenance/templates/maintenance/task_detail.html:92
 msgid "Updated at"
 msgstr "Aktualisiert"
@@ -201,9 +200,9 @@ msgstr "Aktualisiert"
 #: inventory/templates/inventory/location_list.html:60
 #: inventory/templates/inventory/object_detail.html:96
 #: inventory/templates/inventory/object_detail.html:191
-#: inventory/templates/inventory/object_detail.html:277
+#: inventory/templates/inventory/object_detail.html:289
 #: inventory/templates/inventory/object_list.html:71
-#: maintenance/templates/maintenance/journal_detail.html:104
+#: maintenance/templates/maintenance/journal_detail.html:100
 #: maintenance/templates/maintenance/task_detail.html:104
 #: maintenance/templates/maintenance/task_detail.html:166
 #: maintenance/templates/maintenance/task_list.html:67
@@ -229,7 +228,7 @@ msgstr "E-Mail"
 #: inventory/templates/inventory/location_detail.html:148
 #: inventory/templates/inventory/location_list.html:27
 #: inventory/templates/inventory/object_detail.html:141
-#: inventory/templates/inventory/object_detail.html:248
+#: inventory/templates/inventory/object_detail.html:251
 #: inventory/templates/inventory/object_list.html:30
 #: maintenance/templates/maintenance/task_detail.html:137
 #: maintenance/templates/maintenance/task_list.html:30
@@ -265,7 +264,7 @@ msgstr "Teamliste"
 #: inventory/templates/inventory/location_detail.html:185
 #: inventory/templates/inventory/location_list.html:53
 #: inventory/templates/inventory/object_detail.html:184
-#: inventory/templates/inventory/object_detail.html:270
+#: inventory/templates/inventory/object_detail.html:282
 #: inventory/templates/inventory/object_list.html:64
 #: maintenance/templates/maintenance/task_detail.html:159
 #: maintenance/templates/maintenance/task_list.html:60
@@ -350,7 +349,8 @@ msgstr "Management Team"
 
 #: inventory/models.py:53
 msgid "Team members can view, change or delete this location."
-msgstr "Mitglieder des Teams können diesen Standort ansehen, ändern oder löschen."
+msgstr ""
+"Mitglieder des Teams können diesen Standort ansehen, ändern oder löschen."
 
 #: inventory/models.py:57 inventory/models.py:128
 msgid "maintenance team"
@@ -411,7 +411,6 @@ msgstr "Objekt Details"
 #: inventory/templates/inventory/object_detail.html:29
 #: inventory/templates/inventory/object_detail.html:129
 #: inventory/templates/inventory/object_list.html:24
-#: maintenance/templates/maintenance/journal_detail.html:29
 #: maintenance/templates/maintenance/task_detail.html:29
 msgid "Status"
 msgstr "Status"
@@ -468,13 +467,13 @@ msgid "Overdue on"
 msgstr "Überfällig am"
 
 #: inventory/templates/inventory/object_detail.html:226
-#: maintenance/templates/maintenance/task_detail.html:115
 #, fuzzy
-#| msgid "Related task"
-msgid "Related journal"
-msgstr "Zugehöriges Journal"
+#| msgid "Task detail"
+msgid "Journal"
+msgstr "Arbeit Details"
 
 #: inventory/templates/inventory/object_detail.html:239
+#: maintenance/templates/maintenance/journal_detail.html:48
 #: maintenance/templates/maintenance/task_detail.html:128
 #, fuzzy
 #| msgid "notes"
@@ -482,12 +481,18 @@ msgid "Notes"
 msgstr "Notizen"
 
 #: inventory/templates/inventory/object_detail.html:242
+#, fuzzy
+#| msgid "image"
+msgid "Image"
+msgstr "Bild"
+
+#: inventory/templates/inventory/object_detail.html:245
 #: maintenance/models.py:91
 #: maintenance/templates/maintenance/task_detail.html:131
 msgid "labor costs"
 msgstr "Arbeitskosten"
 
-#: inventory/templates/inventory/object_detail.html:245
+#: inventory/templates/inventory/object_detail.html:248
 #: maintenance/models.py:94
 #: maintenance/templates/maintenance/task_detail.html:134
 msgid "material costs"
@@ -523,7 +528,7 @@ msgstr "Fällig am"
 
 #: maintenance/models.py:35
 msgid "overdue at"
-msgstr "Fällig am"
+msgstr "Überfällig am"
 
 #: maintenance/models.py:40 maintenance/models.py:80
 msgid "task"
@@ -546,31 +551,23 @@ msgid "Delete journal"
 msgstr "Journaleintrag löschen"
 
 #: maintenance/templates/maintenance/journal_detail.html:4
+#: maintenance/templates/maintenance/journal_detail.html:11
 #, fuzzy
 #| msgid "Task detail"
 msgid "Journal detail"
 msgstr "Arbeit Details"
 
-#: maintenance/templates/maintenance/journal_detail.html:11
-#: maintenance/templates/maintenance/task_detail.html:4
-#: maintenance/templates/maintenance/task_detail.html:11
-msgid "Task detail"
-msgstr "Auftragsdetails"
-
 #: maintenance/templates/maintenance/journal_detail.html:60
-#: maintenance/templates/maintenance/task_detail.html:60
-msgid "Object owner"
-msgstr "Objekt Eigentümer"
+#, fuzzy
+#| msgid "labor costs"
+msgid "Labor costs"
+msgstr "Arbeitskosten"
 
 #: maintenance/templates/maintenance/journal_detail.html:68
-#: maintenance/templates/maintenance/task_detail.html:68
-msgid "Object management team"
-msgstr "Objekt Management Team"
-
-#: maintenance/templates/maintenance/journal_detail.html:76
-#: maintenance/templates/maintenance/task_detail.html:76
-msgid "Object maintenance team"
-msgstr "Objekt Instandhaltungs Team"
+#, fuzzy
+#| msgid "material costs"
+msgid "Material costs"
+msgstr "Materialkosten"
 
 #: maintenance/templates/maintenance/journal_form.html:5
 msgid "Journal form"
@@ -579,6 +576,29 @@ msgstr ""
 #: maintenance/templates/maintenance/task_confirm_delete.html:4
 msgid "Delete task"
 msgstr "Auftrag löschen"
+
+#: maintenance/templates/maintenance/task_detail.html:4
+#: maintenance/templates/maintenance/task_detail.html:11
+msgid "Task detail"
+msgstr "Auftragsdetails"
+
+#: maintenance/templates/maintenance/task_detail.html:60
+msgid "Object owner"
+msgstr "Objekt Eigentümer"
+
+#: maintenance/templates/maintenance/task_detail.html:68
+msgid "Object management team"
+msgstr "Objekt Management Team"
+
+#: maintenance/templates/maintenance/task_detail.html:76
+msgid "Object maintenance team"
+msgstr "Objekt Instandhaltungs Team"
+
+#: maintenance/templates/maintenance/task_detail.html:115
+#, fuzzy
+#| msgid "Related task"
+msgid "Related journal"
+msgstr "Journal"
 
 #: maintenance/templates/maintenance/task_form.html:5
 #, fuzzy
@@ -589,4 +609,3 @@ msgstr "Auftrag"
 #: maintenance/templates/maintenance/task_list.html:6
 msgid "Task list"
 msgstr "Auftragsliste"
-

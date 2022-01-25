@@ -4,87 +4,83 @@
 {% block h1 %}{% translate "Journal detail" %}{% endblock %}
 {% block h2 %}{{ object.name }}{% endblock %}
 {% block content %}
-<section aria-labelledby="applicant-information-title">
+<section aria-labelledby="journal-detail-title">
   <div class="bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6">
-      <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-        {% translate "Task detail" %}
+      <h2 id="journal-detail-title" class="text-lg leading-6 font-medium text-gray-900">
+        {% translate "Journal detail" %}
       </h2>
-      <p class="mt-1 max-w-2xl text-sm text-gray-500">
-        {{ task.name }}
-      </p>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Name" %}
+            {% translate "Object" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ task.name }}
+            {% if journal.object %}
+            <a href="{% url 'inventory:object-detail' journal.object.id %}">
+              {{ journal.object }}
+            </a>
+            {% else %}
+            {{ journal.object }}
+            {% endif %}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Status" %}
+            {% translate "Task" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            <div
-              class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ task.get_status_color }}-100 text-{{ task.get_status_color }}-800">
-              {{ task.get_status_display }}
+            <div>
+              {% if journal.task %}
+              <a href="{% url 'maintenance:task-detail' journal.task.id %}">
+                {{ journal.task }}
+              </a>
+              {% else %}
+              {{ journal.task }}
+              {% endif %}
             </div>
           </dd>
         </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Description" %}
+            {% translate "Notes" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ task.description|linebreaksbr }}
+            {{ journal.notes|linebreaksbr }}
           </dd>
         </div>
       </dl>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-        <div class="sm:col-span-2">
+        <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Object" %}
+            {% translate "Labor costs" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            <a href="{% url 'inventory:object-detail' journal.object.id %}">{{ journal.object }}</a>
-          </dd>
-        </div>
-        <div class="sm:col-span-2">
-          <dt class="text-sm font-medium text-gray-500">
-            {% translate "Object owner" %}
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ task.object.owner }}
+            {{ journal.labor_costs }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Object management team" %}
+            {% translate "Material costs" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ task.object.management_team }}
+            {{ journal.material_costs }}
           </dd>
         </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">
-            {% translate "Object maintenance team" %}
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ task.object.maintenance_team }}
-          </dd>
-        </div>
+      </dl>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
             {% translate "Created at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ task.created_at }}
+            {{ journal.created_at }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -92,7 +88,7 @@
             {% translate "Updated at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ task.updated_at }}
+            {{ journal.updated_at }}
           </dd>
         </div>
       </dl>

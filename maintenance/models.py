@@ -7,10 +7,10 @@ import uuid
 import pathlib
 
 
-def log_image_upload_handler(instance, filename):
+def journal_image_upload_handler(instance, filename):
     file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
     file_suffix = pathlib.Path(filename).suffix
-    return f"object_image/{file_name}{file_suffix}"
+    return f"journal_image/{file_name}{file_suffix}"
 
 
 class Task(RulesModel):
@@ -85,7 +85,7 @@ class Journal(RulesModel):
     )
     notes = models.TextField(_("notes"), blank=True)
     image = models.ImageField(
-        _("image"), upload_to=log_image_upload_handler, blank=True, null=True
+        _("image"), upload_to=journal_image_upload_handler, blank=True, null=True
     )
     labor_costs = models.DecimalField(
         _("labor costs"), blank=True, null=True, decimal_places=2, max_digits=9
@@ -94,9 +94,10 @@ class Journal(RulesModel):
         _("material costs"), blank=True, null=True, decimal_places=2, max_digits=9
     )
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     def __str__(self):
-        return self.notes
+        return self.created_at + " @" + self.object
 
     def get_absolute_url(self):
         return f"/object/{self.object.id}/journal/{self.id}"

@@ -7,13 +7,7 @@ from django.views.generic import (
     DeleteView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
-from rules.contrib.views import (
-    PermissionRequiredMixin,
-    permission_required,
-    objectgetter,
-)
-from inventory.models import Object
+from rules.contrib.views import PermissionRequiredMixin
 from .models import Task, Journal
 from .forms import TaskForm, JournalForm
 

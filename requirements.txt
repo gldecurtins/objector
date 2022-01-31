@@ -1,5 +1,5 @@
 flake8==4.0.1
-black==21.12b0
+black==22.1.0
 Django==4.0.1
 python-jose==3.3.0
 social-auth-app-django==5.0.0

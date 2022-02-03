@@ -4,7 +4,15 @@ Object stamina
 ## Documentation
 https://github.com/gldecurtins/objector/wiki
 
-## Installation
+## Docker development setup
+
+```
+cd ~
+git clone https://github.com/gldecurtins/objector
+docker-compose up
+```
+
+## Python Virtual Environment development setup
 
 ```
 cd ~

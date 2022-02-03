@@ -12,7 +12,7 @@ git clone https://github.com/gldecurtins/objector
 python3 -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 python3 manage.py check
 ```
 

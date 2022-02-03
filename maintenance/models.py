@@ -57,7 +57,7 @@ class Task(RulesModel):
         return new_task_status
 
     @property
-    def get_status_color(self):
+    def status_color(self):
         status_color = "green"
         if self.status == self.Statuses.OVERDUE:
             status_color = "red"

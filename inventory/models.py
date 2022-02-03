@@ -76,7 +76,7 @@ class Location(RulesModel):
         return f"/location/{self.id}"
 
     @property
-    def get_status_color(self):
+    def status_color(self):
         status_color = "green"
         if self.status == self.Statuses.RED:
             status_color = "red"
@@ -150,7 +150,7 @@ class Object(RulesModel):
         return f"/object/{self.id}"
 
     @property
-    def get_status_color(self):
+    def status_color(self):
         status_color = "green"
         if self.status == self.Statuses.RED:
             status_color = "red"

@@ -50,7 +50,7 @@
       }).addTo(mymap);
       {% if locations %}
       {% for location in locations %}
-      var marker{{ location.id }} = L.marker([{{ location.latitude }}, {{ location.longitude }}], { icon: {{ location.get_status_color }}Icon }).bindPopup("<a href='{% url 'inventory:location-detail' location.id %}'>{{ location.name }}</a>").addTo(mymap);
+      var marker{{ location.id }} = L.marker([{{ location.latitude }}, {{ location.longitude }}], { icon: {{ location.status_color }}Icon }).bindPopup("<a href='{% url 'inventory:location-detail' location.id %}'>{{ location.name }}</a>").addTo(mymap);
       {% endfor %}
       {% endif %}
 

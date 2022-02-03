@@ -35,7 +35,7 @@
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             <div
-              class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ location.get_status_color }}-100 text-{{ location.get_status_color }}-800">
+              class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ location.status_color }}-100 text-{{ location.status_color }}-800">
               {{ location.get_status_display }}
             </div>
           </dd>
@@ -169,7 +169,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   <div
-                    class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ object.get_status_color }}-100 text-{{ object.get_status_color }}-800">
+                    class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ object.status_color }}-100 text-{{ object.status_color }}-800">
                     {{ object.get_status_display }}
                   </div>
                 </td>

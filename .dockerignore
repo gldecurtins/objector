@@ -20,3 +20,9 @@ _media/
 
 # SQLite
 db.sqlite3
+
+# GitHub
+.github/
+
+# Visual Studio Code
+.vscode/

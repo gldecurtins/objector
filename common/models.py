@@ -24,7 +24,7 @@ class Team(RulesModel):
         on_delete=models.CASCADE,
         primary_key=True,
     )
-    name = models.CharField(_("name"), max_length=80)
+    name = models.CharField(_("name"), max_length=80, unique=True)
     description = models.TextField(_("description"), blank=True)
     image = models.ImageField(
         _("image"), upload_to=team_image_upload_handler, blank=True, null=True

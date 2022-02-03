@@ -20,5 +20,8 @@ services:
       - SECRET_KEY=unsafe-secret-key
       - DEBUG=True
       - DATABASE_URL=postgresql://postgres:postgres@db/postgres
+      - SOCIAL_AUTH_AUTH0_DOMAIN=${SOCIAL_AUTH_AUTH0_DOMAIN}
+      - SOCIAL_AUTH_AUTH0_KEY=${SOCIAL_AUTH_AUTH0_KEY}
+      - SOCIAL_AUTH_AUTH0_SECRET=${SOCIAL_AUTH_AUTH0_SECRET}
     depends_on:
       - db

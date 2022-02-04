@@ -1,13 +1,10 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import logout as django_logout
-from django.conf import settings
-from django.views.generic.base import TemplateView
-from django.contrib.auth.decorators import login_required
-import json
-from django.contrib.auth.mixins import LoginRequiredMixin
-from rules.contrib.views import PermissionRequiredMixin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.conf import settings
+from django.views.generic.base import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from rules.contrib.views import PermissionRequiredMixin
 from inventory.models import Location, Team
 from django.views.generic import (
     CreateView,

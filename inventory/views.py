@@ -36,21 +36,11 @@ class ObjectCreateView(LoginRequiredMixin, CreateView):
     def get_initial(self):
         initial = {}
         initial["owner"] = self.request.user.id
-        try:
-            initial["location"] = int(self.request.GET["location"])
-        except:
-            pass
-
-        try:
-            initial["management_team"] = int(self.request.GET["management_team"])
-        except:
-            pass
-
-        try:
-            initial["maintenance_team"] = int(self.request.GET["maintenance_team"])
-        except:
-            pass
-
+        initial["location"] = int(self.request.GET.get("location", False))
+        initial["management_team"] = int(self.request.GET.get("management_team", False))
+        initial["maintenance_team"] = int(
+            self.request.GET.get("maintenance_team", False)
+        )
         return initial
 
     def get_form_kwargs(self):
@@ -124,17 +114,10 @@ class LocationCreateView(LoginRequiredMixin, CreateView):
     def get_initial(self):
         initial = {}
         initial["owner"] = self.request.user.id
-
-        try:
-            initial["management_team"] = int(self.request.GET["management_team"])
-        except:
-            pass
-
-        try:
-            initial["maintenance_team"] = int(self.request.GET["maintenance_team"])
-        except:
-            pass
-
+        initial["management_team"] = int(self.request.GET.get("management_team", False))
+        initial["maintenance_team"] = int(
+            self.request.GET.get("maintenance_team", False)
+        )
         return initial
 
 

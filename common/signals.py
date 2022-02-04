@@ -6,10 +6,10 @@ from common.models import Team
 
 
 @receiver(post_delete, sender=Team)
-def delete_group(sender, instance, **kwargs):
+def team_delete_group_receiver(sender, instance, **kwargs):
     # TODO: Use celery for async operation: https://docs.djangoproject.com/en/3.2/topics/db/transactions/
-    transaction.on_commit(lambda: delete_group(instance))
+    transaction.on_commit(lambda: team_delete_group(instance))
 
 
-def delete_group(team_instance):
+def team_delete_group(team_instance):
     Group.objects.filter(id=team_instance.group.id).delete()

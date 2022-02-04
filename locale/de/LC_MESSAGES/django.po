@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-25 16:12+0000\n"
+"POT-Creation-Date: 2022-02-04 10:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,17 +27,17 @@ msgid "group"
 msgstr "Gruppe"
 
 #: common/models.py:27 inventory/models.py:28 inventory/models.py:94
-#: maintenance/models.py:23
+#: inventory/models.py:168 maintenance/models.py:23
 msgid "name"
 msgstr "Name"
 
 #: common/models.py:28 inventory/models.py:29 inventory/models.py:95
-#: maintenance/models.py:24
+#: inventory/models.py:169 maintenance/models.py:24
 msgid "description"
 msgstr "Beschreibung"
 
 #: common/models.py:30 inventory/models.py:31 inventory/models.py:97
-#: maintenance/models.py:88
+#: inventory/models.py:171 maintenance/models.py:88
 msgid "image"
 msgstr "Bild"
 
@@ -46,12 +46,12 @@ msgid "owner"
 msgstr "Eigentümer"
 
 #: common/models.py:39 inventory/models.py:64 inventory/models.py:135
-#: maintenance/models.py:36 maintenance/models.py:96
+#: inventory/models.py:182 maintenance/models.py:36 maintenance/models.py:96
 msgid "created at"
 msgstr "Erstellt"
 
 #: common/models.py:40 inventory/models.py:65 inventory/models.py:136
-#: maintenance/models.py:37 maintenance/models.py:97
+#: inventory/models.py:183 maintenance/models.py:37 maintenance/models.py:97
 msgid "updated at"
 msgstr "Aktualisiert"
 
@@ -301,7 +301,7 @@ msgstr "Nächste"
 
 #: common/templates/common/team_member_confirm_delete.html:3
 msgid "Team member delete"
-msgstr ""
+msgstr "Mitglied entfernen"
 
 #: common/templates/common/team_member_form.html:5
 msgid "Team member form"
@@ -311,15 +311,15 @@ msgstr ""
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: inventory/models.py:24 inventory/models.py:90
+#: inventory/models.py:24 inventory/models.py:90 inventory/models.py:164
 msgid "alert"
 msgstr "Alarm"
 
-#: inventory/models.py:25 inventory/models.py:91
+#: inventory/models.py:25 inventory/models.py:91 inventory/models.py:165
 msgid "warning"
 msgstr "Achtung"
 
-#: inventory/models.py:26 inventory/models.py:92
+#: inventory/models.py:26 inventory/models.py:92 inventory/models.py:166
 msgid "normal"
 msgstr "Normal"
 
@@ -335,7 +335,8 @@ msgstr "Breite (latitude)"
 msgid "longitude"
 msgstr "Länge (longitude)"
 
-#: inventory/models.py:37 inventory/models.py:108 maintenance/models.py:32
+#: inventory/models.py:37 inventory/models.py:108 inventory/models.py:180
+#: maintenance/models.py:32
 msgid "status"
 msgstr "Status"
 
@@ -380,13 +381,22 @@ msgstr "Mitglieder des Teams können dieses Objekt ansehen oder ändern."
 msgid "Team members can view this object."
 msgstr "Mitglieder des Teams können dieses Objekt ansehen."
 
-#: inventory/models.py:139 maintenance/models.py:27 maintenance/models.py:74
+#: inventory/models.py:139 inventory/models.py:175 maintenance/models.py:27
+#: maintenance/models.py:74
 msgid "object"
 msgstr "Objekt"
 
 #: inventory/models.py:140
 msgid "objects"
 msgstr "Objekte"
+
+#: inventory/models.py:186
+msgid "sensor"
+msgstr "Sensor"
+
+#: inventory/models.py:187
+msgid "sensors"
+msgstr "Sensoren"
 
 #: inventory/templates/inventory/location_confirm_delete.html:4
 msgid "Location delete"

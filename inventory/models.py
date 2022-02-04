@@ -157,3 +157,50 @@ class Object(RulesModel):
         elif self.status == self.Statuses.AMBER:
             status_color = "amber"
         return status_color
+
+
+class Sensor(RulesModel):
+    class Statuses(models.IntegerChoices):
+        RED = 10, _("alert")
+        AMBER = 20, _("warning")
+        GREEN = 30, _("normal")
+
+    name = models.CharField(_("name"), max_length=200)
+    description = models.TextField(_("description"), blank=True)
+    image = models.ImageField(
+        _("image"), upload_to=object_image_upload_handler, blank=True, null=True
+    )
+    object = models.ForeignKey(
+        Object,
+        verbose_name=_("object"),
+        related_name="sensor_object",
+        on_delete=models.CASCADE,
+    )
+    status = models.PositiveSmallIntegerField(
+        _("status"), choices=Statuses.choices, default=Statuses.GREEN
+    )
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("sensor")
+        verbose_name_plural = _("sensors")
+        ordering = ["status", "name"]
+
+    def __str__(self):
+        name = self.name
+        if self.location:
+            name = self.name + " @" + str(self.object)
+        return name
+
+    def get_absolute_url(self):
+        return f"/object/{object.id}/sensor/{self.id}"
+
+    @property
+    def status_color(self):
+        status_color = "green"
+        if self.status == self.Statuses.RED:
+            status_color = "red"
+        elif self.status == self.Statuses.AMBER:
+            status_color = "amber"
+        return status_color

@@ -34,10 +34,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
     def get_initial(self):
         initial = {}
-        try:
-            initial["object"] = int(self.request.GET.get("object", False))
-        except:
-            pass
+        initial["object"] = int(self.request.GET.get("object", False))
         return initial
 
     def get_form_kwargs(self):

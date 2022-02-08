@@ -12,6 +12,7 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/cache/apt/* && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
 COPY requirements.txt requirements-dev.txt /app/
+RUN pip install --upgrade pip
 RUN pip install --upgrade --no-cache-dir --requirement $REQUIREMENTS --disable-pip-version-check
 
 COPY . /app/

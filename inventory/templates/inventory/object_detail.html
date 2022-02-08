@@ -260,9 +260,12 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {% if journal.image %}
-                  <a href="{{ journal.image.url }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                  </svg></a>
+                  <a href="{{ journal.image.url }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                      viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd"
+                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                        clip-rule="evenodd" />
+                    </svg></a>
                   {% else %}
                   {{ journal.image }}
                   {% endif %}
@@ -309,6 +312,80 @@
   {% endif %}
   <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
     <a href="{% url 'maintenance:journal-create' %}?object={{ object.id }}">
+      <button type="button"
+        class="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <!-- Heroicon name: outline/plus-sm -->
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        </svg>
+      </button>
+    </a>
+  </div>
+  <div class="px-4 py-5 sm:px-6">
+    <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
+      {% translate "Sensor" %}
+    </h2>
+  </div>
+  {% if sensor %}
+  {% load rules %}
+  <div class="flex flex-col">
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {% translate "Name" %}
+                </th>
+                <th scope="col" class="relative px-6 py-3">
+                  <span class="sr-only">{% translate "Action" %}</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sensor in sensor %}
+              <tr class="bg-white">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <a href="{% url 'inventory:sensor-detail' sensor.object.id sensor.id %}">{{ sensor.name }}</a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <div class="ml-4 flex-shrink-0 flex space-x-4">
+                    {% has_perm 'inventory.view_sensor' user sensor as can_view_sensor %}
+                    {% if can_view_sensor %}
+                    <a href="{% url 'inventory:sensor-detail' sensor.object.id sensor.id %}"><button type="button"
+                        class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        {% translate "View" %}
+                      </button></a>
+                    {% endif %}
+                    {% has_perm 'inventory.change_sensor' user sensor as can_change_sensor %}
+                    {% if can_change_sensor %}
+                    <a href="{% url 'inventory:sensor-update' sensor.object.id sensor.id %}"><button type="button"
+                        class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        {% translate "Change" %}
+                      </button></a>
+                    {% endif %}
+                    {% has_perm 'inventory.delete_sensor' user sensor as can_delete_sensor %}
+                    {% if can_delete_sensor %}
+                    <a href="{% url 'inventory:sensor-delete' sensor.object.id sensor.id %}"><button type="button"
+                        class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        {% translate "Delete" %}
+                      </button></a>
+                    {% endif %}
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+    <a href="{% url 'inventory:sensor-create' %}?object={{ object.id }}">
       <button type="button"
         class="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
         <!-- Heroicon name: outline/plus-sm -->

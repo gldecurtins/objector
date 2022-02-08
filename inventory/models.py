@@ -179,6 +179,7 @@ class Sensor(RulesModel):
     status = models.PositiveSmallIntegerField(
         _("status"), choices=Statuses.choices, default=Statuses.GREEN
     )
+    payload = models.JSONField(_("payload"), blank=True, null=True)
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
@@ -194,7 +195,7 @@ class Sensor(RulesModel):
         return name
 
     def get_absolute_url(self):
-        return f"/object/{object.id}/sensor/{self.id}"
+        return f"/object/{self.object.id}/sensor/{self.id}"
 
     @property
     def status_color(self):

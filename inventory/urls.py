@@ -4,19 +4,6 @@ from . import views
 app_name = "inventory"
 
 urlpatterns = [
-    path("object/", views.ObjectListView.as_view(), name="object-list"),
-    path("object/add/", views.ObjectCreateView.as_view(), name="object-create"),
-    path("object/<int:pk>/", views.ObjectDetailView.as_view(), name="object-detail"),
-    path(
-        "object/<int:pk>/change/",
-        views.ObjectUpdateView.as_view(),
-        name="object-update",
-    ),
-    path(
-        "object/<int:pk>/delete/",
-        views.ObjectDeleteView.as_view(),
-        name="object-delete",
-    ),
     path("location/", views.LocationListView.as_view(), name="location-list"),
     path("location/add/", views.LocationCreateView.as_view(), name="location-create"),
     path(
@@ -31,5 +18,39 @@ urlpatterns = [
         "location/<int:pk>/delete/",
         views.LocationDeleteView.as_view(),
         name="location-delete",
+    ),
+    path("object/", views.ObjectListView.as_view(), name="object-list"),
+    path("object/add/", views.ObjectCreateView.as_view(), name="object-create"),
+    path("object/<int:pk>/", views.ObjectDetailView.as_view(), name="object-detail"),
+    path(
+        "object/<int:pk>/change/",
+        views.ObjectUpdateView.as_view(),
+        name="object-update",
+    ),
+    path(
+        "object/<int:pk>/delete/",
+        views.ObjectDeleteView.as_view(),
+        name="object-delete",
+    ),
+    path("object/sensor/add/", views.SensorCreateView.as_view(), name="sensor-create"),
+    path(
+        "object/<int:object_id>/sensor/<int:pk>/",
+        views.SensorDetailView.as_view(),
+        name="sensor-detail",
+    ),
+    path(
+        "object/<int:object_id>/sensor/<int:pk>/change/",
+        views.SensorUpdateView.as_view(),
+        name="sensor-update",
+    ),
+    path(
+        "object/<int:object_id>/sensor/<int:pk>/webhook/",
+        views.SensorWebhookView.as_view(),
+        name="sensor-webhook",
+    ),
+    path(
+        "object/<int:object_id>/sensor/<int:pk>/delete/",
+        views.SensorDeleteView.as_view(),
+        name="sensor-delete",
     ),
 ]

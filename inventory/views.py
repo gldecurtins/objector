@@ -18,6 +18,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseForbidden
 from django.views.generic.detail import SingleObjectMixin
+import logging
 
 
 class LocationListView(LoginRequiredMixin, ListView):
@@ -204,6 +205,9 @@ class SensorWebhookView(SingleObjectMixin, View):
     model = Sensor
 
     def post(self, request, *args, **kwargs):
+        logger = logging.getLogger(__name__)
+        logger.error("Webhook headers: " + str(request.headers))
+        logger.error("Webhook body: " + str(request.body))
         apikey = request.headers.get("Authorization", "test")
         if not apikey:
             return HttpResponseForbidden(

@@ -16,9 +16,8 @@ from maintenance.models import Task, Journal
 from .forms import ObjectForm
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic.detail import SingleObjectMixin
-import logging
 
 
 class LocationListView(LoginRequiredMixin, ListView):
@@ -201,15 +200,18 @@ class SensorUpdateView(PermissionRequiredMixin, UpdateView):
     ]
 
 
+class SensorDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Sensor
+    permission_required = "inventory.delete_sensor"
+    raise_exception = True
+    success_url = reverse_lazy("inventory:location-list")
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 class SensorWebhookView(SingleObjectMixin, View):
     model = Sensor
 
     def post(self, request, *args, **kwargs):
-        logger = logging.getLogger(__name__)
-        logger.error("Webhook headers: " + str(request.headers))
-        logger.error("Webhook body: " + str(request.body))
-
         header_authorization = request.headers.get("Authorization", False)
         if not header_authorization:
             return HttpResponseForbidden(
@@ -218,19 +220,26 @@ class SensorWebhookView(SingleObjectMixin, View):
             )
 
         self.object = self.get_object()
-        if not compare_digest(self.object.webhook_authorization, header_authorization):
+        webhook_authorization = self.object.webhook_authorization
+
+        if not webhook_authorization:
+            return HttpResponseForbidden(
+                "No webhook authorization value specified on sensor.",
+                content_type="text/plain",
+            )
+
+        if not compare_digest(webhook_authorization, header_authorization):
             return HttpResponseForbidden(
                 "Incorrect Authorization value.",
                 content_type="text/plain",
             )
 
-        self.object.webhook_payload = json.loads(request.body)
+        try:
+            self.object.webhook_payload = json.loads(request.body)
+        except json.decoder.JSONDecodeError:
+            return HttpResponseBadRequest(
+                "Message contains invalid JSON.", content_type="text/plain"
+            )
+
         self.object.save()
-        return HttpResponse("Message received.", content_type="text/plain")
-
-
-class SensorDeleteView(PermissionRequiredMixin, DeleteView):
-    model = Sensor
-    permission_required = "inventory.delete_sensor"
-    raise_exception = True
-    success_url = reverse_lazy("inventory:location-list")
+        return HttpResponse("Webhook payload saved.", content_type="text/plain")

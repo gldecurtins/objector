@@ -194,9 +194,10 @@ class SensorUpdateView(PermissionRequiredMixin, UpdateView):
     fields = [
         "name",
         "description",
-        "payload",
         "image",
         "object",
+        "webhook_authorization",
+        "webhook_payload",
     ]
 
 
@@ -208,21 +209,22 @@ class SensorWebhookView(SingleObjectMixin, View):
         logger = logging.getLogger(__name__)
         logger.error("Webhook headers: " + str(request.headers))
         logger.error("Webhook body: " + str(request.body))
-        apikey = request.headers.get("Authorization", "test")
-        if not apikey:
+
+        header_authorization = request.headers.get("Authorization", False)
+        if not header_authorization:
             return HttpResponseForbidden(
                 "Authorization not found in header.",
                 content_type="text/plain",
             )
 
-        if not compare_digest(apikey, "test"):
+        self.object = self.get_object()
+        if not compare_digest(self.object.webhook_authorization, header_authorization):
             return HttpResponseForbidden(
                 "Incorrect Authorization value.",
                 content_type="text/plain",
             )
 
-        self.object = self.get_object()
-        self.object.payload = json.loads(request.body)
+        self.object.webhook_payload = json.loads(request.body)
         self.object.save()
         return HttpResponse("Message received.", content_type="text/plain")
 

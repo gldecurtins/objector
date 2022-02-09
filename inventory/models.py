@@ -179,7 +179,10 @@ class Sensor(RulesModel):
     status = models.PositiveSmallIntegerField(
         _("status"), choices=Statuses.choices, default=Statuses.GREEN
     )
-    payload = models.JSONField(_("payload"), blank=True, null=True)
+    webhook_authorization = models.CharField(
+        _("webhook authorization"), max_length=255, blank=True, null=True
+    )
+    webhook_payload = models.JSONField(_("webhook payload"), blank=True, null=True)
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 

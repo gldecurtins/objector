@@ -41,3 +41,14 @@ rules.add_perm(
 )
 rules.add_perm("maintenance.change_journal", is_object_owner)
 rules.add_perm("maintenance.delete_journal", is_object_owner)
+
+rules.add_perm(
+    "maintenance.add_trigger",
+    (is_object_owner | is_object_manager | is_object_maintainer),
+)
+rules.add_perm(
+    "maintenance.view_trigger",
+    (is_object_owner | is_object_manager | is_object_maintainer),
+)
+rules.add_perm("maintenance.change_trigger", is_object_owner)
+rules.add_perm("maintenance.delete_trigger", is_object_owner)

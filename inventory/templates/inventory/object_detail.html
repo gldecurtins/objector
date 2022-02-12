@@ -179,21 +179,21 @@
                   <div class="ml-4 flex-shrink-0 flex space-x-4">
                     {% has_perm 'journal.view_task' user task as can_view_task %}
                     {% if can_view_task %}
-                    <a href="{% url 'maintenance:task-detail' task.object.id task.id %}"><button type="button"
+                    <a href="{% url 'maintenance:task-detail' task.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "View" %}
                       </button></a>
                     {% endif %}
                     {% has_perm 'journal.change_task' user task as can_change_task %}
                     {% if can_change_task %}
-                    <a href="{% url 'maintenance:task-update' task.object.id task.id %}"><button type="button"
+                    <a href="{% url 'maintenance:task-update' task.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "Change" %}
                       </button></a>
                     {% endif %}
                     {% has_perm 'journal.delete_task' user task as can_delete_task %}
                     {% if can_delete_task %}
-                    <a href="{% url 'maintenance:task-delete' task.object.id task.id %}"><button type="button"
+                    <a href="{% url 'maintenance:task-delete' task.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "Delete" %}
                       </button></a>
@@ -280,21 +280,21 @@
                   <div class="ml-4 flex-shrink-0 flex space-x-4">
                     {% has_perm 'maintenance.view_journal' user journal as can_view_journal %}
                     {% if can_view_journal %}
-                    <a href="{% url 'maintenance:journal-detail' journal.object.id journal.id %}"><button type="button"
+                    <a href="{% url 'maintenance:journal-detail' journal.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "View" %}
                       </button></a>
                     {% endif %}
                     {% has_perm 'maintenance.change_journal' user journal as can_change_journal %}
                     {% if can_change_journal %}
-                    <a href="{% url 'maintenance:journal-update' journal.object.id journal.id %}"><button type="button"
+                    <a href="{% url 'maintenance:journal-update' journal.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "Change" %}
                       </button></a>
                     {% endif %}
                     {% has_perm 'maintenance.delete_journal' user journal as can_delete_journal %}
                     {% if can_delete_journal %}
-                    <a href="{% url 'maintenance:journal-delete' journal.object.id journal.id %}"><button type="button"
+                    <a href="{% url 'maintenance:journal-delete' journal.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "Delete" %}
                       </button></a>
@@ -348,27 +348,27 @@
               {% for sensor in sensor %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  <a href="{% url 'inventory:sensor-detail' sensor.object.id sensor.id %}">{{ sensor.name }}</a>
+                  <a href="{% url 'inventory:sensor-detail' sensor.id %}">{{ sensor.name }}</a>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div class="ml-4 flex-shrink-0 flex space-x-4">
                     {% has_perm 'inventory.view_sensor' user sensor as can_view_sensor %}
                     {% if can_view_sensor %}
-                    <a href="{% url 'inventory:sensor-detail' sensor.object.id sensor.id %}"><button type="button"
+                    <a href="{% url 'inventory:sensor-detail' sensor.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "View" %}
                       </button></a>
                     {% endif %}
                     {% has_perm 'inventory.change_sensor' user sensor as can_change_sensor %}
                     {% if can_change_sensor %}
-                    <a href="{% url 'inventory:sensor-update' sensor.object.id sensor.id %}"><button type="button"
+                    <a href="{% url 'inventory:sensor-update' sensor.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "Change" %}
                       </button></a>
                     {% endif %}
                     {% has_perm 'inventory.delete_sensor' user sensor as can_delete_sensor %}
                     {% if can_delete_sensor %}
-                    <a href="{% url 'inventory:sensor-delete' sensor.object.id sensor.id %}"><button type="button"
+                    <a href="{% url 'inventory:sensor-delete' sensor.id %}"><button type="button"
                         class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {% translate "Delete" %}
                       </button></a>

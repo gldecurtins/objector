@@ -42,19 +42,19 @@ class Team(RulesModel):
     class Meta:
         ordering = ["name"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return f"/team/{self.pk}"
 
-    def update_or_create_group(self, *args, **kwargs):
+    def update_or_create_group(self, *args, **kwargs) -> None:
         team_group, _ = Group.objects.update_or_create(
             id=self.pk,
             defaults={"name": self.name},
         )
         self.group = team_group
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> None:
         self.update_or_create_group()
         return super().save(*args, **kwargs)

@@ -15,7 +15,7 @@ class ObjectForm(forms.ModelForm):
             "maintenance_team",
         ]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.request = kwargs.pop("request")
         super().__init__(*args, **kwargs)
 

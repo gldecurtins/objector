@@ -6,43 +6,63 @@ app_name = "maintenance"
 urlpatterns = [
     path("task/", views.TaskListView.as_view(), name="task-list"),
     path(
-        "object/task/add/",
+        "task/add/",
         views.TaskCreateView.as_view(),
         name="task-create",
     ),
     path(
-        "object/<int:object_id>/task/<int:pk>/",
+        "task/<int:pk>/",
         views.TaskDetailView.as_view(),
         name="task-detail",
     ),
     path(
-        "object/<int:object_id>/task/<int:pk>/change/",
+        "task/<int:pk>/change/",
         views.TaskUpdateView.as_view(),
         name="task-update",
     ),
     path(
-        "object/<int:object_id>/task/<int:pk>/delete/",
+        "task/<int:pk>/delete/",
         views.TaskDeleteView.as_view(),
         name="task-delete",
     ),
     path(
-        "object/journal/add",
+        "journal/add",
         views.JournalCreate.as_view(),
         name="journal-create",
     ),
     path(
-        "object/<int:object_id>/journal/<int:pk>/",
+        "journal/<int:pk>/",
         views.JournalDetailView.as_view(),
         name="journal-detail",
     ),
     path(
-        "object/<int:object_id>/journal/<int:pk>/change/",
+        "journal/<int:pk>/change/",
         views.JournalUpdateView.as_view(),
         name="journal-update",
     ),
     path(
-        "object/<int:object_id>/journal/<int:pk>/delete/",
+        "journal/<int:pk>/delete/",
         views.JournalDeleteView.as_view(),
         name="journal-delete",
+    ),
+    path(
+        "trigger/add",
+        views.TriggerCreate.as_view(),
+        name="trigger-create",
+    ),
+    path(
+        "trigger/<int:pk>/",
+        views.TriggerDetailView.as_view(),
+        name="trigger-detail",
+    ),
+    path(
+        "trigger/<int:pk>/change/",
+        views.TriggerUpdateView.as_view(),
+        name="trigger-update",
+    ),
+    path(
+        "trigger/<int:pk>/delete/",
+        views.TriggerDeleteView.as_view(),
+        name="trigger-delete",
     ),
 ]

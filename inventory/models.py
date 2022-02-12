@@ -7,13 +7,13 @@ from common.models import Team
 from django.utils.translation import gettext_lazy as _
 
 
-def location_image_upload_handler(instance, filename):
+def location_image_upload_handler(instance, filename) -> str:
     file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
     file_suffix = pathlib.Path(filename).suffix
     return f"location_image/{file_name}{file_suffix}"
 
 
-def object_image_upload_handler(instance, filename):
+def object_image_upload_handler(instance, filename) -> str:
     file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
     file_suffix = pathlib.Path(filename).suffix
     return f"object_image/{file_name}{file_suffix}"
@@ -69,14 +69,14 @@ class Location(RulesModel):
         verbose_name_plural = _("locations")
         ordering = ["status", "name"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return f"/location/{self.id}"
 
     @property
-    def status_color(self):
+    def status_color(self) -> str:
         status_color = "green"
         if self.status == self.Statuses.RED:
             status_color = "red"
@@ -140,17 +140,17 @@ class Object(RulesModel):
         verbose_name_plural = _("objects")
         ordering = ["status", "name"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         name = self.name
         if self.location:
             name = self.name + " @" + str(self.location)
         return name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return f"/object/{self.id}"
 
     @property
-    def status_color(self):
+    def status_color(self) -> str:
         status_color = "green"
         if self.status == self.Statuses.RED:
             status_color = "red"
@@ -191,17 +191,17 @@ class Sensor(RulesModel):
         verbose_name_plural = _("sensors")
         ordering = ["status", "name"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         name = self.name
         if self.location:
             name = self.name + " @" + str(self.object)
         return name
 
-    def get_absolute_url(self):
-        return f"/object/{self.object.id}/sensor/{self.id}"
+    def get_absolute_url(self) -> str:
+        return f"/sensor/{self.id}"
 
     @property
-    def status_color(self):
+    def status_color(self) -> str:
         status_color = "green"
         if self.status == self.Statuses.RED:
             status_color = "red"

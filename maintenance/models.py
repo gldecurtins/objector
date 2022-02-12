@@ -2,12 +2,12 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from rules.contrib.models import RulesModel
-from inventory.models import Object
+from inventory.models import Object, Sensor
 import uuid
 import pathlib
 
 
-def journal_image_upload_handler(instance, filename):
+def journal_image_upload_handler(instance, filename: str) -> str:
     file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
     file_suffix = pathlib.Path(filename).suffix
     return f"journal_image/{file_name}{file_suffix}"
@@ -41,13 +41,13 @@ class Task(RulesModel):
         verbose_name_plural = _("tasks")
         ordering = ["status", "overdue_at", "due_at", "updated_at"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
-        return f"/object/{self.object.id}/task/{self.id}"
+    def get_absolute_url(self) -> str:
+        return f"/task/{self.id}"
 
-    def get_new_task_status(self):
+    def get_new_task_status(self) -> int:
         now = timezone.now()
         new_task_status = Task.Statuses.PENDING
         if self.overdue_at and now >= self.overdue_at:
@@ -57,7 +57,7 @@ class Task(RulesModel):
         return new_task_status
 
     @property
-    def status_color(self):
+    def status_color(self) -> str:
         status_color = "green"
         if self.status == self.Statuses.OVERDUE:
             status_color = "red"
@@ -96,8 +96,49 @@ class Journal(RulesModel):
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.created_at + " @" + self.object
 
-    def get_absolute_url(self):
-        return f"/object/{self.object.id}/journal/{self.id}"
+    def get_absolute_url(self) -> str:
+        return f"/journal/{self.id}"
+
+
+class Trigger(RulesModel):
+    class Conditions(models.TextChoices):
+        EQUALS = "==", _("equals")
+        NOTEQUALS = "!=", _("not equals")
+        LESSTHAN = "<", _("less than")
+        LESSTHANOREQUALTO = "<=", _("less than or equal to")
+        GREATERTHAN = ">", _("greater than")
+        GREATERTHANOREQUALTO = ">=", _("greater than or equal to")
+
+    class Actions(models.TextChoices):
+        SENSORSTATUS10 = "sensor10", _("Set sensor status to green")
+        SENSORSTATUS20 = "sensor20", _("Set sensor status to amber")
+        SENSORSTATUS30 = "sensor30", _("Set sensor status to red")
+
+    sensor = models.ForeignKey(
+        Sensor,
+        verbose_name=_("sensor"),
+        related_name="trigger_sensor",
+        on_delete=models.CASCADE,
+    )
+    jsonpath_expression = models.CharField(_("JSONpath expression"), max_length=255)
+    condition = models.CharField(
+        _("condition"), max_length=2, choices=Conditions.choices
+    )
+    value = models.CharField(_("value"), max_length=255)
+    action = models.PositiveSmallIntegerField(
+        _("action"),
+        choices=Object.Statuses.choices,
+        help_text=_("Update sensor status if trigger condition is met."),
+    )
+    status = models.BooleanField(_("status"))
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+
+    def __str__(self) -> str:
+        return self.created_at + " @" + self.object
+
+    def get_absolute_url(self) -> str:
+        return f"/journal/{self.id}"

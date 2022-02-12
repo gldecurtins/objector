@@ -8,7 +8,7 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import PermissionRequiredMixin
-from .models import Task, Journal
+from .models import Task, Journal, Trigger
 from .forms import TaskForm, JournalForm
 
 
@@ -32,12 +32,12 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
     form_class = TaskForm
 
-    def get_initial(self):
+    def get_initial(self) -> dict:
         initial = {}
         initial["object"] = int(self.request.GET.get("object", False))
         return initial
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
@@ -48,7 +48,7 @@ class TaskDetailView(PermissionRequiredMixin, DetailView):
     permission_required = "maintenance.view_task"
     raise_exception = True
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context["journal"] = Journal.objects.filter(task=self.object.id)
         return context
@@ -60,12 +60,12 @@ class TaskUpdateView(PermissionRequiredMixin, UpdateView):
     raise_exception = True
     form_class = TaskForm
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> dict:
         instance = form.save(commit=False)
         instance.status = Task.get_new_task_status(instance)
         instance.save()
@@ -83,13 +83,13 @@ class JournalCreate(LoginRequiredMixin, CreateView):
     model = Journal
     form_class = JournalForm
 
-    def get_initial(self):
+    def get_initial(self) -> dict:
         initial = {}
         initial["object"] = int(self.request.GET.get("object", False))
         initial["task"] = int(self.request.GET.get("task", False))
         return initial
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
@@ -107,7 +107,7 @@ class JournalUpdateView(PermissionRequiredMixin, UpdateView):
     raise_exception = True
     form_class = JournalForm
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
@@ -116,6 +116,50 @@ class JournalUpdateView(PermissionRequiredMixin, UpdateView):
 class JournalDeleteView(PermissionRequiredMixin, DeleteView):
     model = Journal
     permission_required = "maintenance.delete_journal"
+    raise_exception = True
+
+    def get_success_url(self) -> str:
+        object_id = self.object.object.id
+        return reverse_lazy("inventory:object-detail", kwargs={"pk": object_id})
+
+
+class TriggerCreate(LoginRequiredMixin, CreateView):
+    model = Trigger
+    form_class = JournalForm
+
+    def get_initial(self) -> dict:
+        initial = {}
+        initial["object"] = int(self.request.GET.get("object", False))
+        initial["task"] = int(self.request.GET.get("task", False))
+        return initial
+
+    def get_form_kwargs(self) -> dict:
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
+
+
+class TriggerDetailView(PermissionRequiredMixin, DetailView):
+    model = Trigger
+    permission_required = "maintenance.view_trigger"
+    raise_exception = True
+
+
+class TriggerUpdateView(PermissionRequiredMixin, UpdateView):
+    model = Trigger
+    permission_required = "maintenance.change_trigger"
+    raise_exception = True
+    form_class = JournalForm
+
+    def get_form_kwargs(self) -> dict:
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
+
+
+class TriggerDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Trigger
+    permission_required = "maintenance.delete_trigger"
     raise_exception = True
 
     def get_success_url(self) -> str:

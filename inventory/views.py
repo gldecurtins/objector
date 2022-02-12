@@ -51,7 +51,7 @@ class LocationCreateView(LoginRequiredMixin, CreateView):
         "maintenance_team",
     ]
 
-    def get_initial(self):
+    def get_initial(self) -> dict:
         initial = {}
         initial["owner"] = self.request.user.id
         initial["management_team"] = int(self.request.GET.get("management_team", False))
@@ -66,7 +66,7 @@ class LocationDetailView(PermissionRequiredMixin, DetailView):
     permission_required = "inventory.view_location"
     raise_exception = True
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context["objects"] = Object.objects.filter(location=self.object.id)
         return context
@@ -116,7 +116,7 @@ class ObjectCreateView(LoginRequiredMixin, CreateView):
     model = Object
     form_class = ObjectForm
 
-    def get_initial(self):
+    def get_initial(self) -> dict:
         initial = {}
         initial["owner"] = self.request.user.id
         initial["location"] = int(self.request.GET.get("location", False))
@@ -151,7 +151,7 @@ class ObjectUpdateView(PermissionRequiredMixin, UpdateView):
     raise_exception = True
     form_class = ObjectForm
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
@@ -173,7 +173,7 @@ class SensorCreateView(LoginRequiredMixin, CreateView):
         "object",
     ]
 
-    def get_initial(self):
+    def get_initial(self) -> dict:
         initial = {}
         initial["owner"] = self.request.user.id
         initial["object"] = int(self.request.GET.get("object", False))

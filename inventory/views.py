@@ -251,14 +251,14 @@ class SensorWebhookView(SingleObjectMixin, View):
             return HttpResponseBadRequest(
                 "Message contains invalid JSON.", content_type="text/plain"
             )
-        self.object.status = self.get_sensor_status(self, request)
+        self.object.status = self.get_sensor_status()
         self.object.save()
         return HttpResponse("Webhook payload saved.", content_type="text/plain")
 
-    def get_sensor_status(self, request) -> int:
+    def get_sensor_status(self) -> int:
         sensor_status = Sensor.Statuses.GREEN
 
-        triggers = Trigger.objects.get(sensor=self.object.id)
+        triggers = Trigger.objects.filter(sensor=self.object.id)
         for trigger in triggers:
             jsonpath_expression = parse(trigger.jsonpath_expression)
             for match in jsonpath_expression.find(self.object.webhook_payload):

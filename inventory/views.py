@@ -12,12 +12,15 @@ from django.views.generic import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import PermissionRequiredMixin
 from .models import Location, Object, Sensor
-from maintenance.models import Task, Journal
+from maintenance.models import Task, Journal, Trigger
 from .forms import ObjectForm
 from django.utils.decorators import method_decorator
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic.detail import SingleObjectMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from jsonpath_ng import parse
 
 
 class LocationListView(LoginRequiredMixin, ListView):
@@ -37,7 +40,7 @@ class LocationListView(LoginRequiredMixin, ListView):
         return qs
 
 
-class LocationCreateView(LoginRequiredMixin, CreateView):
+class LocationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Location
     fields = [
         "name",
@@ -50,6 +53,7 @@ class LocationCreateView(LoginRequiredMixin, CreateView):
         "management_team",
         "maintenance_team",
     ]
+    success_message = _("%(name)s was created successfully")
 
     def get_initial(self) -> dict:
         initial = {}
@@ -112,9 +116,10 @@ class ObjectListView(LoginRequiredMixin, ListView):
         return qs
 
 
-class ObjectCreateView(LoginRequiredMixin, CreateView):
+class ObjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Object
     form_class = ObjectForm
+    success_message = _("%(name)s was created successfully")
 
     def get_initial(self) -> dict:
         initial = {}
@@ -164,7 +169,7 @@ class ObjectDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy("inventory:object-list")
 
 
-class SensorCreateView(LoginRequiredMixin, CreateView):
+class SensorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Sensor
     fields = [
         "name",
@@ -172,6 +177,7 @@ class SensorCreateView(LoginRequiredMixin, CreateView):
         "image",
         "object",
     ]
+    success_message = _("%(name)s was created successfully")
 
     def get_initial(self) -> dict:
         initial = {}
@@ -184,6 +190,11 @@ class SensorDetailView(PermissionRequiredMixin, DetailView):
     model = Sensor
     permission_required = "inventory.view_sensor"
     raise_exception = True
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["trigger"] = Trigger.objects.filter(sensor=self.object.id)
+        return context
 
 
 class SensorUpdateView(PermissionRequiredMixin, UpdateView):
@@ -240,6 +251,52 @@ class SensorWebhookView(SingleObjectMixin, View):
             return HttpResponseBadRequest(
                 "Message contains invalid JSON.", content_type="text/plain"
             )
-
+        self.object.status = self.get_sensor_status(self, request)
         self.object.save()
         return HttpResponse("Webhook payload saved.", content_type="text/plain")
+
+    def get_sensor_status(self, request) -> int:
+        sensor_status = Sensor.Statuses.GREEN
+
+        triggers = Trigger.objects.get(sensor=self.object.id)
+        for trigger in triggers:
+            # get payload
+            sensor_value = self.object.webhook_payload
+            if (
+                Trigger.Conditions.EQUALS == trigger.condition
+                and sensor_value == trigger.value
+                and sensor_status < trigger.action
+            ):
+                sensor_status = trigger.action
+            elif (
+                Trigger.Conditions.NOTEQUALS == trigger.condition
+                and sensor_value != trigger.value
+                and sensor_status < trigger.action
+            ):
+                sensor_status = trigger.action
+            elif (
+                Trigger.Conditions.LESSTHAN == trigger.condition
+                and sensor_value < trigger.value
+                and sensor_status < trigger.action
+            ):
+                sensor_status = trigger.action
+            elif (
+                Trigger.Conditions.LESSTHANOREQUALTO == trigger.condition
+                and sensor_value <= trigger.value
+                and sensor_status < trigger.action
+            ):
+                sensor_status = trigger.action
+            elif (
+                Trigger.Conditions.GREATERTHAN == trigger.condition
+                and sensor_value > trigger.value
+                and sensor_status < trigger.action
+            ):
+                sensor_status = trigger.action
+            elif (
+                Trigger.Conditions.GREATERTHANOREQUALTO == trigger.condition
+                and sensor_value >= trigger.value
+                and sensor_status < trigger.action
+            ):
+                sensor_status = trigger.action
+
+        return sensor_status

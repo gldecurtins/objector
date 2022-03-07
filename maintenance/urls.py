@@ -47,7 +47,7 @@ urlpatterns = [
     ),
     path(
         "trigger/add",
-        views.TriggerCreate.as_view(),
+        views.TriggerCreateView.as_view(),
         name="trigger-create",
     ),
     path(

@@ -117,28 +117,28 @@ class Trigger(RulesModel):
         SENSORSTATUS20 = "sensor20", _("Set sensor status to amber")
         SENSORSTATUS30 = "sensor30", _("Set sensor status to red")
 
+    name = models.CharField(_("name"), max_length=200)
     sensor = models.ForeignKey(
         Sensor,
         verbose_name=_("sensor"),
         related_name="trigger_sensor",
         on_delete=models.CASCADE,
     )
-    jsonpath_expression = models.CharField(_("JSONpath expression"), max_length=255)
+    jsonpath_expression = models.CharField(_("JSONpath expression"), max_length=200)
     condition = models.CharField(
         _("condition"), max_length=2, choices=Conditions.choices
     )
-    value = models.CharField(_("value"), max_length=255)
-    action = models.PositiveSmallIntegerField(
+    value = models.CharField(_("value"), max_length=200)
+    action = models.CharField(
         _("action"),
-        choices=Object.Statuses.choices,
-        help_text=_("Update sensor status if trigger condition is met."),
+        max_length=9,
+        choices=Actions.choices,
     )
-    status = models.BooleanField(_("status"))
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     def __str__(self) -> str:
-        return self.created_at + " @" + self.object
+        return self.created_at + " @" + self.sensor
 
     def get_absolute_url(self) -> str:
-        return f"/journal/{self.id}"
+        return f"/trigger/{self.id}"

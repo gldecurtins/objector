@@ -17,6 +17,7 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 from .forms import TeamMemberCreateForm, TeamMemberDeleteForm
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 class HomeTemplateView(TemplateView):
@@ -59,7 +60,7 @@ class TeamListView(LoginRequiredMixin, ListView):
         return qs
 
 
-class TeamCreateView(LoginRequiredMixin, CreateView):
+class TeamCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Team
     fields = [
         "name",
@@ -67,6 +68,7 @@ class TeamCreateView(LoginRequiredMixin, CreateView):
         "image",
         "owner",
     ]
+    success_message = "%(name)s was created successfully"
 
     def get_initial(self) -> dict:
         return {"owner": self.request.user.id}

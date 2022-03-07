@@ -193,7 +193,7 @@ class Sensor(RulesModel):
 
     def __str__(self) -> str:
         name = self.name
-        if self.location:
+        if self.object:
             name = self.name + " @" + str(self.object)
         return name
 

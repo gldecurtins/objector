@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Journal detail + {{ object.name }}{% endblock %}
-{% block h1 %}{% translate "Journal detail" %}{% endblock %}
-{% block h2 %}{{ object.name }}{% endblock %}
+{% block title %}Objector + Trigger detail + {{ trigger.name }}{% endblock %}
+{% block h1 %}{% translate "Trigger detail" %}{% endblock %}
+{% block h2 %}{{ trigger.name }}{% endblock %}
 {% block content %}
 <section aria-labelledby="journal-detail-title">
   <div class="bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6">
       <h2 id="journal-detail-title" class="text-lg leading-6 font-medium text-gray-900">
-        {% translate "Journal detail" %}
+        {% translate "Trigger detail" %}
       </h2>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
@@ -18,57 +18,65 @@
             {% translate "Object" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {% if journal.object %}
-            <a href="{% url 'inventory:object-detail' journal.object.id %}">
-              {{ journal.object }}
+            {% if trigger.sensor.object %}
+            <a href="{% url 'inventory:object-detail' trigger.sensor.object.id %}">
+              {{ trigger.sensor.object }}
             </a>
             {% else %}
-            {{ journal.object }}
+            {{ trigger.sensor.object }}
             {% endif %}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Task" %}
+            {% translate "Sensor" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             <div>
-              {% if journal.task %}
-              <a href="{% url 'maintenance:task-detail' journal.task.id %}">
-                {{ journal.task }}
+              {% if trigger.sensor %}
+              <a href="{% url 'inventory:sensor-detail' trigger.sensor.id %}">
+                {{ trigger.sensor }}
               </a>
               {% else %}
-              {{ journal.task }}
+              {{ trigger.sensor }}
               {% endif %}
             </div>
           </dd>
         </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Notes" %}
+            {% translate "Name" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ journal.notes|linebreaksbr }}
+            {{ trigger.name }}
           </dd>
         </div>
       </dl>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
-      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-3">
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Labor costs" %}
+            {% translate "JSONPath expression" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ journal.labor_costs }}
+            {{ trigger.jsonpath_expression }}
           </dd>
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Material costs" %}
+            {% translate "Condition" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ journal.material_costs }}
+            {{ trigger.get_condition_display }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Value" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ trigger.value }}
           </dd>
         </div>
       </dl>
@@ -80,7 +88,7 @@
             {% translate "Created at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ journal.created_at }}
+            {{ trigger.created_at }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -88,7 +96,7 @@
             {% translate "Updated at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ journal.updated_at }}
+            {{ trigger.updated_at }}
           </dd>
         </div>
       </dl>
@@ -96,15 +104,9 @@
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <div class="pt-5">
         <div class="flex justify-end">
-          <a href="{% url 'maintenance:journal-update' journal.id %}"><button type="button"
+          <a href="{% url 'maintenance:trigger-update' trigger.id %}"><button type="button"
               class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Change" %}</button></a>
-          <a href="{% url 'inventory:object-detail' journal.object.id %}"><button type="button"
-                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Object" %}</button></a>
-          {% if journal.task %}
-          <a href="{% url 'maintenance:task-detail' journal.task.id%}"><button type="button"
-            class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Task" %}</button></a>
-          {% endif %}
-          <a href="{% url 'maintenance:journal-delete' journal.id %}"><button type="button"
+          <a href="{% url 'maintenance:trigger-delete' trigger.id %}"><button type="button"
               class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Delete" %}</button></a>
         </div>
       </div>

@@ -29,7 +29,7 @@ class TaskForm(forms.ModelForm):
             ),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.request = kwargs.pop("request")
         super().__init__(*args, **kwargs)
 
@@ -57,7 +57,7 @@ class JournalForm(forms.ModelForm):
             "material_costs",
         ]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         self.request = kwargs.pop("request")
         super().__init__(*args, **kwargs)
 

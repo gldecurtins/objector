@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}Objector + Trigger delete + {{ object.name }}{% endblock %}
+{% block h1 %}{% translate "Trigger delete" %}{% endblock %}
+{% block h2 %}{{ object.name }}{% endblock %}
+{% block content %}
+<form method="post">{% csrf_token %}
+    <p>{% translate "Are you sure you want to delete" %} "{{ object }}"?</p>
+    <div class="pt-5">
+        <div class="flex justify-end">
+            <a href="{% url 'maintenance:task-list' %}"><button type="button"
+                    class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "List" %}</button></a>
+            <button type="submit"
+                class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Delete" %}</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

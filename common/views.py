@@ -17,6 +17,7 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 from .forms import TeamMemberCreateForm, TeamMemberDeleteForm
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 class HomeTemplateView(TemplateView):
@@ -26,7 +27,7 @@ class HomeTemplateView(TemplateView):
 class LogoutRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
 
-    def get_redirect_url(self, **kwargs):
+    def get_redirect_url(self, **kwargs) -> str:
         django_logout(self.request)
         domain = settings.SOCIAL_AUTH_AUTH0_DOMAIN
         client_id = settings.SOCIAL_AUTH_AUTH0_KEY
@@ -37,7 +38,7 @@ class LogoutRedirectView(LoginRequiredMixin, RedirectView):
 class DashboardTemplateView(LoginRequiredMixin, TemplateView):
     template_name = "common/dashboard.html"
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, *args, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
@@ -59,7 +60,7 @@ class TeamListView(LoginRequiredMixin, ListView):
         return qs
 
 
-class TeamCreateView(LoginRequiredMixin, CreateView):
+class TeamCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Team
     fields = [
         "name",
@@ -67,8 +68,9 @@ class TeamCreateView(LoginRequiredMixin, CreateView):
         "image",
         "owner",
     ]
+    success_message = "%(name)s was created successfully"
 
-    def get_initial(self):
+    def get_initial(self) -> dict:
         return {"owner": self.request.user.id}
 
 
@@ -77,7 +79,7 @@ class TeamDetailView(PermissionRequiredMixin, DetailView):
     permission_required = "teamapp.view_team"
     raise_exception = True
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         group = Group.objects.get(id=self.object.pk)
         context["members"] = group.user_set.all()
@@ -105,7 +107,7 @@ class TeamMemberCreateView(PermissionRequiredMixin, FormView, DetailView):
     raise_exception = True
     form_class = TeamMemberCreateForm
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return reverse_lazy("common:team-detail", kwargs={"pk": self.kwargs["pk"]})
 
     def form_valid(self, form):
@@ -123,7 +125,7 @@ class TeamMemberDeleteView(PermissionRequiredMixin, FormView, DetailView):
     raise_exception = True
     form_class = TeamMemberDeleteForm
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return reverse_lazy("common:team-detail", kwargs={"pk": self.kwargs["pk"]})
 
     def form_valid(self, form):

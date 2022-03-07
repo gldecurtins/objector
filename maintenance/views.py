@@ -8,8 +8,11 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import PermissionRequiredMixin
-from .models import Task, Journal
+from inventory.models import Sensor
+from .models import Task, Journal, Trigger
 from .forms import TaskForm, JournalForm
+from django.contrib.messages.views import SuccessMessageMixin
+from django.utils.translation import gettext_lazy as _
 
 
 class TaskListView(LoginRequiredMixin, ListView):
@@ -28,16 +31,17 @@ class TaskListView(LoginRequiredMixin, ListView):
         return task_queryset
 
 
-class TaskCreateView(LoginRequiredMixin, CreateView):
+class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Task
     form_class = TaskForm
+    success_message = _("%(name)s was created successfully")
 
-    def get_initial(self):
+    def get_initial(self) -> dict:
         initial = {}
         initial["object"] = int(self.request.GET.get("object", False))
         return initial
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
@@ -48,7 +52,7 @@ class TaskDetailView(PermissionRequiredMixin, DetailView):
     permission_required = "maintenance.view_task"
     raise_exception = True
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context["journal"] = Journal.objects.filter(task=self.object.id)
         return context
@@ -60,19 +64,19 @@ class TaskUpdateView(PermissionRequiredMixin, UpdateView):
     raise_exception = True
     form_class = TaskForm
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> dict:
         instance = form.save(commit=False)
         instance.status = Task.get_new_task_status(instance)
         instance.save()
         return super(TaskUpdateView, self).form_valid(form)
 
 
-class TaskDeleteView(PermissionRequiredMixin, DeleteView):
+class TaskDeleteView(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Task
     permission_required = "maintenance.delete_task"
     raise_exception = True
@@ -82,14 +86,15 @@ class TaskDeleteView(PermissionRequiredMixin, DeleteView):
 class JournalCreate(LoginRequiredMixin, CreateView):
     model = Journal
     form_class = JournalForm
+    success_message = _("Journal entry created successfully")
 
-    def get_initial(self):
+    def get_initial(self) -> dict:
         initial = {}
         initial["object"] = int(self.request.GET.get("object", False))
         initial["task"] = int(self.request.GET.get("task", False))
         return initial
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
@@ -107,7 +112,7 @@ class JournalUpdateView(PermissionRequiredMixin, UpdateView):
     raise_exception = True
     form_class = JournalForm
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict:
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
@@ -121,3 +126,37 @@ class JournalDeleteView(PermissionRequiredMixin, DeleteView):
     def get_success_url(self) -> str:
         object_id = self.object.object.id
         return reverse_lazy("inventory:object-detail", kwargs={"pk": object_id})
+
+
+class TriggerCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Trigger
+    fields = ["name", "jsonpath_expression", "condition", "value", "action"]
+    success_message = _("%(name)s was created successfully")
+
+    def form_valid(self, form):
+        sensor = Sensor.objects.get(id=int(self.request.GET.get("sensor", False)))
+        form.instance.sensor = sensor
+        return super().form_valid(form)
+
+
+class TriggerDetailView(PermissionRequiredMixin, DetailView):
+    model = Trigger
+    permission_required = "maintenance.view_trigger"
+    raise_exception = True
+
+
+class TriggerUpdateView(PermissionRequiredMixin, UpdateView):
+    model = Trigger
+    permission_required = "maintenance.change_trigger"
+    raise_exception = True
+    fields = ["name", "jsonpath_expression", "condition", "value", "action"]
+
+
+class TriggerDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Trigger
+    permission_required = "maintenance.delete_trigger"
+    raise_exception = True
+
+    def get_success_url(self) -> str:
+        sensor_id = self.sensor.id
+        return reverse_lazy("inventory:sensor-detail", kwargs={"pk": sensor_id})

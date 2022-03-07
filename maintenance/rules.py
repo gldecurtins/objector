@@ -20,6 +20,25 @@ def is_object_maintainer(user, obj):
     )
 
 
+@rules.predicate
+def is_sensor_object_owner(user, obj):
+    return obj.sensor.object.owner == user
+
+
+@rules.predicate
+def is_sensor_object_manager(user, obj):
+    return obj.sensor.object.management_team is not None and rules.is_group_member(
+        str(obj.sensor.object.management_team)
+    )
+
+
+@rules.predicate
+def is_sensor_object_maintainer(user, obj):
+    return obj.sensor.object.maintenance_team is not None and rules.is_group_member(
+        str(obj.sensor.object.maintenance_team)
+    )
+
+
 rules.add_perm(
     "maintenance.add_task",
     (is_object_owner | is_object_manager),
@@ -41,3 +60,14 @@ rules.add_perm(
 )
 rules.add_perm("maintenance.change_journal", is_object_owner)
 rules.add_perm("maintenance.delete_journal", is_object_owner)
+
+rules.add_perm(
+    "maintenance.add_trigger",
+    (is_sensor_object_owner | is_sensor_object_manager | is_sensor_object_maintainer),
+)
+rules.add_perm(
+    "maintenance.view_trigger",
+    (is_sensor_object_owner | is_sensor_object_manager | is_sensor_object_maintainer),
+)
+rules.add_perm("maintenance.change_trigger", is_sensor_object_owner)
+rules.add_perm("maintenance.delete_trigger", is_sensor_object_owner)

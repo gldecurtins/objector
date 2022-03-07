@@ -20,7 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic.detail import SingleObjectMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from jsonpath_rw import jsonpath, parse
+from jsonpath_rw import parse
 
 
 class LocationListView(LoginRequiredMixin, ListView):

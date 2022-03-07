@@ -20,7 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic.detail import SingleObjectMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from jsonpath_ng import parse
+from jsonpath_rw import jsonpath, parse
 
 
 class LocationListView(LoginRequiredMixin, ListView):
@@ -260,43 +260,43 @@ class SensorWebhookView(SingleObjectMixin, View):
 
         triggers = Trigger.objects.get(sensor=self.object.id)
         for trigger in triggers:
-            # get payload
-            sensor_value = self.object.webhook_payload
-            if (
-                Trigger.Conditions.EQUALS == trigger.condition
-                and sensor_value == trigger.value
-                and sensor_status < trigger.action
-            ):
-                sensor_status = trigger.action
-            elif (
-                Trigger.Conditions.NOTEQUALS == trigger.condition
-                and sensor_value != trigger.value
-                and sensor_status < trigger.action
-            ):
-                sensor_status = trigger.action
-            elif (
-                Trigger.Conditions.LESSTHAN == trigger.condition
-                and sensor_value < trigger.value
-                and sensor_status < trigger.action
-            ):
-                sensor_status = trigger.action
-            elif (
-                Trigger.Conditions.LESSTHANOREQUALTO == trigger.condition
-                and sensor_value <= trigger.value
-                and sensor_status < trigger.action
-            ):
-                sensor_status = trigger.action
-            elif (
-                Trigger.Conditions.GREATERTHAN == trigger.condition
-                and sensor_value > trigger.value
-                and sensor_status < trigger.action
-            ):
-                sensor_status = trigger.action
-            elif (
-                Trigger.Conditions.GREATERTHANOREQUALTO == trigger.condition
-                and sensor_value >= trigger.value
-                and sensor_status < trigger.action
-            ):
-                sensor_status = trigger.action
+            jsonpath_expression = parse(trigger.jsonpath_expression)
+            for match in jsonpath_expression.find(self.object.webhook_payload):
+                if (
+                    Trigger.Conditions.EQUALS == trigger.condition
+                    and match.value == trigger.value
+                    and sensor_status < trigger.action
+                ):
+                    sensor_status = trigger.action
+                elif (
+                    Trigger.Conditions.NOTEQUALS == trigger.condition
+                    and match.value != trigger.value
+                    and sensor_status < trigger.action
+                ):
+                    sensor_status = trigger.action
+                elif (
+                    Trigger.Conditions.LESSTHAN == trigger.condition
+                    and match.value < trigger.value
+                    and sensor_status < trigger.action
+                ):
+                    sensor_status = trigger.action
+                elif (
+                    Trigger.Conditions.LESSTHANOREQUALTO == trigger.condition
+                    and match.value <= trigger.value
+                    and sensor_status < trigger.action
+                ):
+                    sensor_status = trigger.action
+                elif (
+                    Trigger.Conditions.GREATERTHAN == trigger.condition
+                    and match.value > trigger.value
+                    and sensor_status < trigger.action
+                ):
+                    sensor_status = trigger.action
+                elif (
+                    Trigger.Conditions.GREATERTHANOREQUALTO == trigger.condition
+                    and match.value >= trigger.value
+                    and sensor_status < trigger.action
+                ):
+                    sensor_status = trigger.action
 
         return sensor_status

@@ -9,6 +9,7 @@ venv/
 
 # Docker
 docker/
+.env
 
 # Django
 *.log

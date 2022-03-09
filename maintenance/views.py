@@ -130,7 +130,7 @@ class JournalDeleteView(PermissionRequiredMixin, DeleteView):
 
 class TriggerCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Trigger
-    fields = ["name", "jsonpath_expression", "condition", "value", "action"]
+    fields = ["name", "jsonpath_expression", "condition", "value", "sensor_status"]
     success_message = _("%(name)s was created successfully")
 
     def form_valid(self, form):
@@ -149,7 +149,7 @@ class TriggerUpdateView(PermissionRequiredMixin, UpdateView):
     model = Trigger
     permission_required = "maintenance.change_trigger"
     raise_exception = True
-    fields = ["name", "jsonpath_expression", "condition", "value", "action"]
+    fields = ["name", "jsonpath_expression", "condition", "value", "sensor_status"]
 
 
 class TriggerDeleteView(PermissionRequiredMixin, DeleteView):

@@ -252,6 +252,7 @@ class SensorWebhookView(SingleObjectMixin, View):
                 "Message contains invalid JSON.", content_type="text/plain"
             )
         self.object.status = self.get_sensor_status()
+        breakpoint()
         self.object.save()
         return HttpResponse("Webhook payload saved.", content_type="text/plain")
 
@@ -265,38 +266,38 @@ class SensorWebhookView(SingleObjectMixin, View):
                 if (
                     Trigger.Conditions.EQUALS == trigger.condition
                     and match.value == trigger.value
-                    and sensor_status < trigger.action
+                    and sensor_status < trigger.sensor_status
                 ):
-                    sensor_status = trigger.action
+                    sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.NOTEQUALS == trigger.condition
                     and match.value != trigger.value
-                    and sensor_status < trigger.action
+                    and sensor_status < trigger.sensor_status
                 ):
-                    sensor_status = trigger.action
+                    sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.LESSTHAN == trigger.condition
                     and match.value < trigger.value
-                    and sensor_status < trigger.action
+                    and sensor_status < trigger.sensor_status
                 ):
-                    sensor_status = trigger.action
+                    sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.LESSTHANOREQUALTO == trigger.condition
                     and match.value <= trigger.value
-                    and sensor_status < trigger.action
+                    and sensor_status < trigger.sensor_status
                 ):
-                    sensor_status = trigger.action
+                    sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.GREATERTHAN == trigger.condition
                     and match.value > trigger.value
-                    and sensor_status < trigger.action
+                    and sensor_status < trigger.sensor_status
                 ):
-                    sensor_status = trigger.action
+                    sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.GREATERTHANOREQUALTO == trigger.condition
                     and match.value >= trigger.value
-                    and sensor_status < trigger.action
+                    and sensor_status < trigger.sensor_status
                 ):
-                    sensor_status = trigger.action
+                    sensor_status = trigger.sensor_status
 
         return sensor_status

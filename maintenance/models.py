@@ -112,11 +112,6 @@ class Trigger(RulesModel):
         GREATERTHAN = ">", _("greater than")
         GREATERTHANOREQUALTO = ">=", _("greater than or equal to")
 
-    class Actions(models.TextChoices):
-        SENSORSTATUS10 = "sensor10", _("Set sensor status to green")
-        SENSORSTATUS20 = "sensor20", _("Set sensor status to amber")
-        SENSORSTATUS30 = "sensor30", _("Set sensor status to red")
-
     name = models.CharField(_("name"), max_length=200)
     sensor = models.ForeignKey(
         Sensor,
@@ -129,10 +124,9 @@ class Trigger(RulesModel):
         _("condition"), max_length=2, choices=Conditions.choices
     )
     value = models.CharField(_("value"), max_length=200)
-    action = models.CharField(
-        _("action"),
-        max_length=9,
-        choices=Actions.choices,
+    sensor_status = models.PositiveSmallIntegerField(
+        _("sensor status"),
+        choices=Sensor.Statuses.choices,
     )
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)

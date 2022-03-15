@@ -1,4 +1,5 @@
 import json
+import logging
 from secrets import compare_digest
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -22,6 +23,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from jsonpath_ng import parse
 
+logger = logging.getLogger(__name__)
 
 class LocationListView(LoginRequiredMixin, ListView):
     model = Location
@@ -252,52 +254,56 @@ class SensorWebhookView(SingleObjectMixin, View):
                 "Message contains invalid JSON.", content_type="text/plain"
             )
         self.object.status = self.get_sensor_status()
-        breakpoint()
         self.object.save()
         return HttpResponse("Webhook payload saved.", content_type="text/plain")
 
     def get_sensor_status(self) -> int:
-        sensor_status = Sensor.Statuses.GREEN
+        sensor_status = self.object.status
 
         triggers = Trigger.objects.filter(sensor=self.object.id)
         for trigger in triggers:
             jsonpath_expression = parse(trigger.jsonpath_expression)
             for match in jsonpath_expression.find(self.object.webhook_payload):
+                logger.warning(f"Trigger condition: {trigger.condition}")
+                logger.warning(f"Trigger value: {trigger.value}")
+                logger.warning(f"Trigger sensor status: {trigger.sensor_status}")
+                logger.warning(f"Match value: {match.value}")
+                logger.warning(f"Sensor status: {sensor_status}")
                 if (
                     Trigger.Conditions.EQUALS == trigger.condition
                     and match.value == trigger.value
-                    and sensor_status < trigger.sensor_status
+                    and sensor_status > trigger.sensor_status
                 ):
                     sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.NOTEQUALS == trigger.condition
                     and match.value != trigger.value
-                    and sensor_status < trigger.sensor_status
+                    and sensor_status > trigger.sensor_status
                 ):
                     sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.LESSTHAN == trigger.condition
                     and match.value < trigger.value
-                    and sensor_status < trigger.sensor_status
+                    and sensor_status > trigger.sensor_status
                 ):
                     sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.LESSTHANOREQUALTO == trigger.condition
                     and match.value <= trigger.value
-                    and sensor_status < trigger.sensor_status
+                    and sensor_status > trigger.sensor_status
                 ):
                     sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.GREATERTHAN == trigger.condition
                     and match.value > trigger.value
-                    and sensor_status < trigger.sensor_status
+                    and sensor_status > trigger.sensor_status
                 ):
                     sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.GREATERTHANOREQUALTO == trigger.condition
                     and match.value >= trigger.value
-                    and sensor_status < trigger.sensor_status
+                    and sensor_status > trigger.sensor_status
                 ):
                     sensor_status = trigger.sensor_status
-
+                logger.warning(f"New sensor status: {sensor_status}")
         return sensor_status

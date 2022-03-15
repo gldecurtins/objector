@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "ms-vscode-remote.remote-ssh",
+        "ms-vscode-remote.remote-containers",
+        "ms-azuretools.vscode-docker",
+        "batisteo.vscode-django",
+        "EditorConfig.EditorConfig",
+        "mrorz.language-gettext"
+    ]
+}

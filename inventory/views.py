@@ -25,6 +25,7 @@ from jsonpath_ng import parse
 
 logger = logging.getLogger(__name__)
 
+
 class LocationListView(LoginRequiredMixin, ListView):
     model = Location
     permission_required = "view_location"

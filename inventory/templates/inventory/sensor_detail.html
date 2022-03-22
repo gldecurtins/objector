@@ -120,7 +120,8 @@
                   {{ trigger.value }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {{ trigger.get_sensor_status_display }}
+                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ trigger.status_color }}-100 text-{{ trigger.status_color }}-800">
+                  {{ trigger.get_sensor_status_display }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div class="ml-4 flex-shrink-0 flex space-x-4">

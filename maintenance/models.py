@@ -136,3 +136,12 @@ class Trigger(RulesModel):
 
     def get_absolute_url(self) -> str:
         return f"/trigger/{self.id}"
+
+    @property
+    def status_color(self) -> str:
+        status_color = "green"
+        if self.sensor_status == Sensor.Statuses.RED:
+            status_color = "red"
+        elif self.sensor_status == Sensor.Statuses.AMBER:
+            status_color = "amber"
+        return status_color

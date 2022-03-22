@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.db import transaction
 from maintenance.models import Task
@@ -6,20 +6,32 @@ from .models import Location, Object, Sensor
 
 
 @receiver(post_save, sender=Object)
-def object_status_receiver(sender, instance, created, **kwargs):
+def object_post_save_receiver(sender, instance, created, **kwargs):
     # TODO: Use celery for async operation: https://docs.djangoproject.com/en/3.2/topics/db/transactions/
     if instance.location:
         transaction.on_commit(lambda: update_location_status(instance.location.id))
 
 
 @receiver(post_save, sender=Task)
-def task_update_status_receiver(sender, instance, created, **kwargs):
+def task_post_save_receiver(sender, instance, created, **kwargs):
+    # TODO: Use celery for async operation: https://docs.djangoproject.com/en/3.2/topics/db/transactions/
+    transaction.on_commit(lambda: update_object_status(instance.object.id))
+
+
+@receiver(post_delete, sender=Task)
+def task_post_delete_receiver(sender, instance, **kwargs):
     # TODO: Use celery for async operation: https://docs.djangoproject.com/en/3.2/topics/db/transactions/
     transaction.on_commit(lambda: update_object_status(instance.object.id))
 
 
 @receiver(post_save, sender=Sensor)
-def sensor_update_status_receiver(sender, instance, created, **kwargs):
+def sensor_post_save_receiver(sender, instance, created, **kwargs):
+    # TODO: Use celery for async operation: https://docs.djangoproject.com/en/3.2/topics/db/transactions/
+    transaction.on_commit(lambda: update_object_status(instance.object.id))
+
+
+@receiver(post_delete, sender=Sensor)
+def sensor_post_delete_receiver(sender, instance, **kwargs):
     # TODO: Use celery for async operation: https://docs.djangoproject.com/en/3.2/topics/db/transactions/
     transaction.on_commit(lambda: update_object_status(instance.object.id))
 

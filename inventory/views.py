@@ -254,22 +254,24 @@ class SensorWebhookView(SingleObjectMixin, View):
             return HttpResponseBadRequest(
                 "Message contains invalid JSON.", content_type="text/plain"
             )
+
         self.object.status = self.get_sensor_status()
         self.object.save()
         return HttpResponse("Webhook payload saved.", content_type="text/plain")
 
     def get_sensor_status(self) -> int:
-        sensor_status = self.object.status
+        sensor_status = Sensor.Statuses.GREEN
 
         triggers = Trigger.objects.filter(sensor=self.object.id)
         for trigger in triggers:
+            logger.info(f"Trigger: {trigger.name}")
             jsonpath_expression = parse(trigger.jsonpath_expression)
             for match in jsonpath_expression.find(self.object.webhook_payload):
-                logger.warning(f"Trigger condition: {trigger.condition}")
-                logger.warning(f"Trigger value: {trigger.value}")
-                logger.warning(f"Trigger sensor status: {trigger.sensor_status}")
-                logger.warning(f"Match value: {match.value}")
-                logger.warning(f"Sensor status: {sensor_status}")
+                logger.info(f"Trigger condition: {trigger.condition}")
+                logger.info(f"Trigger value: {trigger.value}")
+                logger.info(f"Trigger sensor status: {trigger.sensor_status}")
+                logger.info(f"Match value: {match.value}")
+                logger.info(f"Sensor status: {sensor_status}")
                 if (
                     Trigger.Conditions.EQUALS == trigger.condition
                     and match.value == trigger.value
@@ -284,27 +286,27 @@ class SensorWebhookView(SingleObjectMixin, View):
                     sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.LESSTHAN == trigger.condition
-                    and match.value < trigger.value
+                    and float(match.value) < float(trigger.value)
                     and sensor_status > trigger.sensor_status
                 ):
                     sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.LESSTHANOREQUALTO == trigger.condition
-                    and match.value <= trigger.value
+                    and float(match.value) <= float(trigger.value)
                     and sensor_status > trigger.sensor_status
                 ):
                     sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.GREATERTHAN == trigger.condition
-                    and match.value > trigger.value
+                    and float(match.value) > float(trigger.value)
                     and sensor_status > trigger.sensor_status
                 ):
                     sensor_status = trigger.sensor_status
                 elif (
                     Trigger.Conditions.GREATERTHANOREQUALTO == trigger.condition
-                    and match.value >= trigger.value
+                    and float(match.value) >= float(trigger.value)
                     and sensor_status > trigger.sensor_status
                 ):
                     sensor_status = trigger.sensor_status
-                logger.warning(f"New sensor status: {sensor_status}")
+                logger.info(f"New sensor status: {sensor_status}")
         return sensor_status

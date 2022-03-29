@@ -13,4 +13,4 @@ Pillow==9.0.1
 jsonpath-ng==1.5.3
 
 flake8==4.0.1
-black==22.1.0
+black==22.3.0

@@ -11,10 +11,15 @@ from django.views.generic import (
     View,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rules.contrib.views import PermissionRequiredMixin
+from rules.contrib.views import (
+    AutoPermissionRequiredMixin,
+    PermissionRequiredMixin,
+    permission_required,
+)
 from .models import Location, Object, Sensor
 from maintenance.models import Task, Journal, Trigger
 from .forms import ObjectForm
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
@@ -28,7 +33,6 @@ logger = logging.getLogger(__name__)
 
 class LocationListView(LoginRequiredMixin, ListView):
     model = Location
-    permission_required = "view_location"
     paginate_by = 10
 
     def get_queryset(self):
@@ -68,9 +72,8 @@ class LocationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return initial
 
 
-class LocationDetailView(PermissionRequiredMixin, DetailView):
+class LocationDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Location
-    permission_required = "inventory.view_location"
     raise_exception = True
 
     def get_context_data(self, **kwargs) -> dict:
@@ -79,9 +82,8 @@ class LocationDetailView(PermissionRequiredMixin, DetailView):
         return context
 
 
-class LocationUpdateView(PermissionRequiredMixin, UpdateView):
+class LocationUpdateView(AutoPermissionRequiredMixin, UpdateView):
     model = Location
-    permission_required = "inventory.change_location"
     raise_exception = True
     fields = [
         "name",
@@ -96,9 +98,8 @@ class LocationUpdateView(PermissionRequiredMixin, UpdateView):
     ]
 
 
-class LocationDeleteView(PermissionRequiredMixin, DeleteView):
+class LocationDeleteView(AutoPermissionRequiredMixin, DeleteView):
     model = Location
-    permission_required = "inventory.delete_location"
     raise_exception = True
     success_url = reverse_lazy("inventory:location-list")
 
@@ -140,9 +141,8 @@ class ObjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return kwargs
 
 
-class ObjectDetailView(PermissionRequiredMixin, DetailView):
+class ObjectDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Object
-    permission_required = "inventory.view_object"
     raise_exception = True
 
     def get_context_data(self, **kwargs):
@@ -153,9 +153,8 @@ class ObjectDetailView(PermissionRequiredMixin, DetailView):
         return context
 
 
-class ObjectUpdateView(PermissionRequiredMixin, UpdateView):
+class ObjectUpdateView(AutoPermissionRequiredMixin, UpdateView):
     model = Object
-    permission_required = "inventory.change_object"
     raise_exception = True
     form_class = ObjectForm
 
@@ -165,9 +164,8 @@ class ObjectUpdateView(PermissionRequiredMixin, UpdateView):
         return kwargs
 
 
-class ObjectDeleteView(PermissionRequiredMixin, DeleteView):
+class ObjectDeleteView(AutoPermissionRequiredMixin, DeleteView):
     model = Object
-    permission_required = "inventory.delete_object"
     raise_exception = True
     success_url = reverse_lazy("inventory:object-list")
 
@@ -188,10 +186,16 @@ class SensorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         initial["object"] = int(self.request.GET.get("object", False))
         return initial
 
+    def get_object_by_pk(self, form):
+        return get_object_or_404(Object, pk=form.instance.object.id)
 
-class SensorDetailView(PermissionRequiredMixin, DetailView):
+    @permission_required("inventory.add_sensor", fn=get_object_by_pk)
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+class SensorDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Sensor
-    permission_required = "inventory.view_sensor"
     raise_exception = True
 
     def get_context_data(self, **kwargs):
@@ -200,9 +204,8 @@ class SensorDetailView(PermissionRequiredMixin, DetailView):
         return context
 
 
-class SensorUpdateView(PermissionRequiredMixin, UpdateView):
+class SensorUpdateView(AutoPermissionRequiredMixin, UpdateView):
     model = Sensor
-    permission_required = "inventory.change_sensor"
     raise_exception = True
     fields = [
         "name",
@@ -214,9 +217,8 @@ class SensorUpdateView(PermissionRequiredMixin, UpdateView):
     ]
 
 
-class SensorDeleteView(PermissionRequiredMixin, DeleteView):
+class SensorDeleteView(AutoPermissionRequiredMixin, DeleteView):
     model = Sensor
-    permission_required = "inventory.delete_sensor"
     raise_exception = True
     success_url = reverse_lazy("inventory:location-list")
 

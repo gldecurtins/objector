@@ -13,7 +13,6 @@ from django.views.generic import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import (
     AutoPermissionRequiredMixin,
-    PermissionRequiredMixin,
     permission_required,
 )
 from .models import Location, Object, Sensor
@@ -41,13 +40,13 @@ class LocationListView(LoginRequiredMixin, ListView):
         groups_as_list = list(groups)
         qs = (
             Location.objects.filter(owner=self.request.user)
-            | Location.objects.filter(management_team__in=groups_as_list)
-            | Location.objects.filter(maintenance_team__in=groups_as_list)
+            | Location.objects.filter(management_group__in=groups_as_list)
+            | Location.objects.filter(maintenance_group__in=groups_as_list)
         )
         return qs
 
 
-class LocationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class LocationCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Location
     fields = [
         "name",
@@ -57,17 +56,19 @@ class LocationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         "latitude",
         "longitude",
         "owner",
-        "management_team",
-        "maintenance_team",
+        "management_group",
+        "maintenance_group",
     ]
     success_message = _("%(name)s was created successfully")
 
     def get_initial(self) -> dict:
         initial = {}
         initial["owner"] = self.request.user.id
-        initial["management_team"] = int(self.request.GET.get("management_team", False))
-        initial["maintenance_team"] = int(
-            self.request.GET.get("maintenance_team", False)
+        initial["management_group"] = int(
+            self.request.GET.get("management_group", False)
+        )
+        initial["maintenance_group"] = int(
+            self.request.GET.get("maintenance_group", False)
         )
         return initial
 
@@ -93,8 +94,8 @@ class LocationUpdateView(AutoPermissionRequiredMixin, UpdateView):
         "latitude",
         "longitude",
         "owner",
-        "management_team",
-        "maintenance_team",
+        "management_group",
+        "maintenance_group",
     ]
 
 
@@ -114,13 +115,13 @@ class ObjectListView(LoginRequiredMixin, ListView):
         groups_as_list = list(groups)
         qs = (
             Object.objects.filter(owner=self.request.user)
-            | Object.objects.filter(management_team__in=groups_as_list)
-            | Object.objects.filter(maintenance_team__in=groups_as_list)
+            | Object.objects.filter(management_group__in=groups_as_list)
+            | Object.objects.filter(maintenance_group__in=groups_as_list)
         )
         return qs
 
 
-class ObjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class ObjectCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Object
     form_class = ObjectForm
     success_message = _("%(name)s was created successfully")
@@ -129,9 +130,11 @@ class ObjectCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         initial = {}
         initial["owner"] = self.request.user.id
         initial["location"] = int(self.request.GET.get("location", False))
-        initial["management_team"] = int(self.request.GET.get("management_team", False))
-        initial["maintenance_team"] = int(
-            self.request.GET.get("maintenance_team", False)
+        initial["management_group"] = int(
+            self.request.GET.get("management_group", False)
+        )
+        initial["maintenance_group"] = int(
+            self.request.GET.get("maintenance_group", False)
         )
         return initial
 
@@ -170,7 +173,7 @@ class ObjectDeleteView(AutoPermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy("inventory:object-list")
 
 
-class SensorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class SensorCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Sensor
     fields = [
         "name",

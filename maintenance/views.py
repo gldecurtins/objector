@@ -7,7 +7,7 @@ from django.views.generic import (
     DeleteView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rules.contrib.views import PermissionRequiredMixin
+from rules.contrib.views import AutoPermissionRequiredMixin
 from inventory.models import Sensor
 from .models import Task, Journal, Trigger
 from .forms import TaskForm, JournalForm
@@ -25,13 +25,13 @@ class TaskListView(LoginRequiredMixin, ListView):
         groups_as_list = list(groups)
         task_queryset = (
             Task.objects.filter(object__owner=self.request.user)
-            | Task.objects.filter(object__management_team__in=groups_as_list)
-            | Task.objects.filter(object__maintenance_team__in=groups_as_list)
+            | Task.objects.filter(object__management_group__in=groups_as_list)
+            | Task.objects.filter(object__maintenance_group__in=groups_as_list)
         )
         return task_queryset
 
 
-class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class TaskCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Task
     form_class = TaskForm
     success_message = _("%(name)s was created successfully")
@@ -47,9 +47,8 @@ class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return kwargs
 
 
-class TaskDetailView(PermissionRequiredMixin, DetailView):
+class TaskDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Task
-    permission_required = "maintenance.view_task"
     raise_exception = True
 
     def get_context_data(self, **kwargs) -> dict:
@@ -58,9 +57,8 @@ class TaskDetailView(PermissionRequiredMixin, DetailView):
         return context
 
 
-class TaskUpdateView(PermissionRequiredMixin, UpdateView):
+class TaskUpdateView(AutoPermissionRequiredMixin, UpdateView):
     model = Task
-    permission_required = "maintenance.change_task"
     raise_exception = True
     form_class = TaskForm
 
@@ -76,14 +74,13 @@ class TaskUpdateView(PermissionRequiredMixin, UpdateView):
         return super(TaskUpdateView, self).form_valid(form)
 
 
-class TaskDeleteView(PermissionRequiredMixin, SuccessMessageMixin, DeleteView):
+class TaskDeleteView(AutoPermissionRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Task
-    permission_required = "maintenance.delete_task"
     raise_exception = True
     success_url = reverse_lazy("maintenance:task-list")
 
 
-class JournalCreate(LoginRequiredMixin, CreateView):
+class JournalCreate(AutoPermissionRequiredMixin, CreateView):
     model = Journal
     form_class = JournalForm
     success_message = _("Journal entry created successfully")
@@ -100,15 +97,13 @@ class JournalCreate(LoginRequiredMixin, CreateView):
         return kwargs
 
 
-class JournalDetailView(PermissionRequiredMixin, DetailView):
+class JournalDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Journal
-    permission_required = "maintenance.view_journal"
     raise_exception = True
 
 
-class JournalUpdateView(PermissionRequiredMixin, UpdateView):
+class JournalUpdateView(AutoPermissionRequiredMixin, UpdateView):
     model = Journal
-    permission_required = "maintenance.change_journal"
     raise_exception = True
     form_class = JournalForm
 
@@ -118,9 +113,8 @@ class JournalUpdateView(PermissionRequiredMixin, UpdateView):
         return kwargs
 
 
-class JournalDeleteView(PermissionRequiredMixin, DeleteView):
+class JournalDeleteView(AutoPermissionRequiredMixin, DeleteView):
     model = Journal
-    permission_required = "maintenance.delete_journal"
     raise_exception = True
 
     def get_success_url(self) -> str:
@@ -128,7 +122,7 @@ class JournalDeleteView(PermissionRequiredMixin, DeleteView):
         return reverse_lazy("inventory:object-detail", kwargs={"pk": object_id})
 
 
-class TriggerCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class TriggerCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Trigger
     fields = ["name", "jsonpath_expression", "condition", "value", "sensor_status"]
     success_message = _("%(name)s was created successfully")
@@ -139,22 +133,19 @@ class TriggerCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
 
-class TriggerDetailView(PermissionRequiredMixin, DetailView):
+class TriggerDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Trigger
-    permission_required = "maintenance.view_trigger"
     raise_exception = True
 
 
-class TriggerUpdateView(PermissionRequiredMixin, UpdateView):
+class TriggerUpdateView(AutoPermissionRequiredMixin, UpdateView):
     model = Trigger
-    permission_required = "maintenance.change_trigger"
     raise_exception = True
     fields = ["name", "jsonpath_expression", "condition", "value", "sensor_status"]
 
 
-class TriggerDeleteView(PermissionRequiredMixin, DeleteView):
+class TriggerDeleteView(AutoPermissionRequiredMixin, DeleteView):
     model = Trigger
-    permission_required = "maintenance.delete_trigger"
     raise_exception = True
 
     def get_success_url(self) -> str:

@@ -114,6 +114,8 @@
   </div>
 </div>
 {% endif %}
+{% has_perm 'inventory.add_object' user object as can_add_object %}
+{% if can_add_object %}
 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
   <a href="{% url 'inventory:object-create' %}">
     <button type="button"
@@ -126,4 +128,5 @@
     </button>
   </a>
 </div>
+{% endif %}
 {% endblock %}

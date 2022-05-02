@@ -8,7 +8,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update && \
-    apt-get install -y gettext && \
+    apt-get install -y gettext postgresql-client && \
     apt-get clean && rm -rf /var/cache/apt/* && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
 COPY requirements.txt requirements-dev.txt /app/

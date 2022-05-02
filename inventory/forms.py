@@ -11,8 +11,8 @@ class ObjectForm(forms.ModelForm):
             "image",
             "location",
             "owner",
-            "management_team",
-            "maintenance_team",
+            "management_group",
+            "maintenance_group",
         ]
 
     def __init__(self, *args, **kwargs) -> None:
@@ -24,8 +24,8 @@ class ObjectForm(forms.ModelForm):
         groups_as_list = list(groups)
         location_queryset = (
             Location.objects.filter(owner=self.request.user)
-            | Location.objects.filter(management_team__in=groups_as_list)
-            | Location.objects.filter(maintenance_team__in=groups_as_list)
+            | Location.objects.filter(management_group__in=groups_as_list)
+            | Location.objects.filter(maintenance_group__in=groups_as_list)
         )
 
         self.fields["location"].queryset = location_queryset

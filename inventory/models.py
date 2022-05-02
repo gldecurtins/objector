@@ -3,7 +3,7 @@ from django.conf import settings
 from rules.contrib.models import RulesModel
 import uuid
 import pathlib
-from common.models import Team
+from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 
 
@@ -43,23 +43,23 @@ class Location(RulesModel):
         on_delete=models.CASCADE,
         help_text=_("Owner can view, change or delete this location."),
     )
-    management_team = models.ForeignKey(
-        Team,
-        verbose_name=_("management team"),
-        related_name="location_management_team",
+    management_group = models.ForeignKey(
+        Group,
+        verbose_name=_("management group"),
+        related_name="location_management_group",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text=_("Team members can view, change or delete this location."),
+        help_text=_("Group members can view, change or delete this location."),
     )
-    maintenance_team = models.ForeignKey(
-        Team,
-        verbose_name=_("maintenance team"),
-        related_name="location_maintenance_team",
+    maintenance_group = models.ForeignKey(
+        Group,
+        verbose_name=_("maintenance group"),
+        related_name="location_maintenance_group",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text=_("Team members can view this location."),
+        help_text=_("Group members can view this location."),
     )
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
@@ -114,23 +114,23 @@ class Object(RulesModel):
         on_delete=models.CASCADE,
         help_text=_("Owner can view, change or delete this object."),
     )
-    management_team = models.ForeignKey(
-        Team,
-        verbose_name=_("management team"),
-        related_name="object_management_team",
+    management_group = models.ForeignKey(
+        Group,
+        verbose_name=_("management group"),
+        related_name="object_management_group",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text=_("Team members can view or update this object."),
+        help_text=_("Group members can view or update this object."),
     )
-    maintenance_team = models.ForeignKey(
-        Team,
-        verbose_name=_("maintenance team"),
-        related_name="object_maintenance_team",
+    maintenance_group = models.ForeignKey(
+        Group,
+        verbose_name=_("maintenance group"),
+        related_name="object_maintenance_group",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        help_text=_("Team members can view this object."),
+        help_text=_("Group members can view this object."),
     )
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)

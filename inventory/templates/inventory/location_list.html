@@ -103,6 +103,8 @@
   </div>
 </div>
 {% endif %}
+{% has_perm 'inventory.add_location' user location as can_add_location %}
+{% if can_add_location %}
 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
   <a href="{% url 'inventory:location-create' %}">
     <button type="button"
@@ -115,4 +117,5 @@
     </button>
   </a>
 </div>
+{% endif %}
 {% endblock %}

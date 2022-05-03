@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Journal detail + {{ object.name }}{% endblock %}
+{% block title %}Objector + {% translate "Journal detail" %} + {{ journal }}{% endblock %}
 {% block h1 %}{% translate "Journal detail" %}{% endblock %}
-{% block h2 %}{{ object.name }}{% endblock %}
+{% block h2 %}{{ journal }}{% endblock %}
 {% block content %}
 <section aria-labelledby="journal-detail-title">
   <div class="bg-white shadow sm:rounded-lg">

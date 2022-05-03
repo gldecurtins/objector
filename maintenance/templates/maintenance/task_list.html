@@ -2,9 +2,8 @@
 {% load rules %}
 {% load i18n %}
 {% load humanize %}
-{% block title %}Objector + Task list{% endblock %}
+{% block title %}Objector + {% translate "Task list" %}{% endblock %}
 {% block h1 %}{% translate "Task list" %}{% endblock %}
-{% block h2 %}All your task{% endblock %}
 {% block content %}
 {% if task_list %}
 <div class="flex flex-col">
@@ -37,7 +36,7 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 <div
                   class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ task.status_color }}-100 text-{{ task.status_color }}-800">
-                <a href="{% url 'maintenance:task-detail' task.object.id task.id %}">{{ task.name|truncatewords:"5" }}</a>
+                <a href="{% url 'maintenance:task-detail' task.id %}">{{ task.name|truncatewords:"5" }}</a>
               </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">

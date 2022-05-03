@@ -1,21 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Location detail + {{ object.name }}{% endblock %}
-{% block h1 %}
-<div class="flex items-center space-x-5">
-  {% if location.image %}
-  <div class="flex-shrink-0">
-    <div class="relative">
-      <img class="h-16 w-16 rounded-full" src="{{ location.image.url }}" alt="">
-      <span class="absolute inset-0 shadow-inner rounded-full" aria-hidden="true"></span>
-    </div>
-  </div>
-  {% endif %}
-  <div>
-    <h1 class="text-2xl font-bold text-gray-900">{% translate "Object detail" %}</h1>
-    <p class="text-sm font-medium text-gray-500">{{ location.name }}</p>
-  </div>
-</div>{% endblock %}
+{% block title %}Objector + {% translate "Location detail" %} + {{ location }}{% endblock %}
+{% block h1 %}{% translate "Location detail" %}{% endblock %}
+{% block h2 %}{{ location }}{% endblock %}
 {% block content %}
 <section aria-labelledby="location-detail-title">
   <div class="bg-white shadow sm:rounded-lg">
@@ -42,18 +29,22 @@
         </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Description" %}
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {{ location.description|linebreaksbr }}
-          </dd>
-        </div>
-        <div class="sm:col-span-2">
-          <dt class="text-sm font-medium text-gray-500">
             {% translate "Address" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ location.address|linebreaksbr }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-2">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Description" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ location.description|linebreaksbr }}
           </dd>
         </div>
       </dl>
@@ -174,7 +165,7 @@
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ object.updated_at|date:'Y-m-d H:i' }}
+                  {{ object.updated_at }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div class="ml-4 flex-shrink-0 flex space-x-4">

@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Task detail + {{ object.name }}{% endblock %}
+{% block title %}Objector + {% translate "Task detail" %} + {{ task }}{% endblock %}
 {% block h1 %}{% translate "Task detail" %}{% endblock %}
-{% block h2 %}{{ object.name }}{% endblock %}
+{% block h2 %}{{ task }}{% endblock %}
 {% block content %}
 <section aria-labelledby="applicant-information-title">
   <div class="bg-white shadow sm:rounded-lg">
@@ -37,6 +37,18 @@
         </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
+            {% translate "Object" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <a href="{% url 'inventory:object-detail' task.object.id %}">{{ task.object }}</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-2">
+          <dt class="text-sm font-medium text-gray-500">
             {% translate "Description" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
@@ -47,14 +59,6 @@
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-        <div class="sm:col-span-2">
-          <dt class="text-sm font-medium text-gray-500">
-            {% translate "Object" %}
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            <a href="{% url 'inventory:object-detail' task.object.id %}">{{ task.object }}</a>
-          </dd>
-        </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
             {% translate "Object owner" %}
@@ -125,6 +129,9 @@
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {% translate "Updated at" %}
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {% translate "Notes" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -142,7 +149,10 @@
               {% for journal in journal %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  <a href="{% url 'maintenance:journal-detail' journal.object.id journal.id %}">{{ journal.notes }}</a>
+                  <a href="{% url 'maintenance:journal-detail' journal.id %}">{{ journal.updated_at }}</a>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {{ journal.notes }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {{ journal.labor_costs }}

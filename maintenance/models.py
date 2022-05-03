@@ -97,10 +97,13 @@ class Journal(RulesModel):
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     def __str__(self) -> str:
-        return self.created_at + " @" + self.object
+        return str(self.updated_at) + " @" + str(self.object.name)
 
     def get_absolute_url(self) -> str:
         return f"/journal/{self.id}"
+
+    class Meta:
+        ordering = ("-updated_at",)
 
 
 class Trigger(RulesModel):

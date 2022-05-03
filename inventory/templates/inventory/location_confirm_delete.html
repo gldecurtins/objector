@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Delete location + {{ object.name }}{% endblock %}
-{% block h1 %}{% translate "Location delete" %}{% endblock %}
-{% block h2 %}{{ object.name }}{% endblock %}
+{% block title %}Objector + {% translate "Location confirm delete" %} + {{ location }}{% endblock %}
+{% block h1 %}{% translate "Location confirm delete" %}{% endblock %}
+{% block h2 %}{{ location }}{% endblock %}
 {% block content %}
 <form method="post">{% csrf_token %}
-    <p>{% translate "Are you sure you want to delete" %} "{{ object }}"?</p>
+    <p>{% translate "Are you sure you want to delete" %} "{{ location }}"?</p>
     <div class="pt-5">
         <div class="flex justify-end">
             <a href="{% url 'inventory:location-list' %}"><button type="button"

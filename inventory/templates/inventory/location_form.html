@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load i18n %}
-{% block title %}Objector + Location form + {{ object.name }}{% endblock %}
+{% block title %}Objector + {% translate "Location form" %} + {{ location }}{% endblock %}
 {% block h1 %}{% translate "Location form" %}{% endblock %}
-{% block h2 %}{{ object.name }}{% endblock %}
+{% block h2 %}{{ location }}{% endblock %}
 {% block content %}
 <form method="POST" enctype="multipart/form-data" class="space-y-8 divide-y divide-gray-200">{% csrf_token %}
   {{ form | crispy }}

@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Object list{% endblock %}
+{% block title %}Objector + {% translate "Object list" %}{% endblock %}
 {% block h1 %}{% translate "Object list" %}{% endblock %}
-{% block h2 %}All your objects{% endblock %}
 {% block content %}
 {% if object_list %}
 {% load rules %}

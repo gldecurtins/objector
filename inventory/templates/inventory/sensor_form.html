@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
-{% block title %}Objector + Sensor form + {{ object.name }}{% endblock %}
+{% block title %}Objector + {% translate "Sensor form" %} + {{ sensor }}{% endblock %}
 {% block h1 %}{% translate "Sensor form" %}{% endblock %}
-{% block h2 %}{{ sensor.name }}{% endblock %}
+{% block h2 %}{{ sensor }}{% endblock %}
 {% block content %}
 <form method="POST" enctype="multipart/form-data" class="space-y-8 divide-y divide-gray-200">{% csrf_token %}
   {{ form | crispy }}

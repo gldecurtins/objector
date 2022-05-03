@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Location list{% endblock %}
+{% block title %}Objector + {% translate "Location list" %}{% endblock %}
 {% block h1 %}{% translate "Location list" %}{% endblock %}
-{% block h2 %}All your locations{% endblock %}
 {% block content %}
 {% if location_list %}
 {% load rules %}

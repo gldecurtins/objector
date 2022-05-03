@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Object delete + {{ object.name }}{% endblock %}
-{% block h1 %}{% translate "Delete object" %}{% endblock %}
-{% block h2 %}{{ object.name }}{% endblock %}
+{% block title %}Objector + {% translate "Object confirm delete" %} + {{ object }}{% endblock %}
+{% block h1 %}{% translate "Object confirm delete" %}{% endblock %}
+{% block h2 %}{{ object }}{% endblock %}
 {% block content %}
 <form method="post">{% csrf_token %}
     <p>{% translate "Are you sure you want to delete" %} "{{ object }}"?</p>

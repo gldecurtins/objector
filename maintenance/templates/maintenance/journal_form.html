@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
-{% block title %}Objector + task form + {{ object.name }}{% endblock %}
+{% block title %}Objector + {% translate "Journal form" %}+ {{ journal }}{% endblock %}
 {% block h1 %}{% translate "Journal form" %}{% endblock %}
-{% block h2 %}{{ object.name }}{% endblock %}
+{% block h2 %}{{ journal }}{% endblock %}
 {% block content %}
 <form method="POST" enctype="multipart/form-data" class="space-y-8 divide-y divide-gray-200">{% csrf_token %}
     {{ form | crispy }}

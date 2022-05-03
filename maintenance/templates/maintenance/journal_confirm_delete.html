@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Journal delete + {{ object.name }}{% endblock %}
-{% block h1 %}{% translate "Delete journal" %}{% endblock %}
-{% block h2 %}{{ object.name }}{% endblock %}
+{% block title %}Objector + {% translate "Journal confirm delete" %} + {{ journal }}{% endblock %}
+{% block h1 %}{% translate "Journal confirm delete" %}{% endblock %}
+{% block h2 %}{{ journal }}{% endblock %}
 {% block content %}
 <form method="post">{% csrf_token %}
     <p>{% translate "Are you sure you want to delete" %} "{{ journal }}"?</p>

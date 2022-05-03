@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %}Objector + Trigger delete + {{ object.name }}{% endblock %}
-{% block h1 %}{% translate "Trigger delete" %}{% endblock %}
-{% block h2 %}{{ object.name }}{% endblock %}
+{% block title %}Objector + {% translate "Trigger confirm delete" %} + {{ trigger }}{% endblock %}
+{% block h1 %}{% translate "Trigger confirm delete" %}{% endblock %}
+{% block h2 %}{{ trigger }}{% endblock %}
 {% block content %}
 <form method="post">{% csrf_token %}
-    <p>{% translate "Are you sure you want to delete" %} "{{ object }}"?</p>
+    <p>{% translate "Are you sure you want to delete" %} "{{ trigger }}"?</p>
     <div class="pt-5">
         <div class="flex justify-end">
             <a href="{% url 'maintenance:task-list' %}"><button type="button"

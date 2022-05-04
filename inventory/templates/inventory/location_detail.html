@@ -29,10 +29,10 @@
         </div>
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Address" %}
+            {% translate "Description" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ location.address|linebreaksbr }}
+            {{ location.description|linebreaksbr }}
           </dd>
         </div>
       </dl>
@@ -41,10 +41,26 @@
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Description" %}
+            {% translate "Address" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ location.description|linebreaksbr }}
+            {{ location.address|linebreaksbr }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Latitude" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ location.latitude }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Longitude" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ location.longitude }}
           </dd>
         </div>
       </dl>

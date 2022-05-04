@@ -122,7 +122,7 @@ class Trigger(RulesModel):
         related_name="trigger_sensor",
         on_delete=models.CASCADE,
     )
-    jsonpath_expression = models.CharField(_("JSONpath expression"), max_length=200)
+    jsonpath_expression = models.CharField(_("JSONPath expression"), max_length=200)
     condition = models.CharField(
         _("condition"), max_length=2, choices=Conditions.choices
     )

@@ -38,12 +38,12 @@ class LocationListView(LoginRequiredMixin, ListView):
         # all groups for user
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
-        qs = (
+        queryset = (
             Location.objects.filter(owner=self.request.user)
             | Location.objects.filter(management_group__in=groups_as_list)
             | Location.objects.filter(maintenance_group__in=groups_as_list)
         )
-        return qs
+        return queryset
 
 
 class LocationCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -113,12 +113,12 @@ class ObjectListView(LoginRequiredMixin, ListView):
         # all groups for user
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
-        qs = (
+        queryset = (
             Object.objects.filter(owner=self.request.user)
             | Object.objects.filter(management_group__in=groups_as_list)
             | Object.objects.filter(maintenance_group__in=groups_as_list)
         )
-        return qs
+        return queryset
 
 
 class ObjectCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):

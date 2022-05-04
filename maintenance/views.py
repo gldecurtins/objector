@@ -23,12 +23,12 @@ class TaskListView(LoginRequiredMixin, ListView):
         # all groups for user
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
-        task_queryset = (
+        queryset = (
             Task.objects.filter(object__owner=self.request.user)
             | Task.objects.filter(object__management_group__in=groups_as_list)
             | Task.objects.filter(object__maintenance_group__in=groups_as_list)
         )
-        return task_queryset
+        return queryset
 
 
 class TaskCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):

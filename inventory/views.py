@@ -150,9 +150,9 @@ class ObjectDetailView(AutoPermissionRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["task"] = Task.objects.filter(object=self.object.id)
-        context["journal"] = Journal.objects.filter(object=self.object.id)
-        context["sensor"] = Sensor.objects.filter(object=self.object.id)
+        context["tasks"] = Task.objects.filter(object=self.object.id)
+        context["journals"] = Journal.objects.filter(object=self.object.id)
+        context["sensors"] = Sensor.objects.filter(object=self.object.id)
         return context
 
 
@@ -203,7 +203,7 @@ class SensorDetailView(AutoPermissionRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["trigger"] = Trigger.objects.filter(sensor=self.object.id)
+        context["triggers"] = Trigger.objects.filter(sensor=self.object.id)
         return context
 
 

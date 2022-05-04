@@ -111,7 +111,7 @@
       {% translate "Tasks" %}
     </h2>
   </div>
-  {% if task %}
+  {% if tasks %}
   {% load rules %}
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -144,7 +144,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for task in task %}
+              {% for task in tasks %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   <a href="{% url 'maintenance:task-detail' task.id %}">{{ task.name }}</a>
@@ -218,7 +218,7 @@
       {% translate "Journal" %}
     </h2>
   </div>
-  {% if journal %}
+  {% if journals %}
   {% load rules %}
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -251,7 +251,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for journal in journal %}
+              {% for journal in journals %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   <a href="{% url 'maintenance:journal-detail' journal.id %}">{{ journal.updated_at }}</a>
@@ -333,7 +333,7 @@
       {% translate "Sensor" %}
     </h2>
   </div>
-  {% if sensor %}
+  {% if sensors %}
   {% load rules %}
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -351,7 +351,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for sensor in sensor %}
+              {% for sensor in sensors %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   <a href="{% url 'inventory:sensor-detail' sensor.id %}">{{ sensor.name }}</a>

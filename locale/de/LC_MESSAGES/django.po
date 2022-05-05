@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-05 08:52+0000\n"
+"POT-Creation-Date: 2022-05-05 11:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,10 +35,10 @@ msgid "Admin"
 msgstr ""
 
 #: common/templates/base.html:84 common/templates/base.html:118
-#: common/templates/common/dashboard.html:13
 #: common/templates/common/dashboard.html:14
+#: common/templates/common/dashboard.html:15
 msgid "Dashboard"
-msgstr ""
+msgstr "Übersicht"
 
 #: common/templates/base.html:86 common/templates/base.html:120
 #: inventory/templates/inventory/location_detail.html:146
@@ -76,21 +76,21 @@ msgstr "Anmelden"
 msgid "Tasks"
 msgstr "Aufgaben"
 
-#: common/templates/common/dashboard.html:31 maintenance/models.py:18
+#: common/templates/common/dashboard.html:32 maintenance/models.py:18
 #: maintenance/templates/maintenance/task_list.html:26
 msgid "Overdue"
 msgstr "Überfällig"
 
-#: common/templates/common/dashboard.html:34 maintenance/models.py:19
+#: common/templates/common/dashboard.html:35 maintenance/models.py:19
 #: maintenance/templates/maintenance/task_list.html:23
 msgid "Due"
 msgstr "Fällig"
 
-#: common/templates/common/dashboard.html:37 maintenance/models.py:20
+#: common/templates/common/dashboard.html:38 maintenance/models.py:20
 msgid "Pending"
 msgstr "Pendent"
 
-#: common/templates/common/dashboard.html:65
+#: common/templates/common/dashboard.html:81
 msgid "Map"
 msgstr "Karte"
 

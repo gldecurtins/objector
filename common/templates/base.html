@@ -86,7 +86,9 @@
                 class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Location" %}</a>
               <a href="{% url 'inventory:object-list' %}"
                 class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Object" %}</a>
-              <a href="{% url 'maintenance:task-list' %}"
+                <a href="{% url 'inventory:sensor-list' %}"
+                class="{% url_active 'inventory:sensor-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Sensor" %}</a>
+                <a href="{% url 'maintenance:task-list' %}"
                 class="{% url_active 'maintenance:task-list' %} border-transparent hover:text-gray-700 hover:border-indigo-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Task" %}</a>
               {% endif %}
             </div>
@@ -113,6 +115,10 @@
           x-show="open" style="display: none;">
           <div class="pt-2 pb-4 space-y-1">
             <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
+            {% if user.is_staff %}
+            <a href="/admin/" target="_blank"
+              class="border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Admin" %}</a>
+            {% endif %}
             {% if user.is_authenticated %}
             <a href="{% url 'common:dashboard' %}"
               class="{% url_active 'common:dashboard' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Dashboard" %}</a>
@@ -120,6 +126,8 @@
               class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Location" %}</a>
             <a href="{% url 'inventory:object-list' %}"
               class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Object" %}</a>
+            <a href="{% url 'inventory:sensor-list' %}"
+              class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Sensor" %}</a>
             <a href="{% url 'maintenance:task-list' %}"
               class="{% url_active 'maintenance:task-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Task" %}</a>
             {% endif %}

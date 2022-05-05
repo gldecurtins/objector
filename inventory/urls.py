@@ -33,6 +33,7 @@ urlpatterns = [
         name="object-delete",
     ),
     path("sensor/add/", views.SensorCreateView.as_view(), name="sensor-create"),
+    path("sensor/", views.SensorListView.as_view(), name="sensor-list"),
     path(
         "sensor/<int:pk>/",
         views.SensorDetailView.as_view(),

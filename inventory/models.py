@@ -194,7 +194,7 @@ class Sensor(RulesModel):
     def __str__(self) -> str:
         name = self.name
         if self.object:
-            name = self.name + " @" + str(self.object)
+            name = self.name + " @" + str(self.object.name)
         return name
 
     def get_absolute_url(self) -> str:

@@ -173,6 +173,22 @@ class ObjectDeleteView(AutoPermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy("inventory:object-list")
 
 
+class SensorListView(LoginRequiredMixin, ListView):
+    model = Sensor
+    paginate_by = 10
+
+    def get_queryset(self):
+        # all groups for user
+        groups = self.request.user.groups.values_list("pk", flat=True)
+        groups_as_list = list(groups)
+        queryset = (
+            Sensor.objects.filter(object__owner=self.request.user)
+            | Sensor.objects.filter(object__management_group__in=groups_as_list)
+            | Sensor.objects.filter(object__maintenance_group__in=groups_as_list)
+        )
+        return queryset
+
+
 class SensorCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
     model = Sensor
     fields = [
@@ -188,13 +204,6 @@ class SensorCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateV
         initial["owner"] = self.request.user.id
         initial["object"] = int(self.request.GET.get("object", False))
         return initial
-
-    def get_object_by_pk(self, form):
-        return get_object_or_404(Object, pk=form.instance.object.id)
-
-    @permission_required("inventory.add_sensor", fn=get_object_by_pk)
-    def form_valid(self, form):
-        return super().form_valid(form)
 
 
 class SensorDetailView(AutoPermissionRequiredMixin, DetailView):

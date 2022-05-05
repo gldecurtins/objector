@@ -74,7 +74,7 @@ rules.add_perm(
 rules.add_perm("inventory.change_object", object_is_owner | object_is_manager)
 rules.add_perm("inventory.delete_object", object_is_owner)
 
-rules.add_perm("inventory.add_sensor", sensor_is_object_owner)
+rules.add_perm("inventory.add_sensor", rules.is_staff)
 rules.add_perm(
     "inventory.view_sensor",
     (sensor_is_object_owner | sensor_is_object_manager | sensor_is_object_maintainer),

@@ -114,7 +114,7 @@
 </div>
 {% endif %}
 {% has_perm 'inventory.add_sensor' user sensor as can_add_sensor %}
-{% if can_add_object %}
+{% if can_add_sensor %}
 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
   <a href="{% url 'inventory:sensor-create' %}">
     <button type="button"

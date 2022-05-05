@@ -3,8 +3,7 @@ from django.conf import settings
 from django.views.generic.base import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import RedirectView
-from django.db.models import Min, Max, Value
-from django.db.models.functions import Coalesce
+from django.db.models import Min, Max
 from inventory.models import Location
 from maintenance.models import Task
 

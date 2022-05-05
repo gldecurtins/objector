@@ -10,13 +10,59 @@
   integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
   crossorigin="anonymous"></script>
 {% endblock %}
-{% block title %}Objector + Dashboard{% endblock %}
+{% block title %}Objector + {% translate "Dashboard" %}{% endblock %}
+{% block h1 %}{% translate "Dashboard" %}{% endblock %}
 {% block content %}
-<section aria-labelledby="applicant-information-title">
+<section aria-labelledby="dashboard-tasks">
   <div class="bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6">
       <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-        {% translate "Dashboard" %}
+        {% translate "Tasks" %}
+      </h2>
+    </div>
+    <div class="flex flex-col">
+      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {% translate "Overdue" %}
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {% translate "Due" %}
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {% translate "Pending" %}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <a href="{% url 'maintenance:task-list' %}">{{ overdue_tasks_count }}</a>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <a href="{% url 'maintenance:task-list' %}">{{ due_tasks_count }}</a>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <a href="{% url 'maintenance:task-list' %}">{{ pending_tasks_count }}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section aria-labelledby="dashboard-map">
+  <div class="bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6">
+      <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
+        {% translate "Map" %}
       </h2>
     </div>
     <div id="mapid" style="width: 100%; height: 512px;"></div>

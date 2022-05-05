@@ -81,9 +81,13 @@
     {% translate "Map" %}
   </h2>
 </div>
-<div id="map" style="width: 100%; height: 512px;"></div>
+<div id="map" style="width: 100%; height: 600px;"></div>
   <script>
-    var map = L.map('map').setView([47.36667, 8.55], 9);
+    var map = L.map('map');
+    map.fitBounds([
+      [{{ locations_aggregates.latitude__max|default:47.76|unlocalize }}, {{ locations_aggregates.longitude__min|default:6.02|unlocalize }}],
+      [{{ locations_aggregates.latitude__min|default:45.77|unlocalize }}, {{ locations_aggregates.longitude__max|default:10.45|unlocalize }}]
+    ]);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
       maxZoom: 18,

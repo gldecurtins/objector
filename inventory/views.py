@@ -11,14 +11,10 @@ from django.views.generic import (
     View,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rules.contrib.views import (
-    AutoPermissionRequiredMixin,
-    permission_required,
-)
+from rules.contrib.views import AutoPermissionRequiredMixin
 from .models import Location, Object, Sensor
 from maintenance.models import Task, Journal, Trigger
 from .forms import ObjectForm
-from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt

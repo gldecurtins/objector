@@ -3,6 +3,8 @@ from django.conf import settings
 from django.views.generic.base import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import RedirectView
+from django.db.models import Min, Max, Value
+from django.db.models.functions import Coalesce
 from inventory.models import Location
 from maintenance.models import Task
 
@@ -77,4 +79,8 @@ class DashboardTemplateView(LoginRequiredMixin, TemplateView):
         context["due_tasks_count"] = due_tasks_queryset.count()
         context["pending_tasks_count"] = pending_tasks_queryset.count()
         context["locations"] = location_queryset
+        context["locations_aggregates"] = location_queryset.aggregate(
+            Min("latitude"), Max("latitude"), Min("longitude"), Max("longitude")
+        )
+
         return context

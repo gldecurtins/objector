@@ -14,83 +14,80 @@
 {% block title %}Objector + {% translate "Dashboard" %}{% endblock %}
 {% block h1 %}{% translate "Dashboard" %}{% endblock %}
 {% block content %}
-<section aria-labelledby="dashboard-tasks">
-  <div class="bg-white shadow sm:rounded-lg">
-    <div class="px-4 py-5 sm:px-6">
-      <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-        {% translate "Tasks" %}
-      </h2>
-    </div>
-    <div class="flex flex-col">
-      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    {% translate "Overdue" %}
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    {% translate "Due" %}
-                  </th>
-                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    {% translate "Pending" %}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="bg-white">
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    <a href="{% url 'maintenance:task-list' %}">{{ overdue_tasks_count }}</a>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    <a href="{% url 'maintenance:task-list' %}">{{ due_tasks_count }}</a>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    <a href="{% url 'maintenance:task-list' %}">{{ pending_tasks_count }}</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+
+<div class="px-4 py-5 sm:px-6">
+  <h2 id="tasks-title" class="text-lg leading-6 font-medium text-gray-900">
+    {% translate "Tasks" %}
+  </h2>
+</div>
+
+<div class="flex flex-col">
+  <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {% translate "Overdue" %}
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {% translate "Due" %}
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {% translate "Pending" %}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <a href="{% url 'maintenance:task-list' %}">{{ overdue_tasks_count }}</a>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <a href="{% url 'maintenance:task-list' %}">{{ due_tasks_count }}</a>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <a href="{% url 'maintenance:task-list' %}">{{ pending_tasks_count }}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-</section>
-<section aria-labelledby="dashboard-map">
-  <div class="bg-white shadow sm:rounded-lg">
-    <div class="px-4 py-5 sm:px-6">
-      <h2 id="applicant-information-title" class="text-lg leading-6 font-medium text-gray-900">
-        {% translate "Map" %}
-      </h2>
-    </div>
-    <div id="map" style="width: 100%; height: 512px;"></div>
-    <script>
-      var map = L.map('map').setView([47.36667, 8.55], 9);
+</div>
 
-      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        maxZoom: 18,
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
-      }).addTo(map);
+<div class="px-4 py-5 sm:px-6">
+  <h2 id="map-title" class="text-lg leading-6 font-medium text-gray-900">
+    {% translate "Map" %}
+  </h2>
+</div>
+<div id="map" style="width: 100%; height: 512px;"></div>
+  <script>
+    var map = L.map('map').setView([47.36667, 8.55], 9);
 
-      {% if locations %}
-      var greenIcon = L.icon({iconUrl: '{% static 'common/img/marker-icon-green.png' %}', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
-      var amberIcon = L.icon({iconUrl: '{% static 'common/img/marker-icon-amber.png' %}', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
-      var redIcon   = L.icon({iconUrl: '{% static 'common/img/marker-icon-red.png' %}',   iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
-      {% for location in locations %}
-      {% if location.latitude and location.longitude %}
-      var marker{{ location.id }} = L.marker([{{ location.latitude|unlocalize }}, {{ location.longitude|unlocalize }}], { icon: {{ location.status_color }}Icon }).bindPopup("<a href='{% url 'inventory:location-detail' location.id %}'>{{ location.name }}</a>").addTo(map);
-      {% endif %}
-      {% endfor %}
-      {% endif %}
-    </script>
-  </div>
-</section>
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+    }).addTo(map);
+
+    {% if locations %}
+    var greenIcon = L.icon({iconUrl: '{% static 'common/img/marker-icon-green.png' %}', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
+    var amberIcon = L.icon({iconUrl: '{% static 'common/img/marker-icon-amber.png' %}', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
+    var redIcon   = L.icon({iconUrl: '{% static 'common/img/marker-icon-red.png' %}',   iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
+    {% for location in locations %}
+    {% if location.latitude and location.longitude %}
+    var marker{{ location.id }} = L.marker([{{ location.latitude|unlocalize }}, {{ location.longitude|unlocalize }}], { icon: {{ location.status_color }}Icon }).bindPopup("<a href='{% url 'inventory:location-detail' location.id %}'>{{ location.name }}</a>").addTo(map);
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  </script>
+</div>
+
 {% endblock %}

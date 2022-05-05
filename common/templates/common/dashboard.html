@@ -42,13 +42,31 @@
           <tbody>
             <tr class="bg-white">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                <a href="{% url 'maintenance:task-list' %}">{{ overdue_tasks_count }}</a>
+                {% if overdue_tasks_count > 0 %}
+                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-red-100 text-red-800">
+                {% else %}
+                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
+                {% endif %}
+                  <a href="{% url 'maintenance:task-list' %}">{{ overdue_tasks_count }}</a>
+                </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                <a href="{% url 'maintenance:task-list' %}">{{ due_tasks_count }}</a>
+                {% if due_tasks_count > 0 %}
+                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                {% else %}
+                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
+                {% endif %}
+                  <a href="{% url 'maintenance:task-list' %}">{{ due_tasks_count }}</a>
+                </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                <a href="{% url 'maintenance:task-list' %}">{{ pending_tasks_count }}</a>
+                {% if pending_tasks_count > 0 %}
+                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-green-100 text-green-800">
+                {% else %}
+                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
+                {% endif %}
+                  <a href="{% url 'maintenance:task-list' %}">{{ pending_tasks_count }}</a>
+                </div>
               </td>
             </tr>
           </tbody>

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load l10n %}
 {% load static %}
 {% block head %}
 {# https://www.srihash.org/ #}
@@ -69,13 +70,14 @@
     <script>
       var map = L.map('map').setView([47.36667, 8.55], 9);
 
-      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         maxZoom: 18,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
           'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         id: 'mapbox/streets-v11',
         tileSize: 512,
-        zoomOffset: -1
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
       }).addTo(map);
 
       {% if locations %}
@@ -84,7 +86,7 @@
       var redIcon   = L.icon({iconUrl: '{% static 'common/img/marker-icon-red.png' %}',   iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
 
       {% for location in locations %}
-      var marker{{ location.id }} = L.marker([{{ location.latitude }}, {{ location.longitude }}], { icon: {{ location.status_color }}Icon }).bindPopup("<a href='{% url 'inventory:location-detail' location.id %}'>{{ location.name }}</a>").addTo(map);
+      var marker{{ location.id }} = L.marker([{{ location.latitude|unlocalize }}, {{ location.longitude|unlocalize }}], { icon: {{ location.status_color }}Icon }).bindPopup("<a href='{% url 'inventory:location-detail' location.id %}'>{{ location.name }}</a>").addTo(map);
       {% endfor %}
       {% endif %}
 

@@ -141,10 +141,7 @@ class Object(RulesModel):
         ordering = ["status", "name"]
 
     def __str__(self) -> str:
-        name = self.name
-        if self.location:
-            name = self.name + " @" + str(self.location)
-        return name
+        return self.name
 
     def get_absolute_url(self) -> str:
         return f"/object/{self.id}"
@@ -192,10 +189,7 @@ class Sensor(RulesModel):
         ordering = ["status", "name"]
 
     def __str__(self) -> str:
-        name = self.name
-        if self.object:
-            name = self.name + " @" + str(self.object.name)
-        return name
+        return self.name
 
     def get_absolute_url(self) -> str:
         return f"/sensor/{self.id}"

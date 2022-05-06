@@ -97,7 +97,7 @@ class Journal(RulesModel):
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     def __str__(self) -> str:
-        return str(self.updated_at) + " @" + str(self.object.name)
+        return str(self.pk)
 
     def get_absolute_url(self) -> str:
         return f"/journal/{self.id}"
@@ -135,7 +135,7 @@ class Trigger(RulesModel):
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     def __str__(self) -> str:
-        return self.created_at + " @" + self.sensor
+        return self.name
 
     def get_absolute_url(self) -> str:
         return f"/trigger/{self.id}"

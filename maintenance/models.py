@@ -97,7 +97,7 @@ class Journal(RulesModel):
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
     def __str__(self) -> str:
-        return str(self.pk)
+        return str(self.id)
 
     def get_absolute_url(self) -> str:
         return f"/journal/{self.id}"

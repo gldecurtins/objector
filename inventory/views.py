@@ -222,6 +222,7 @@ class SensorUpdateView(AutoPermissionRequiredMixin, UpdateView):
         "object",
         "webhook_authorization",
         "webhook_payload",
+        "status",
     ]
 
 

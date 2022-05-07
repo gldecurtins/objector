@@ -6,6 +6,7 @@ from django.views.generic import RedirectView
 from django.db.models import Min, Max
 from inventory.models import Location
 from maintenance.models import Task
+import datetime
 
 
 class HomeTemplateView(TemplateView):
@@ -81,5 +82,6 @@ class DashboardTemplateView(LoginRequiredMixin, TemplateView):
         context["locations_aggregates"] = location_queryset.aggregate(
             Min("latitude"), Max("latitude"), Min("longitude"), Max("longitude")
         )
+        context["current_datetime"] = datetime.datetime.now()
 
         return context

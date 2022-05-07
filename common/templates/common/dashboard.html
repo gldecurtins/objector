@@ -77,7 +77,7 @@
     </div>
   </div>
 </div>
-
+{% if locations %}
 <div class="px-4 py-5 sm:px-6">
   <h2 id="map-title" class="text-lg leading-6 font-medium text-gray-900">
     {% translate "Map" %}
@@ -100,16 +100,12 @@
     zoomOffset: -1,
     accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
   }).addTo(map);
-
-  {% if locations %}
-    var greenIcon = L.icon({iconUrl: '{% static 'common/img/marker-icon-green.png' %}', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
-    var amberIcon = L.icon({iconUrl: '{% static 'common/img/marker-icon-amber.png' %}', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
-    var redIcon   = L.icon({iconUrl: '{% static 'common/img/marker-icon-red.png' %}',   iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
-    {% for location in locations %}
-      {% if location.latitude and location.longitude %}
-        var marker{{ location.id }} = L.marker([{{ location.latitude|unlocalize }}, {{ location.longitude|unlocalize }}], { icon: {{ location.status_color }}Icon }).bindPopup("<a href='{% url 'inventory:location-detail' location.id %}'>{{ location.name }}</a>").addTo(map);
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+  var greenIcon = L.icon({iconUrl: '{% static 'common/img/marker-icon-green.png' %}', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
+  var amberIcon = L.icon({iconUrl: '{% static 'common/img/marker-icon-amber.png' %}', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
+  var redIcon   = L.icon({iconUrl: '{% static 'common/img/marker-icon-red.png' %}',   iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [0, -34]});
+  {% for location in locations %}
+      var marker{{ location.id }} = L.marker([{{ location.latitude|unlocalize }}, {{ location.longitude|unlocalize }}], { icon: {{ location.status_color }}Icon }).bindPopup("<a href='{% url 'inventory:location-detail' location.id %}'>{{ location.name }}</a>").addTo(map);
+  {% endfor %}
 </script>
+{% endif %}
 {% endblock %}

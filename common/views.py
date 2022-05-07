@@ -71,9 +71,19 @@ class DashboardTemplateView(LoginRequiredMixin, TemplateView):
             )
         )
         location_queryset = (
-            Location.objects.filter(owner=self.request.user)
-            | Location.objects.filter(management_group__in=groups_as_list)
-            | Location.objects.filter(maintenance_group__in=groups_as_list)
+            Location.objects.filter(
+                owner=self.request.user, latitude__isnull=False, longitude__isnull=False
+            )
+            | Location.objects.filter(
+                management_group__in=groups_as_list,
+                latitude__isnull=False,
+                longitude__isnull=False,
+            )
+            | Location.objects.filter(
+                maintenance_group__in=groups_as_list,
+                latitude__isnull=False,
+                longitude__isnull=False,
+            )
         )
         context["overdue_tasks_count"] = overdue_tasks_queryset.count()
         context["due_tasks_count"] = due_tasks_queryset.count()

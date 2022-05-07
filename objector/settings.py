@@ -144,7 +144,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = "en-us"
 LOCALE_PATHS = ["./locale"]
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Zurich"
 
 USE_I18N = True
 

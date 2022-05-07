@@ -6,7 +6,7 @@ from django.views.generic import RedirectView
 from django.db.models import Min, Max
 from inventory.models import Location
 from maintenance.models import Task
-import datetime
+from django.utils import timezone
 
 
 class HomeTemplateView(TemplateView):
@@ -82,6 +82,6 @@ class DashboardTemplateView(LoginRequiredMixin, TemplateView):
         context["locations_aggregates"] = location_queryset.aggregate(
             Min("latitude"), Max("latitude"), Min("longitude"), Max("longitude")
         )
-        context["current_datetime"] = datetime.datetime.now()
+        context["current_datetime"] = timezone.now()
 
         return context

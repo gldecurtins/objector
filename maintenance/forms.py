@@ -14,20 +14,27 @@ class TaskForm(forms.ModelForm):
             "overdue_at",
             "status",
         ]
-        widgets = {
-            "due_at": forms.DateTimeInput(
-                attrs={
-                    "type": "datetime-local",
-                    "placeholder": "Select a due date and time",
-                },
-            ),
-            "overdue_at": forms.DateTimeInput(
-                attrs={
-                    "type": "datetime-local",
-                    "placeholder": "Select an overdue date and time",
-                },
-            ),
-        }
+
+    due_at = forms.DateTimeField(
+        input_formats=["%Y-%m-%dT%H:%M"],
+        widget=forms.DateTimeInput(
+            attrs={
+                "type": "datetime-local",
+                "placeholder": "Select a due date and time",
+            },
+            format="%Y-%m-%dT%H:%M",
+        ),
+    )
+    overdue_at = forms.DateTimeField(
+        input_formats=["%Y-%m-%dT%H:%M"],
+        widget=forms.DateTimeInput(
+            attrs={
+                "type": "datetime-local",
+                "placeholder": "Select an overdue date and time",
+            },
+            format="%Y-%m-%dT%H:%M",
+        ),
+    )
 
     def __init__(self, *args, **kwargs) -> None:
         self.request = kwargs.pop("request")

@@ -16,6 +16,7 @@ class TaskForm(forms.ModelForm):
         ]
 
     due_at = forms.DateTimeField(
+        required=False,
         input_formats=["%Y-%m-%dT%H:%M"],
         widget=forms.DateTimeInput(
             attrs={
@@ -26,6 +27,7 @@ class TaskForm(forms.ModelForm):
         ),
     )
     overdue_at = forms.DateTimeField(
+        required=False,
         input_formats=["%Y-%m-%dT%H:%M"],
         widget=forms.DateTimeInput(
             attrs={

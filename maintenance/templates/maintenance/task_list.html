@@ -2,9 +2,27 @@
 {% load rules %}
 {% load i18n %}
 {% load humanize %}
+{% load crispy_forms_tags %}
 {% block title %}Objector + {% translate "Task list" %}{% endblock %}
 {% block h1 %}{% translate "Task list" %}{% endblock %}
 {% block content %}
+<div class="pb-5 border-b border-gray-200">
+  <h3 class="text-lg leading-6 font-medium text-gray-900">Filter</h3>
+</div>
+<form method="get">
+  {{ filter.form }}
+  <div class="pt-5">
+    <div class="flex justify-end">
+        <button type="submit"
+            class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            {% translate "Apply filter" %}
+        </button>
+    </div>
+</div>
+</form>
+<div class="pb-5 border-b border-gray-200">
+  <h3 class="text-lg leading-6 font-medium text-gray-900">Content</h3>
+</div>
 {% if task_list %}
 <div class="flex flex-col">
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

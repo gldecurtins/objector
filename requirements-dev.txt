@@ -11,6 +11,7 @@ boto3==1.22.8
 django-cleanup==6.0.0
 Pillow==9.1.0
 jsonpath-ng==1.5.3
+django-filter==21.1
 
 flake8==4.0.1
 black==22.3.0

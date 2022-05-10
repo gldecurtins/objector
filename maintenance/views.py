@@ -13,6 +13,7 @@ from .models import Task, Journal, Trigger
 from .forms import TaskForm, JournalForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext_lazy as _
+from .filters import TaskFilter
 
 
 class TaskListView(LoginRequiredMixin, ListView):
@@ -28,7 +29,16 @@ class TaskListView(LoginRequiredMixin, ListView):
             | Task.objects.filter(object__management_group__in=groups_as_list)
             | Task.objects.filter(object__maintenance_group__in=groups_as_list)
         )
+        queryset
         return queryset
+
+    def get(self, request, *args, **kwargs):
+        filterset = TaskFilter(request.GET, queryset=self.queryset)
+
+        self.object_list = filterset.qs
+        context = self.get_context_data(filter=filterset, object_list=self.object_list)
+
+        return self.render_to_response(context)
 
 
 class TaskCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):

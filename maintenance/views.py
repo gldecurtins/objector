@@ -22,7 +22,7 @@ class TaskListView(LoginRequiredMixin, ListView):
 
     def get(self, request, *args, **kwargs):
         filterset = TaskFilter(request.GET, queryset=self.queryset)
-        self.object_list = filterset.queryset
+        self.object_list = filterset.qs
         context = self.get_context_data(filter=filterset)
         return self.render_to_response(context)
 

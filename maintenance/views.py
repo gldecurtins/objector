@@ -20,6 +20,12 @@ class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     paginate_by = 10
 
+    def get(self, request, *args, **kwargs):
+        filterset = TaskFilter(request.GET, queryset=self.queryset)
+        self.object_list = filterset.queryset
+        context = self.get_context_data(filter=filterset)
+        return self.render_to_response(context)
+
     def get_queryset(self):
         # all groups for user
         groups = self.request.user.groups.values_list("pk", flat=True)
@@ -29,16 +35,7 @@ class TaskListView(LoginRequiredMixin, ListView):
             | Task.objects.filter(object__management_group__in=groups_as_list)
             | Task.objects.filter(object__maintenance_group__in=groups_as_list)
         )
-        queryset
         return queryset
-
-    def get(self, request, *args, **kwargs):
-        filterset = TaskFilter(request.GET, queryset=self.queryset)
-
-        self.object_list = filterset.qs
-        context = self.get_context_data(filter=filterset, object_list=self.object_list)
-
-        return self.render_to_response(context)
 
 
 class TaskCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):

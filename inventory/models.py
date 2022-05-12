@@ -68,6 +68,9 @@ class Location(RulesModel):
         verbose_name = _("location")
         verbose_name_plural = _("locations")
         ordering = ["status", "name"]
+        indexes = [
+            models.Index(fields=["owner", "management_group", "maintenance_group"]),
+        ]
 
     def __str__(self) -> str:
         return self.name
@@ -139,6 +142,9 @@ class Object(RulesModel):
         verbose_name = _("object")
         verbose_name_plural = _("objects")
         ordering = ["status", "name"]
+        indexes = [
+            models.Index(fields=["owner", "management_group", "maintenance_group"]),
+        ]
 
     def __str__(self) -> str:
         return self.name

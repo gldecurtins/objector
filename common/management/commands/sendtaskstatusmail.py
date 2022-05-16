@@ -1,8 +1,8 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from maintenance.models import Task
-from django.urls import reverse
+import markdown
 
 
 class Command(BaseCommand):
@@ -21,20 +21,17 @@ class Command(BaseCommand):
 
     def send_task_status_summary(self, user, groups_as_list):
         subject, from_email, to = "Task status", "info@objector.app", user.email
-        text_content = "***********\nTask status\n***********\n\n"
+        text_content = "# Task status\n\n"
 
         text_content += self.get_overdue_tasks_content(user, groups_as_list)
         text_content += self.get_due_tasks_content(user, groups_as_list)
 
-        text_content += "\n\nObjector"
+        text_content += "\n\n[Objector](https://objector.app)"
+        html_content = markdown.markdown(text_content)
 
-        send_mail(
-            subject,
-            text_content,
-            from_email,
-            [to],
-            fail_silently=False,
-        )
+        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
     def get_overdue_tasks_content(self, user, groups_as_list):
         content = ""
@@ -50,14 +47,10 @@ class Command(BaseCommand):
             )
         )
         if overdue_tasks_queryset:
-            content = "\nOverdue tasks\n#############\n\n"
+            content = "\n## Overdue tasks\n\n"
 
         for task in overdue_tasks_queryset:
-            content += f":Task: {task.name}, https://objector.app{reverse('maintenance:task-detail', args=[task.pk, ])}\n"
-            content += f":Object: {task.object}, https://objector.app{reverse('inventory:object-detail', args=[task.object.pk, ])}\n"
-            content += f":Due at: {task.due_at}\n"
-            content += f":Overdue at: {task.overdue_at}\n"
-            content += "-- \n"
+            content += self.compile_task_content(task)
 
         return content
 
@@ -75,13 +68,27 @@ class Command(BaseCommand):
             )
         )
         if due_tasks_queryset:
-            content = "\nDue tasks\n#########\n\n"
+            content = "\n## Due tasks\n\n"
 
         for task in due_tasks_queryset:
-            content += f":Task: {task.name}, https://objector.app{reverse('maintenance:task-detail', args=[task.pk, ])}\n"
-            content += f":Object: {task.object}, https://objector.app{reverse('inventory:object-detail', args=[task.object.pk, ])}\n"
-            content += f":Due at: {task.due_at}\n"
-            content += f":Overdue at: {task.overdue_at}\n"
-            content += "-- \n"
+            content += self.compile_task_content(task)
+
+        return content
+
+    def compile_task_content(self, task):
+        content = ""
+        content += "+ Task: " f"[{task.name}](https://objector.app/task/{task.pk}/)\n"
+        content += (
+            "+ Object: "
+            f"[{task.object}](https://objector.app/object/{task.object.pk}/)\n"
+        )
+        if task.object.location:
+            content += (
+                "+ Location: "
+                f"[{task.object.location}](https://objector.app/location/{task.object.location.pk}/)\n"
+            )
+        content += f"+ Due at: {task.due_at}\n"
+        content += f"+ Overdue at: {task.overdue_at}\n"
+        content += "---\n"
 
         return content

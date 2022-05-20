@@ -47,7 +47,6 @@ class LocationCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, Creat
     fields = [
         "name",
         "description",
-        "image",
         "address",
         "latitude",
         "longitude",

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}Objector + {% translate "User detail" %} + {{ user }}{% endblock %}
+{% block h1 %}{% translate "User detail" %}{% endblock %}
+{% block h2 %}{{ user }}{% endblock %}
+{% block content %}
+<section aria-labelledby="location-detail-title">
+  <div class="bg-white shadow sm:rounded-lg">
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Username" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.username }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Send status report at" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.send_status_report_at }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Status report last sent at" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.status_report_last_sent_at }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <div class="pt-5">
+        <div class="flex justify-end">
+          <a href="{% url 'common:user-update' user.id %}"><button type="button"
+              class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Change" %}</button></a>
+          <a href="{% url 'common:user-delete' user.id %}"><button type="button"
+              class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Delete" %}</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

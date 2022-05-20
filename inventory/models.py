@@ -1,22 +1,16 @@
 from django.db import models
 from django.conf import settings
 from rules.contrib.models import RulesModel
-import uuid
-import pathlib
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 
 
 def location_image_upload_handler(instance, filename) -> str:
-    file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
-    file_suffix = pathlib.Path(filename).suffix
-    return f"location_image/{file_name}{file_suffix}"
+    return f"location_image/{instance.id}/{filename}"
 
 
 def object_image_upload_handler(instance, filename) -> str:
-    file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
-    file_suffix = pathlib.Path(filename).suffix
-    return f"object_image/{file_name}{file_suffix}"
+    return f"object_image/{instance.id}/{filename}"
 
 
 class Location(RulesModel):

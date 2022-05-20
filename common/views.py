@@ -1,12 +1,21 @@
 from django.contrib.auth import logout as django_logout
 from django.conf import settings
-from django.views.generic.base import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import RedirectView
+from django.views.generic import (
+    RedirectView,
+    UpdateView,
+    DetailView,
+    DeleteView,
+    TemplateView,
+)
 from django.db.models import Min, Max
 from inventory.models import Location
 from maintenance.models import Task
 from django.utils import timezone
+from rules.contrib.views import AutoPermissionRequiredMixin
+from .models import User
+from .forms import UserForm
+from django.urls import reverse_lazy
 
 
 class HomeTemplateView(TemplateView):
@@ -95,3 +104,20 @@ class DashboardTemplateView(LoginRequiredMixin, TemplateView):
         context["current_datetime"] = timezone.now()
 
         return context
+
+
+class UserDetailView(AutoPermissionRequiredMixin, DetailView):
+    model = User
+    raise_exception = True
+
+
+class UserUpdateView(AutoPermissionRequiredMixin, UpdateView):
+    model = User
+    raise_exception = True
+    form_class = UserForm
+
+
+class UserDeleteView(AutoPermissionRequiredMixin, DeleteView):
+    model = User
+    raise_exception = True
+    success_url = reverse_lazy("home")

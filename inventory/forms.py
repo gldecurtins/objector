@@ -8,7 +8,6 @@ class ObjectForm(forms.ModelForm):
         fields = [
             "name",
             "description",
-            "image",
             "location",
             "owner",
             "management_group",

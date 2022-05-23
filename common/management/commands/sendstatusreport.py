@@ -19,15 +19,25 @@ class Command(BaseCommand):
         now = timezone.now()
         current_time = now.time()
         today = now.date()
+        self.stdout.write(self.style.SUCCESS(f"Now: {now}"))
+        self.stdout.write(self.style.SUCCESS(f"Current time: {current_time}"))
+        self.stdout.write(self.style.SUCCESS(f"Today: {today}"))
         users = User.objects.filter(
             email__isnull=False,
-            send_status_report_at__lt=current_time,
             status_report_last_sent_at__date__lt=today,
+            send_status_report_at__lt=current_time,
+        ) | User.objects.filter(
+            email__isnull=False,
+            status_report_last_sent_at__isnull=True,
+            send_status_report_at__lt=current_time,
         )
         for user in users:
+            self.stdout.write(self.style.SUCCESS(f"Sending status report to {user}"))
             groups = user.groups.values_list("pk", flat=True)
             groups_as_list = list(groups)
             self.send_status_report(user, groups_as_list)
+            user.status_report_last_sent_at = now
+            user.save()
 
     def send_status_report(self, user, groups_as_list) -> None:
         translation.activate("de")

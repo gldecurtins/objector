@@ -6,7 +6,6 @@ from maintenance.models import Task
 from inventory.models import Sensor
 from django.utils import translation, timezone, formats
 import markdown
-from django.utils import timezone
 
 
 class Command(BaseCommand):

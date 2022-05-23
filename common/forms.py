@@ -6,6 +6,8 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
+            "first_name",
+            "last_name",
             "send_status_report_at",
         ]
 

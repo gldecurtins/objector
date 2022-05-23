@@ -6,6 +6,7 @@ from maintenance.models import Task
 from inventory.models import Sensor
 from django.utils import translation, timezone, formats
 import markdown
+from django.utils import timezone
 
 
 class Command(BaseCommand):
@@ -16,7 +17,14 @@ class Command(BaseCommand):
 
     def get_users(self) -> None:
         User = get_user_model()
-        users = User.objects.filter(email__isnull=False)
+        now = timezone.now()
+        current_time = now.time()
+        today = now.date()
+        users = User.objects.filter(
+            email__isnull=False,
+            send_status_report_at__lt=current_time,
+            status_report_last_sent_at__date__lt=today,
+        )
         for user in users:
             groups = user.groups.values_list("pk", flat=True)
             groups_as_list = list(groups)

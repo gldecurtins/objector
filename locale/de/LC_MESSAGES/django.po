@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-17 15:59+0200\n"
+"POT-Creation-Date: 2022-05-23 17:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,9 +22,19 @@ msgstr ""
 msgid "Common"
 msgstr "Allgemein"
 
-#: common/management/commands/sendtaskstatusmail.py:27
+#: common/management/commands/sendstatusreport.py:28
 msgid "Status report"
 msgstr "Status Rapport"
+
+#: common/models.py:9
+#| msgid "Status report"
+msgid "send status report at"
+msgstr "Sende Status Rapport um"
+
+#: common/models.py:12
+#| msgid "Status report"
+msgid "status report last sent at"
+msgstr "Status Rapport versandt am"
 
 #: common/templates/403.html:7
 msgid "Forbidden"
@@ -34,24 +44,24 @@ msgstr "Zugriff verweigert"
 msgid "Not found"
 msgstr "Eintrag nicht gefunden"
 
-#: common/templates/base.html:80 common/templates/base.html:120
+#: common/templates/base.html:80 common/templates/base.html:148
 msgid "Admin"
 msgstr ""
 
-#: common/templates/base.html:84 common/templates/base.html:124
+#: common/templates/base.html:84 common/templates/base.html:152
 #: common/templates/common/dashboard.html:15
 #: common/templates/common/dashboard.html:16
 msgid "Dashboard"
 msgstr "Übersicht"
 
-#: common/templates/base.html:86 common/templates/base.html:126
+#: common/templates/base.html:86 common/templates/base.html:154
 #: inventory/templates/inventory/location_detail.html:146
 #: inventory/templates/inventory/object_detail.html:32
 #: inventory/templates/inventory/object_list.html:20
 msgid "Location"
 msgstr "Standort"
 
-#: common/templates/base.html:88 common/templates/base.html:128
+#: common/templates/base.html:88 common/templates/base.html:156
 #: inventory/templates/inventory/sensor_detail.html:32
 #: inventory/templates/inventory/sensor_list.html:20
 #: maintenance/templates/maintenance/journal_detail.html:18
@@ -62,24 +72,24 @@ msgstr "Standort"
 msgid "Object"
 msgstr "Objekt"
 
-#: common/templates/base.html:90 common/templates/base.html:130
+#: common/templates/base.html:90 common/templates/base.html:158
 #: inventory/templates/inventory/object_detail.html:327
 #: maintenance/templates/maintenance/trigger_detail.html:27
 msgid "Sensor"
 msgstr "Sensor"
 
-#: common/templates/base.html:92 common/templates/base.html:132
+#: common/templates/base.html:92 common/templates/base.html:160
 #: inventory/templates/inventory/object_detail.html:231
 #: maintenance/templates/maintenance/journal_detail.html:32
 #: maintenance/templates/maintenance/journal_detail.html:105
 msgid "Task"
 msgstr "Aufgabe"
 
-#: common/templates/base.html:101
-msgid "Log out"
-msgstr "Abmelden"
+#: common/templates/base.html:128
+msgid "Profile"
+msgstr ""
 
-#: common/templates/base.html:108
+#: common/templates/base.html:136
 msgid "Log in"
 msgstr "Anmelden"
 
@@ -138,138 +148,13 @@ msgstr "Erfahre über anstehende oder überfällige Aufgaben"
 msgid "Set up management and maintenance"
 msgstr "Management und Instandhaltung einrichten"
 
-#: inventory/apps.py:8
-msgid "Inventory"
-msgstr "Inventar"
+#: common/templates/common/user_confirm_delete.html:3
+#: common/templates/common/user_confirm_delete.html:4
+#| msgid "Sensor confirm delete"
+msgid "User confirm delete"
+msgstr "Benutzer löschen bestätigen"
 
-#: inventory/models.py:24 inventory/models.py:93 inventory/models.py:167
-msgid "alert"
-msgstr "Alarm"
-
-#: inventory/models.py:25 inventory/models.py:94 inventory/models.py:168
-msgid "warning"
-msgstr "Achtung"
-
-#: inventory/models.py:26 inventory/models.py:95 inventory/models.py:169
-msgid "normal"
-msgstr "Normal"
-
-#: inventory/models.py:28 inventory/models.py:97 inventory/models.py:171
-#: maintenance/models.py:23 maintenance/models.py:118
-msgid "name"
-msgstr "Name"
-
-#: inventory/models.py:29 inventory/models.py:98 inventory/models.py:172
-#: maintenance/models.py:24
-msgid "description"
-msgstr "Beschreibung"
-
-#: inventory/models.py:31 inventory/models.py:100 inventory/models.py:174
-#: maintenance/models.py:88
-msgid "image"
-msgstr "Bild"
-
-#: inventory/models.py:33
-msgid "address"
-msgstr "Adresse"
-
-#: inventory/models.py:34
-msgid "latitude"
-msgstr "Breite (latitude)"
-
-#: inventory/models.py:35
-msgid "longitude"
-msgstr "Länge (longitude)"
-
-#: inventory/models.py:37 inventory/models.py:111 inventory/models.py:183
-#: maintenance/models.py:32
-msgid "status"
-msgstr "Status"
-
-#: inventory/models.py:41 inventory/models.py:115
-msgid "owner"
-msgstr "Eigentümer"
-
-#: inventory/models.py:44
-msgid "Owner can view, change or delete this location."
-msgstr "Der Eigentümer kann diesen Standort ansehen, ändern oder löschen."
-
-#: inventory/models.py:48 inventory/models.py:122
-msgid "management group"
-msgstr "Management Gruppe"
-
-#: inventory/models.py:53
-msgid "Group members can view, change or delete this location."
-msgstr "Gruppenmitglieder können diesen Standort ansehen, ändern oder löschen."
-
-#: inventory/models.py:57 inventory/models.py:131
-msgid "maintenance group"
-msgstr "Instandhaltungs Gruppe"
-
-#: inventory/models.py:62
-msgid "Group members can view this location."
-msgstr "Gruppenmitglieder können diesen Standort ansehen."
-
-#: inventory/models.py:64 inventory/models.py:138 inventory/models.py:189
-#: maintenance/models.py:36 maintenance/models.py:96 maintenance/models.py:134
-msgid "created at"
-msgstr "Erstellt"
-
-#: inventory/models.py:65 inventory/models.py:139 inventory/models.py:190
-#: maintenance/models.py:37 maintenance/models.py:97 maintenance/models.py:135
-msgid "updated at"
-msgstr "Aktualisiert"
-
-#: inventory/models.py:68 inventory/models.py:104
-msgid "location"
-msgstr "Standort"
-
-#: inventory/models.py:69
-msgid "locations"
-msgstr "Standorte"
-
-#: inventory/models.py:118
-msgid "Owner can view, change or delete this object."
-msgstr "Der Eigentümer kann dieses Objekt ansehen, ändern oder löschen."
-
-#: inventory/models.py:127
-msgid "Group members can view or update this object."
-msgstr "Gruppenmitglieder können dieses Objekt ansehen oder ändern."
-
-#: inventory/models.py:136
-msgid "Group members can view this object."
-msgstr "Gruppenmitglieder können dieses Objekt ansehen."
-
-#: inventory/models.py:142 inventory/models.py:178 maintenance/models.py:27
-#: maintenance/models.py:74
-msgid "object"
-msgstr "Objekt"
-
-#: inventory/models.py:143
-msgid "objects"
-msgstr "Objekte"
-
-#: inventory/models.py:186
-msgid "webhook authorization"
-msgstr ""
-
-#: inventory/models.py:188
-msgid "webhook payload"
-msgstr ""
-
-#: inventory/models.py:193 maintenance/models.py:121
-msgid "sensor"
-msgstr "Sensor"
-
-#: inventory/models.py:194
-msgid "sensors"
-msgstr "Sensoren"
-
-#: inventory/templates/inventory/location_confirm_delete.html:3
-#: inventory/templates/inventory/location_confirm_delete.html:4
-msgid "Location confirm delete"
-msgstr "Standort löschen bestätigen"
-
+#: common/templates/common/user_confirm_delete.html:8
 #: inventory/templates/inventory/location_confirm_delete.html:8
 #: inventory/templates/inventory/object_confirm_delete.html:8
 #: inventory/templates/inventory/sensor_confirm_delete.html:8
@@ -279,18 +164,18 @@ msgstr "Standort löschen bestätigen"
 msgid "Are you sure you want to delete"
 msgstr "Soll dieser Eintrag gelöscht werden:"
 
-#: inventory/templates/inventory/location_confirm_delete.html:12
-#: inventory/templates/inventory/location_detail.html:118
-#: inventory/templates/inventory/object_confirm_delete.html:12
-#: inventory/templates/inventory/object_detail.html:102
-#: inventory/templates/inventory/sensor_confirm_delete.html:12
-#: maintenance/templates/maintenance/journal_confirm_delete.html:12
-#: maintenance/templates/maintenance/task_confirm_delete.html:12
-#: maintenance/templates/maintenance/task_detail.html:118
-#: maintenance/templates/maintenance/trigger_confirm_delete.html:12
-msgid "List"
-msgstr "Liste"
+#: common/templates/common/user_confirm_delete.html:12
+#: inventory/templates/inventory/location_form.html:13
+#: inventory/templates/inventory/object_form.html:14
+#: inventory/templates/inventory/sensor_form.html:14
+#: maintenance/templates/maintenance/journal_form.html:14
+#: maintenance/templates/maintenance/task_form.html:14
+#: maintenance/templates/maintenance/trigger_form.html:14
+msgid "Cancel"
+msgstr "Abbrechen"
 
+#: common/templates/common/user_confirm_delete.html:14
+#: common/templates/common/user_detail.html:63
 #: inventory/templates/inventory/location_confirm_delete.html:14
 #: inventory/templates/inventory/location_detail.html:120
 #: inventory/templates/inventory/location_detail.html:206
@@ -315,6 +200,217 @@ msgstr "Liste"
 #: maintenance/templates/maintenance/trigger_detail.html:105
 msgid "Delete"
 msgstr "Löschen"
+
+#: common/templates/common/user_detail.html:3
+#: common/templates/common/user_detail.html:4
+#| msgid "Sensor detail"
+msgid "User detail"
+msgstr "Benutzerdetail"
+
+#: common/templates/common/user_detail.html:13
+#| msgid "name"
+msgid "Username"
+msgstr "Benutzername"
+
+#: common/templates/common/user_detail.html:21
+msgid "First name"
+msgstr "Vorname"
+
+#: common/templates/common/user_detail.html:29
+#| msgid "name"
+msgid "Last name"
+msgstr "Nachname"
+
+#: common/templates/common/user_detail.html:41
+#| msgid "Status report"
+msgid "Send status report at"
+msgstr "Sende Status Rapport um"
+
+#: common/templates/common/user_detail.html:49
+#, fuzzy
+#| msgid "Status report"
+msgid "Status report last sent at"
+msgstr "Status Rapport"
+
+#: common/templates/common/user_detail.html:61
+#: inventory/templates/inventory/location_detail.html:116
+#: inventory/templates/inventory/location_detail.html:199
+#: inventory/templates/inventory/location_list.html:59
+#: inventory/templates/inventory/object_detail.html:100
+#: inventory/templates/inventory/object_detail.html:177
+#: inventory/templates/inventory/object_detail.html:292
+#: inventory/templates/inventory/object_detail.html:374
+#: inventory/templates/inventory/object_list.html:70
+#: inventory/templates/inventory/sensor_detail.html:76
+#: inventory/templates/inventory/sensor_detail.html:143
+#: inventory/templates/inventory/sensor_list.html:70
+#: maintenance/templates/maintenance/journal_detail.html:100
+#: maintenance/templates/maintenance/task_detail.html:116
+#: maintenance/templates/maintenance/task_detail.html:184
+#: maintenance/templates/maintenance/task_list.html:84
+#: maintenance/templates/maintenance/trigger_detail.html:103
+msgid "Change"
+msgstr "Ändern"
+
+#: common/templates/common/user_form.html:4
+#: common/templates/common/user_form.html:5
+#| msgid "Sensor form"
+msgid "User form"
+msgstr "Benutzerformular"
+
+#: common/templates/common/user_form.html:14
+#: inventory/templates/inventory/location_form.html:18
+#: inventory/templates/inventory/object_form.html:18
+#: inventory/templates/inventory/sensor_form.html:18
+#: maintenance/templates/maintenance/journal_form.html:18
+#: maintenance/templates/maintenance/task_form.html:18
+#: maintenance/templates/maintenance/trigger_form.html:18
+msgid "Save"
+msgstr "Speichern"
+
+#: inventory/apps.py:8
+msgid "Inventory"
+msgstr "Inventar"
+
+#: inventory/models.py:18 inventory/models.py:87 inventory/models.py:161
+msgid "alert"
+msgstr "Alarm"
+
+#: inventory/models.py:19 inventory/models.py:88 inventory/models.py:162
+msgid "warning"
+msgstr "Achtung"
+
+#: inventory/models.py:20 inventory/models.py:89 inventory/models.py:163
+msgid "normal"
+msgstr "Normal"
+
+#: inventory/models.py:22 inventory/models.py:91 inventory/models.py:165
+#: maintenance/models.py:23 maintenance/models.py:118
+msgid "name"
+msgstr "Name"
+
+#: inventory/models.py:23 inventory/models.py:92 inventory/models.py:166
+#: maintenance/models.py:24
+msgid "description"
+msgstr "Beschreibung"
+
+#: inventory/models.py:25 inventory/models.py:94 inventory/models.py:168
+#: maintenance/models.py:88
+msgid "image"
+msgstr "Bild"
+
+#: inventory/models.py:27
+msgid "address"
+msgstr "Adresse"
+
+#: inventory/models.py:28
+msgid "latitude"
+msgstr "Breite (latitude)"
+
+#: inventory/models.py:29
+msgid "longitude"
+msgstr "Länge (longitude)"
+
+#: inventory/models.py:31 inventory/models.py:105 inventory/models.py:177
+#: maintenance/models.py:32
+msgid "status"
+msgstr "Status"
+
+#: inventory/models.py:35 inventory/models.py:109
+msgid "owner"
+msgstr "Eigentümer"
+
+#: inventory/models.py:38
+msgid "Owner can view, change or delete this location."
+msgstr "Der Eigentümer kann diesen Standort ansehen, ändern oder löschen."
+
+#: inventory/models.py:42 inventory/models.py:116
+msgid "management group"
+msgstr "Management Gruppe"
+
+#: inventory/models.py:47
+msgid "Group members can view, change or delete this location."
+msgstr "Gruppenmitglieder können diesen Standort ansehen, ändern oder löschen."
+
+#: inventory/models.py:51 inventory/models.py:125
+msgid "maintenance group"
+msgstr "Instandhaltungs Gruppe"
+
+#: inventory/models.py:56
+msgid "Group members can view this location."
+msgstr "Gruppenmitglieder können diesen Standort ansehen."
+
+#: inventory/models.py:58 inventory/models.py:132 inventory/models.py:183
+#: maintenance/models.py:36 maintenance/models.py:96 maintenance/models.py:134
+msgid "created at"
+msgstr "Erstellt"
+
+#: inventory/models.py:59 inventory/models.py:133 inventory/models.py:184
+#: maintenance/models.py:37 maintenance/models.py:97 maintenance/models.py:135
+msgid "updated at"
+msgstr "Aktualisiert"
+
+#: inventory/models.py:62 inventory/models.py:98
+msgid "location"
+msgstr "Standort"
+
+#: inventory/models.py:63
+msgid "locations"
+msgstr "Standorte"
+
+#: inventory/models.py:112
+msgid "Owner can view, change or delete this object."
+msgstr "Der Eigentümer kann dieses Objekt ansehen, ändern oder löschen."
+
+#: inventory/models.py:121
+msgid "Group members can view or update this object."
+msgstr "Gruppenmitglieder können dieses Objekt ansehen oder ändern."
+
+#: inventory/models.py:130
+msgid "Group members can view this object."
+msgstr "Gruppenmitglieder können dieses Objekt ansehen."
+
+#: inventory/models.py:136 inventory/models.py:172 maintenance/models.py:27
+#: maintenance/models.py:74
+msgid "object"
+msgstr "Objekt"
+
+#: inventory/models.py:137
+msgid "objects"
+msgstr "Objekte"
+
+#: inventory/models.py:180
+msgid "webhook authorization"
+msgstr ""
+
+#: inventory/models.py:182
+msgid "webhook payload"
+msgstr ""
+
+#: inventory/models.py:187 maintenance/models.py:121
+msgid "sensor"
+msgstr "Sensor"
+
+#: inventory/models.py:188
+msgid "sensors"
+msgstr "Sensoren"
+
+#: inventory/templates/inventory/location_confirm_delete.html:3
+#: inventory/templates/inventory/location_confirm_delete.html:4
+msgid "Location confirm delete"
+msgstr "Standort löschen bestätigen"
+
+#: inventory/templates/inventory/location_confirm_delete.html:12
+#: inventory/templates/inventory/location_detail.html:118
+#: inventory/templates/inventory/object_confirm_delete.html:12
+#: inventory/templates/inventory/object_detail.html:102
+#: inventory/templates/inventory/sensor_confirm_delete.html:12
+#: maintenance/templates/maintenance/journal_confirm_delete.html:12
+#: maintenance/templates/maintenance/task_confirm_delete.html:12
+#: maintenance/templates/maintenance/task_detail.html:118
+#: maintenance/templates/maintenance/trigger_confirm_delete.html:12
+msgid "List"
+msgstr "Liste"
 
 #: inventory/templates/inventory/location_detail.html:3
 #: inventory/templates/inventory/location_detail.html:4
@@ -407,25 +503,6 @@ msgstr "Erstellt"
 msgid "Updated at"
 msgstr "Aktualisiert"
 
-#: inventory/templates/inventory/location_detail.html:116
-#: inventory/templates/inventory/location_detail.html:199
-#: inventory/templates/inventory/location_list.html:59
-#: inventory/templates/inventory/object_detail.html:100
-#: inventory/templates/inventory/object_detail.html:177
-#: inventory/templates/inventory/object_detail.html:292
-#: inventory/templates/inventory/object_detail.html:374
-#: inventory/templates/inventory/object_list.html:70
-#: inventory/templates/inventory/sensor_detail.html:76
-#: inventory/templates/inventory/sensor_detail.html:143
-#: inventory/templates/inventory/sensor_list.html:70
-#: maintenance/templates/maintenance/journal_detail.html:100
-#: maintenance/templates/maintenance/task_detail.html:116
-#: maintenance/templates/maintenance/task_detail.html:184
-#: maintenance/templates/maintenance/task_list.html:84
-#: maintenance/templates/maintenance/trigger_detail.html:103
-msgid "Change"
-msgstr "Ändern"
-
 #: inventory/templates/inventory/location_detail.html:127
 msgid "Objects"
 msgstr "Objekte"
@@ -460,24 +537,6 @@ msgstr "Ansehen"
 #: inventory/templates/inventory/location_form.html:5
 msgid "Location form"
 msgstr "Standortformular"
-
-#: inventory/templates/inventory/location_form.html:13
-#: inventory/templates/inventory/object_form.html:14
-#: inventory/templates/inventory/sensor_form.html:14
-#: maintenance/templates/maintenance/journal_form.html:14
-#: maintenance/templates/maintenance/task_form.html:14
-#: maintenance/templates/maintenance/trigger_form.html:14
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: inventory/templates/inventory/location_form.html:18
-#: inventory/templates/inventory/object_form.html:18
-#: inventory/templates/inventory/sensor_form.html:18
-#: maintenance/templates/maintenance/journal_form.html:18
-#: maintenance/templates/maintenance/task_form.html:18
-#: maintenance/templates/maintenance/trigger_form.html:18
-msgid "Save"
-msgstr "Speichern"
 
 #: inventory/templates/inventory/location_list.html:3
 #: inventory/templates/inventory/location_list.html:4
@@ -610,7 +669,7 @@ msgstr "Sensorformular"
 msgid "Sensor list"
 msgstr "Sensorliste"
 
-#: inventory/views.py:58 inventory/views.py:123 inventory/views.py:196
+#: inventory/views.py:57 inventory/views.py:122 inventory/views.py:195
 #: maintenance/views.py:45 maintenance/views.py:136
 #, python-format
 msgid "%(name)s was created successfully"
@@ -779,3 +838,6 @@ msgstr "Journaleintrag erfolgreich erstellt"
 #: objector/urls.py:7
 msgid "Objector admin"
 msgstr "Objector Admin"
+
+#~ msgid "Log out"
+#~ msgstr "Abmelden"

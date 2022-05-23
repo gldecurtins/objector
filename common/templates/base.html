@@ -38,21 +38,21 @@
 
 <body>
   <div class="min-h-screen bg-gray-100">
-    <nav class="bg-white shadow" x-data="{open: false}">
+    <nav class="bg-white shadow" x-data="{mobilemenuopen: false, usermenueopen: false}">
       <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="relative flex justify-between h-16">
           <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <!-- Mobile menu button -->
             <button type="button"
               class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-              aria-controls="mobile-menu" @click="open = !open" aria-expanded="function open() {
+              aria-controls="mobile-menu" @click="mobilemenuopen = !mobilemenuopen" aria-expanded="function mobilemenuopen() {
                   [native code]
-              }" x-bind:aria-expanded="open.toString()">
+              }" x-bind:aria-expanded="mobilemenuopen.toString()">
               <span class="sr-only">Open main menu</span>
               <svg x-description="Icon when menu is closed.
 
               Heroicon name: outline/menu" x-state:on="Menu open" x-state:off="Menu closed" class="h-6 w-6 hidden"
-                :class="{ 'hidden': open, 'block': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none"
+                :class="{ 'hidden': mobilemenuopen, 'block': !(mobilemenuopen) }" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
                 </path>
@@ -60,7 +60,7 @@
               <svg x-description="Icon when menu is open.
 
               Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class="h-6 w-6 block"
-                :class="{ 'block': open, 'hidden': !(open) }" xmlns="http://www.w3.org/2000/svg" fill="none"
+                :class="{ 'block': mobilemenuopen, 'hidden': !(mobilemenuopen) }" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
@@ -95,18 +95,40 @@
           </div>
           <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {% if user.is_authenticated %}
-            <a href="{% url 'common:user-detail' user.id %}">
-              <button type="button"
-                class="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {% translate "Profile" %}
-              </button>
-            </a>
-            <a href="/logout">
-              <button type="button"
-                class="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {% translate "Log out" %}
-              </button>
-            </a>
+            <div class="ml-3 relative flex-shrink-0">
+              <div>
+                <button type="button" class="bg-gray-50 rounded-full flex text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true" @click="usermenuopen = !usermenuopen" aria-expanded="function usermenuopen() {
+                  [native code]
+              }" x-bind:aria-expanded="usermenuopen.toString()">
+                  <span class="sr-only">Open user menu</span>
+                  {% if user.get_picture %}
+                  <img class="rounded-full h-8 w-8" src="{{ user.get_picture }}" alt="">
+                  {% else %}
+                  <span class="inline-block h-8 w-8 rounded-full overflow-hidden bg-gray-100">
+                    <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </span>
+                  {% endif %}
+                </button>
+              </div>
+
+              <!--
+                Dropdown menu, show/hide based on menu state.
+
+                Entering: "transition ease-out duration-100"
+                  From: "transform opacity-0 scale-95"
+                  To: "transform opacity-100 scale-100"
+                Leaving: "transition ease-in duration-75"
+                  From: "transform opacity-100 scale-100"
+                  To: "transform opacity-0 scale-95"
+              -->
+              <div class="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                <!-- Active: "bg-gray-100", Not Active: "" -->
+                <a href="{% url 'common:user-detail' user.id %}" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0"> {% translate "Profile" %} </a>
+                <a href="/logout" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2"> Sign out {{ social.extra_data.picture }}</a>
+              </div>
+            </div>
             {% else %}
             <a href="/login/auth0">
               <button type="button"
@@ -118,7 +140,7 @@
           </div>
         </div>
         <div x-description="Mobile menu, show/hide based on menu state." class="sm:hidden" id="mobile-menu"
-          x-show="open" style="display: none;">
+          x-show="mobilemenuopen" style="display: none;">
           <div class="pt-2 pb-4 space-y-1">
             <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
             {% if user.is_staff %}

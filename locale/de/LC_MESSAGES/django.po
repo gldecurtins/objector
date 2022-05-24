@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-23 17:02+0200\n"
+"POT-Creation-Date: 2022-05-24 11:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,17 +22,15 @@ msgstr ""
 msgid "Common"
 msgstr "Allgemein"
 
-#: common/management/commands/sendstatusreport.py:28
+#: common/management/commands/sendstatusreport.py:42
 msgid "Status report"
 msgstr "Status Rapport"
 
 #: common/models.py:9
-#| msgid "Status report"
 msgid "send status report at"
 msgstr "Sende Status Rapport um"
 
 #: common/models.py:12
-#| msgid "Status report"
 msgid "status report last sent at"
 msgstr "Status Rapport versandt am"
 
@@ -44,24 +42,24 @@ msgstr "Zugriff verweigert"
 msgid "Not found"
 msgstr "Eintrag nicht gefunden"
 
-#: common/templates/base.html:80 common/templates/base.html:148
+#: common/templates/base.html:80 common/templates/base.html:146
 msgid "Admin"
 msgstr ""
 
-#: common/templates/base.html:84 common/templates/base.html:152
+#: common/templates/base.html:84 common/templates/base.html:150
 #: common/templates/common/dashboard.html:15
 #: common/templates/common/dashboard.html:16
 msgid "Dashboard"
 msgstr "Übersicht"
 
-#: common/templates/base.html:86 common/templates/base.html:154
+#: common/templates/base.html:86 common/templates/base.html:152
 #: inventory/templates/inventory/location_detail.html:146
 #: inventory/templates/inventory/object_detail.html:32
 #: inventory/templates/inventory/object_list.html:20
 msgid "Location"
 msgstr "Standort"
 
-#: common/templates/base.html:88 common/templates/base.html:156
+#: common/templates/base.html:88 common/templates/base.html:154
 #: inventory/templates/inventory/sensor_detail.html:32
 #: inventory/templates/inventory/sensor_list.html:20
 #: maintenance/templates/maintenance/journal_detail.html:18
@@ -72,24 +70,24 @@ msgstr "Standort"
 msgid "Object"
 msgstr "Objekt"
 
-#: common/templates/base.html:90 common/templates/base.html:158
+#: common/templates/base.html:90 common/templates/base.html:156
 #: inventory/templates/inventory/object_detail.html:327
 #: maintenance/templates/maintenance/trigger_detail.html:27
 msgid "Sensor"
 msgstr "Sensor"
 
-#: common/templates/base.html:92 common/templates/base.html:160
+#: common/templates/base.html:92 common/templates/base.html:158
 #: inventory/templates/inventory/object_detail.html:231
 #: maintenance/templates/maintenance/journal_detail.html:32
 #: maintenance/templates/maintenance/journal_detail.html:105
 msgid "Task"
 msgstr "Aufgabe"
 
-#: common/templates/base.html:128
+#: common/templates/base.html:126
 msgid "Profile"
 msgstr ""
 
-#: common/templates/base.html:136
+#: common/templates/base.html:134
 msgid "Log in"
 msgstr "Anmelden"
 
@@ -148,9 +146,12 @@ msgstr "Erfahre über anstehende oder überfällige Aufgaben"
 msgid "Set up management and maintenance"
 msgstr "Management und Instandhaltung einrichten"
 
+#: common/templates/common/home.html:16
+msgid "Receive daily status report"
+msgstr "Empfänge täglichen Status Rapport"
+
 #: common/templates/common/user_confirm_delete.html:3
 #: common/templates/common/user_confirm_delete.html:4
-#| msgid "Sensor confirm delete"
 msgid "User confirm delete"
 msgstr "Benutzer löschen bestätigen"
 
@@ -203,12 +204,10 @@ msgstr "Löschen"
 
 #: common/templates/common/user_detail.html:3
 #: common/templates/common/user_detail.html:4
-#| msgid "Sensor detail"
 msgid "User detail"
 msgstr "Benutzerdetail"
 
 #: common/templates/common/user_detail.html:13
-#| msgid "name"
 msgid "Username"
 msgstr "Benutzername"
 
@@ -217,20 +216,16 @@ msgid "First name"
 msgstr "Vorname"
 
 #: common/templates/common/user_detail.html:29
-#| msgid "name"
 msgid "Last name"
 msgstr "Nachname"
 
 #: common/templates/common/user_detail.html:41
-#| msgid "Status report"
 msgid "Send status report at"
 msgstr "Sende Status Rapport um"
 
 #: common/templates/common/user_detail.html:49
-#, fuzzy
-#| msgid "Status report"
 msgid "Status report last sent at"
-msgstr "Status Rapport"
+msgstr "Status Rapport zuletzt versendet am"
 
 #: common/templates/common/user_detail.html:61
 #: inventory/templates/inventory/location_detail.html:116
@@ -254,7 +249,6 @@ msgstr "Ändern"
 
 #: common/templates/common/user_form.html:4
 #: common/templates/common/user_form.html:5
-#| msgid "Sensor form"
 msgid "User form"
 msgstr "Benutzerformular"
 

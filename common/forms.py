@@ -9,6 +9,7 @@ class UserForm(forms.ModelForm):
             "first_name",
             "last_name",
             "send_status_report_at",
+            "status_report_language",
         ]
 
     send_status_report_at = forms.TimeField(

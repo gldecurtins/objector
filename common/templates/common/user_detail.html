@@ -52,6 +52,14 @@
             {{ user.status_report_last_sent_at }}
           </dd>
         </div>
+        <div class="sm:col-span-2">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Status report language" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ user.get_status_report_language_display }}
+          </dd>
+        </div>
       </dl>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">

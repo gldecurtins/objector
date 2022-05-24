@@ -5,11 +5,21 @@ from rules.contrib.models import RulesModelMixin
 
 
 class User(RulesModelMixin, AbstractUser):
+    class Languages(models.TextChoices):
+        GERMAN = "de", _("German")
+        ENGLISH = "en", _("English")
+
     send_status_report_at = models.TimeField(
-        _("send status report at"), blank=True, null=True
+        _("Send status report at (UTC)"), blank=True, null=True
     )
     status_report_last_sent_at = models.DateTimeField(
-        _("status report last sent at"), blank=True, null=True
+        _("Status report last sent at"), blank=True, null=True
+    )
+    status_report_language = models.CharField(
+        _("Status report language"),
+        choices=Languages.choices,
+        default=Languages.ENGLISH,
+        max_length=2,
     )
 
     def get_picture(self) -> str:

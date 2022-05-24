@@ -31,13 +31,13 @@ class Command(BaseCommand):
         for user in users:
             groups = user.groups.values_list("pk", flat=True)
             groups_as_list = list(groups)
+            translation.activate(user.status_report_language)
             self.send_status_report(user, groups_as_list)
             user.status_report_last_sent_at = now
             user.save()
             self.stdout.write(self.style.SUCCESS(f"Status report sent to {user}"))
 
     def send_status_report(self, user, groups_as_list) -> None:
-        translation.activate("de")
         subject, from_email, to = (
             _("Status report") + " " + formats.localize(timezone.localtime()),
             "info@objector.app",

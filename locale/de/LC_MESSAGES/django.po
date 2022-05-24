@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 11:17+0200\n"
+"POT-Creation-Date: 2022-05-24 13:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,12 +27,24 @@ msgid "Status report"
 msgstr "Status Rapport"
 
 #: common/models.py:9
-msgid "send status report at"
-msgstr "Sende Status Rapport um"
+msgid "German"
+msgstr "Deutsch"
 
-#: common/models.py:12
-msgid "status report last sent at"
-msgstr "Status Rapport versandt am"
+#: common/models.py:10
+msgid "English"
+msgstr "Englisch"
+
+#: common/models.py:13
+msgid "Send status report at (UTC)"
+msgstr "Sende Status Rapport um (UTC)"
+
+#: common/models.py:16 common/templates/common/user_detail.html:49
+msgid "Status report last sent at"
+msgstr "Status Rapport zuletzt versendet am"
+
+#: common/models.py:19 common/templates/common/user_detail.html:57
+msgid "Status report language"
+msgstr "Status Rapport Sprache"
 
 #: common/templates/403.html:7
 msgid "Forbidden"
@@ -86,6 +98,10 @@ msgstr "Aufgabe"
 #: common/templates/base.html:126
 msgid "Profile"
 msgstr ""
+
+#: common/templates/base.html:127
+msgid "Log out"
+msgstr "Abmelden"
 
 #: common/templates/base.html:134
 msgid "Log in"
@@ -176,7 +192,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: common/templates/common/user_confirm_delete.html:14
-#: common/templates/common/user_detail.html:63
+#: common/templates/common/user_detail.html:71
 #: inventory/templates/inventory/location_confirm_delete.html:14
 #: inventory/templates/inventory/location_detail.html:120
 #: inventory/templates/inventory/location_detail.html:206
@@ -223,11 +239,7 @@ msgstr "Nachname"
 msgid "Send status report at"
 msgstr "Sende Status Rapport um"
 
-#: common/templates/common/user_detail.html:49
-msgid "Status report last sent at"
-msgstr "Status Rapport zuletzt versendet am"
-
-#: common/templates/common/user_detail.html:61
+#: common/templates/common/user_detail.html:69
 #: inventory/templates/inventory/location_detail.html:116
 #: inventory/templates/inventory/location_detail.html:199
 #: inventory/templates/inventory/location_list.html:59
@@ -832,6 +844,3 @@ msgstr "Journaleintrag erfolgreich erstellt"
 #: objector/urls.py:7
 msgid "Objector admin"
 msgstr "Objector Admin"
-
-#~ msgid "Log out"
-#~ msgstr "Abmelden"

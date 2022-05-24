@@ -124,7 +124,7 @@
               <div class="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" x-show="usermenuopen">
                 <!-- Active: "bg-gray-100", Not Active: "" -->
                 <a href="{% url 'common:user-detail' user.id %}" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0"> {% translate "Profile" %} </a>
-                <a href="/logout" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2"> Sign out {{ social.extra_data.picture }}</a>
+                <a href="/logout" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2"> {% translate "Log out" %} </a>
               </div>
             </div>
             {% else %}

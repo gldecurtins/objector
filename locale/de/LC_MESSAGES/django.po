@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 14:07+0200\n"
+"POT-Creation-Date: 2022-05-25 10:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,8 +35,8 @@ msgid "English"
 msgstr "Englisch"
 
 #: common/models.py:13 common/templates/common/user_detail.html:41
-msgid "Send status report at (UTC)"
-msgstr "Sende Status Rapport um (UTC)"
+msgid "Send status report at"
+msgstr "Sende Status Rapport um"
 
 #: common/models.py:16 common/templates/common/user_detail.html:49
 msgid "Status report last sent at"

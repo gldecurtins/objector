@@ -10,7 +10,7 @@ class User(RulesModelMixin, AbstractUser):
         ENGLISH = "en", _("English")
 
     send_status_report_at = models.TimeField(
-        _("Send status report at (UTC)"), blank=True, null=True
+        _("Send status report at"), blank=True, null=True
     )
     status_report_last_sent_at = models.DateTimeField(
         _("Status report last sent at"), blank=True, null=True

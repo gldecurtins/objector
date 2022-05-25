@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
     def get_users(self) -> None:
         User = get_user_model()
-        now = timezone.now()
+        now = timezone.localtime()
         current_time = now.time()
         today = now.date()
         users = User.objects.filter(

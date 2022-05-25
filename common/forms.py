@@ -1,5 +1,6 @@
 from django import forms
 from .models import User
+from django.utils.translation import gettext_lazy as _
 
 
 class UserForm(forms.ModelForm):
@@ -13,6 +14,7 @@ class UserForm(forms.ModelForm):
         ]
 
     send_status_report_at = forms.TimeField(
+        label=_("Send status report at"),
         required=False,
         input_formats=["%H:%M"],
         widget=forms.TimeInput(

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-25 11:20+0200\n"
+"POT-Creation-Date: 2022-05-25 17:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,11 @@ msgstr ""
 msgid "Common"
 msgstr "Allgemein"
 
+#: common/forms.py:17 common/models.py:13
+#: common/templates/common/user_detail.html:41
+msgid "Send status report at"
+msgstr "Sende Status Rapport um"
+
 #: common/management/commands/sendstatusreport.py:42
 msgid "Status report"
 msgstr "Status Rapport"
@@ -33,10 +38,6 @@ msgstr "Deutsch"
 #: common/models.py:10
 msgid "English"
 msgstr "Englisch"
-
-#: common/models.py:13 common/templates/common/user_detail.html:41
-msgid "Send status report at"
-msgstr "Sende Status Rapport um"
 
 #: common/models.py:16 common/templates/common/user_detail.html:49
 msgid "Status report last sent at"
@@ -114,7 +115,7 @@ msgstr "Anmelden"
 
 #: common/templates/common/dashboard.html:22
 #: inventory/templates/inventory/object_detail.html:111
-#: maintenance/models.py:41
+#: maintenance/models.py:41 maintenance/templates/maintenance/task_list.html:24
 msgid "Tasks"
 msgstr "Aufgaben"
 

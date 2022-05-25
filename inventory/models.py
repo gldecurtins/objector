@@ -15,31 +15,31 @@ def object_image_upload_handler(instance, filename) -> str:
 
 class Location(RulesModel):
     class Statuses(models.IntegerChoices):
-        RED = 10, _("alert")
-        AMBER = 20, _("warning")
-        GREEN = 30, _("normal")
+        RED = 10, _("Alert")
+        AMBER = 20, _("Warning")
+        GREEN = 30, _("Normal")
 
-    name = models.CharField(_("name"), max_length=200)
-    description = models.TextField(_("description"), blank=True)
+    name = models.CharField(_("Name"), max_length=200)
+    description = models.TextField(_("Description"), blank=True)
     image = models.ImageField(
-        _("image"), upload_to=location_image_upload_handler, blank=True, null=True
+        _("Image"), upload_to=location_image_upload_handler, blank=True, null=True
     )
-    address = models.TextField(_("address"), blank=True)
-    latitude = models.FloatField(_("latitude"), blank=True, null=True)
-    longitude = models.FloatField(_("longitude"), blank=True, null=True)
+    address = models.TextField(_("Address"), blank=True)
+    latitude = models.FloatField(_("Latitude"), blank=True, null=True)
+    longitude = models.FloatField(_("Longitude"), blank=True, null=True)
     status = models.PositiveSmallIntegerField(
-        _("status"), choices=Statuses.choices, default=Statuses.GREEN
+        _("Status"), choices=Statuses.choices, default=Statuses.GREEN
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        verbose_name=_("owner"),
+        verbose_name=_("Owner"),
         related_name="location_owner",
         on_delete=models.CASCADE,
         help_text=_("Owner can view, change or delete this location."),
     )
     management_group = models.ForeignKey(
         Group,
-        verbose_name=_("management group"),
+        verbose_name=_("Management group"),
         related_name="location_management_group",
         on_delete=models.SET_NULL,
         null=True,
@@ -48,19 +48,19 @@ class Location(RulesModel):
     )
     maintenance_group = models.ForeignKey(
         Group,
-        verbose_name=_("maintenance group"),
+        verbose_name=_("Maintenance group"),
         related_name="location_maintenance_group",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         help_text=_("Group members can view this location."),
     )
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+    created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
 
     class Meta:
-        verbose_name = _("location")
-        verbose_name_plural = _("locations")
+        verbose_name = _("Location")
+        verbose_name_plural = _("Locations")
         ordering = ["status", "name"]
         indexes = [
             models.Index(fields=["owner", "management_group", "maintenance_group"]),
@@ -84,36 +84,36 @@ class Location(RulesModel):
 
 class Object(RulesModel):
     class Statuses(models.IntegerChoices):
-        RED = 10, _("alert")
-        AMBER = 20, _("warning")
-        GREEN = 30, _("normal")
+        RED = 10, _("Alert")
+        AMBER = 20, _("Warning")
+        GREEN = 30, _("Normal")
 
-    name = models.CharField(_("name"), max_length=200)
-    description = models.TextField(_("description"), blank=True)
+    name = models.CharField(_("Name"), max_length=200)
+    description = models.TextField(_("Description"), blank=True)
     image = models.ImageField(
-        _("image"), upload_to=object_image_upload_handler, blank=True, null=True
+        _("Image"), upload_to=object_image_upload_handler, blank=True, null=True
     )
     location = models.ForeignKey(
         Location,
-        verbose_name=_("location"),
+        verbose_name=_("Location"),
         related_name="object_location",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
     status = models.PositiveSmallIntegerField(
-        _("status"), choices=Statuses.choices, default=Statuses.GREEN
+        _("Status"), choices=Statuses.choices, default=Statuses.GREEN
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        verbose_name=_("owner"),
+        verbose_name=_("Owner"),
         related_name="object_owner",
         on_delete=models.CASCADE,
         help_text=_("Owner can view, change or delete this object."),
     )
     management_group = models.ForeignKey(
         Group,
-        verbose_name=_("management group"),
+        verbose_name=_("Management group"),
         related_name="object_management_group",
         on_delete=models.SET_NULL,
         null=True,
@@ -122,19 +122,19 @@ class Object(RulesModel):
     )
     maintenance_group = models.ForeignKey(
         Group,
-        verbose_name=_("maintenance group"),
+        verbose_name=_("Maintenance group"),
         related_name="object_maintenance_group",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
         help_text=_("Group members can view this object."),
     )
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+    created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
 
     class Meta:
-        verbose_name = _("object")
-        verbose_name_plural = _("objects")
+        verbose_name = _("Object")
+        verbose_name_plural = _("Objects")
         ordering = ["status", "name"]
         indexes = [
             models.Index(fields=["owner", "management_group", "maintenance_group"]),
@@ -158,34 +158,34 @@ class Object(RulesModel):
 
 class Sensor(RulesModel):
     class Statuses(models.IntegerChoices):
-        RED = 10, _("alert")
-        AMBER = 20, _("warning")
-        GREEN = 30, _("normal")
+        RED = 10, _("Alert")
+        AMBER = 20, _("Warning")
+        GREEN = 30, _("Normal")
 
-    name = models.CharField(_("name"), max_length=200)
-    description = models.TextField(_("description"), blank=True)
+    name = models.CharField(_("Name"), max_length=200)
+    description = models.TextField(_("Description"), blank=True)
     image = models.ImageField(
-        _("image"), upload_to=object_image_upload_handler, blank=True, null=True
+        _("Image"), upload_to=object_image_upload_handler, blank=True, null=True
     )
     object = models.ForeignKey(
         Object,
-        verbose_name=_("object"),
+        verbose_name=_("Object"),
         related_name="sensor_object",
         on_delete=models.CASCADE,
     )
     status = models.PositiveSmallIntegerField(
-        _("status"), choices=Statuses.choices, default=Statuses.GREEN
+        _("Status"), choices=Statuses.choices, default=Statuses.GREEN
     )
     webhook_authorization = models.CharField(
-        _("webhook authorization"), max_length=255, blank=True, null=True
+        _("Webhook authorization"), max_length=255, blank=True, null=True
     )
-    webhook_payload = models.JSONField(_("webhook payload"), blank=True, null=True)
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+    webhook_payload = models.JSONField(_("Webhook payload"), blank=True, null=True)
+    created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
 
     class Meta:
-        verbose_name = _("sensor")
-        verbose_name_plural = _("sensors")
+        verbose_name = _("Sensor")
+        verbose_name_plural = _("Sensors")
         ordering = ["status", "name"]
 
     def __str__(self) -> str:

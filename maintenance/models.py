@@ -20,25 +20,25 @@ class Task(RulesModel):
         PENDING = 30, _("Pending")
         INACTIVE = 40, _("Inactive")
 
-    name = models.CharField(_("name"), max_length=200)
-    description = models.TextField(_("description"), blank=True)
+    name = models.CharField(_("Name"), max_length=200)
+    description = models.TextField(_("Description"), blank=True)
     object = models.ForeignKey(
         Object,
-        verbose_name=_("object"),
+        verbose_name=_("Object"),
         related_name="task_object",
         on_delete=models.CASCADE,
     )
     status = models.PositiveSmallIntegerField(
-        _("status"), choices=Statuses.choices, default=Statuses.PENDING
+        _("Status"), choices=Statuses.choices, default=Statuses.PENDING
     )
-    due_at = models.DateTimeField(_("due at"), blank=True, null=True)
-    overdue_at = models.DateTimeField(_("overdue at"), blank=True, null=True)
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+    due_at = models.DateTimeField(_("Due at"), blank=True, null=True)
+    overdue_at = models.DateTimeField(_("Overdue at"), blank=True, null=True)
+    created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
 
     class Meta:
-        verbose_name = _("task")
-        verbose_name_plural = _("tasks")
+        verbose_name = _("Task")
+        verbose_name_plural = _("Tasks")
         ordering = ["status", "overdue_at", "due_at", "updated_at"]
 
     def __str__(self) -> str:
@@ -71,30 +71,30 @@ class Task(RulesModel):
 class Journal(RulesModel):
     object = models.ForeignKey(
         Object,
-        verbose_name=_("object"),
+        verbose_name=_("Object"),
         related_name="journal_object",
         on_delete=models.CASCADE,
     )
     task = models.ForeignKey(
         Task,
-        verbose_name=_("task"),
+        verbose_name=_("Task"),
         related_name="journal_task",
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
     )
-    notes = models.TextField(_("notes"), blank=True)
+    notes = models.TextField(_("Notes"), blank=True)
     image = models.ImageField(
-        _("image"), upload_to=journal_image_upload_handler, blank=True, null=True
+        _("Image"), upload_to=journal_image_upload_handler, blank=True, null=True
     )
     labor_costs = models.DecimalField(
-        _("labor costs"), blank=True, null=True, decimal_places=2, max_digits=9
+        _("Labor costs"), blank=True, null=True, decimal_places=2, max_digits=9
     )
     material_costs = models.DecimalField(
-        _("material costs"), blank=True, null=True, decimal_places=2, max_digits=9
+        _("Material costs"), blank=True, null=True, decimal_places=2, max_digits=9
     )
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+    created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
 
     def __str__(self) -> str:
         return str(self.id)
@@ -118,21 +118,21 @@ class Trigger(RulesModel):
     name = models.CharField(_("name"), max_length=200)
     sensor = models.ForeignKey(
         Sensor,
-        verbose_name=_("sensor"),
+        verbose_name=_("Sensor"),
         related_name="trigger_sensor",
         on_delete=models.CASCADE,
     )
     jsonpath_expression = models.CharField(_("JSONPath expression"), max_length=200)
     condition = models.CharField(
-        _("condition"), max_length=2, choices=Conditions.choices
+        _("Condition"), max_length=2, choices=Conditions.choices
     )
-    value = models.CharField(_("value"), max_length=200)
+    value = models.CharField(_("Value"), max_length=200)
     sensor_status = models.PositiveSmallIntegerField(
-        _("sensor status"),
+        _("Sensor status"),
         choices=Sensor.Statuses.choices,
     )
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+    created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
 
     def __str__(self) -> str:
         return self.name

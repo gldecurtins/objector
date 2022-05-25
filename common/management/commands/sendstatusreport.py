@@ -196,6 +196,9 @@ class Command(BaseCommand):
                 f"+ {_('Location')}: "
                 f"[{sensor.object.location}](https://objector.app/location/{sensor.object.location.pk}/)\n"
             )
+        sensor_content += (
+            f"+ {_('Updated at')}: {formats.localize(sensor.updated_at)}\n"
+        )
         sensor_content += "---\n"
 
         return sensor_content

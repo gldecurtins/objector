@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-25 17:21+0200\n"
+"POT-Creation-Date: 2022-05-25 17:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,42 +188,49 @@ msgstr "Benutzer löschen bestätigen"
 msgid "Are you sure you want to delete"
 msgstr "Soll dieser Eintrag gelöscht werden:"
 
-#: common/templates/common/user_confirm_delete.html:12
-#: inventory/templates/inventory/location_form.html:13
-#: inventory/templates/inventory/object_form.html:14
-#: inventory/templates/inventory/sensor_form.html:14
-#: maintenance/templates/maintenance/journal_form.html:14
-#: maintenance/templates/maintenance/task_form.html:14
-#: maintenance/templates/maintenance/trigger_form.html:14
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: common/templates/common/user_confirm_delete.html:14
+#: common/templates/common/user_confirm_delete.html:11
 #: common/templates/common/user_detail.html:71
-#: inventory/templates/inventory/location_confirm_delete.html:14
+#: inventory/templates/inventory/location_confirm_delete.html:11
 #: inventory/templates/inventory/location_detail.html:120
 #: inventory/templates/inventory/location_detail.html:206
 #: inventory/templates/inventory/location_list.html:66
-#: inventory/templates/inventory/object_confirm_delete.html:14
+#: inventory/templates/inventory/object_confirm_delete.html:11
 #: inventory/templates/inventory/object_detail.html:104
 #: inventory/templates/inventory/object_detail.html:184
 #: inventory/templates/inventory/object_detail.html:299
 #: inventory/templates/inventory/object_detail.html:381
 #: inventory/templates/inventory/object_list.html:77
-#: inventory/templates/inventory/sensor_confirm_delete.html:14
+#: inventory/templates/inventory/sensor_confirm_delete.html:11
 #: inventory/templates/inventory/sensor_detail.html:78
 #: inventory/templates/inventory/sensor_detail.html:150
 #: inventory/templates/inventory/sensor_list.html:77
-#: maintenance/templates/maintenance/journal_confirm_delete.html:14
+#: maintenance/templates/maintenance/journal_confirm_delete.html:11
 #: maintenance/templates/maintenance/journal_detail.html:108
-#: maintenance/templates/maintenance/task_confirm_delete.html:14
+#: maintenance/templates/maintenance/task_confirm_delete.html:11
 #: maintenance/templates/maintenance/task_detail.html:120
 #: maintenance/templates/maintenance/task_detail.html:191
 #: maintenance/templates/maintenance/task_list.html:91
-#: maintenance/templates/maintenance/trigger_confirm_delete.html:14
+#: maintenance/templates/maintenance/trigger_confirm_delete.html:11
 #: maintenance/templates/maintenance/trigger_detail.html:105
 msgid "Delete"
 msgstr "Löschen"
+
+#: common/templates/common/user_confirm_delete.html:12
+#: common/templates/common/user_form.html:14
+#: inventory/templates/inventory/location_confirm_delete.html:12
+#: inventory/templates/inventory/location_form.html:17
+#: inventory/templates/inventory/object_confirm_delete.html:12
+#: inventory/templates/inventory/object_form.html:18
+#: inventory/templates/inventory/sensor_confirm_delete.html:12
+#: inventory/templates/inventory/sensor_form.html:14
+#: maintenance/templates/maintenance/journal_confirm_delete.html:12
+#: maintenance/templates/maintenance/journal_form.html:14
+#: maintenance/templates/maintenance/task_confirm_delete.html:12
+#: maintenance/templates/maintenance/task_form.html:14
+#: maintenance/templates/maintenance/trigger_confirm_delete.html:12
+#: maintenance/templates/maintenance/trigger_form.html:14
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #: common/templates/common/user_detail.html:3
 #: common/templates/common/user_detail.html:4
@@ -267,9 +274,9 @@ msgstr "Ändern"
 msgid "User form"
 msgstr "Benutzerformular"
 
-#: common/templates/common/user_form.html:14
-#: inventory/templates/inventory/location_form.html:18
-#: inventory/templates/inventory/object_form.html:18
+#: common/templates/common/user_form.html:18
+#: inventory/templates/inventory/location_form.html:13
+#: inventory/templates/inventory/object_form.html:14
 #: inventory/templates/inventory/sensor_form.html:18
 #: maintenance/templates/maintenance/journal_form.html:18
 #: maintenance/templates/maintenance/task_form.html:18
@@ -445,22 +452,16 @@ msgstr "Sensoren"
 msgid "Location confirm delete"
 msgstr "Standort löschen bestätigen"
 
-#: inventory/templates/inventory/location_confirm_delete.html:12
-#: inventory/templates/inventory/location_detail.html:118
-#: inventory/templates/inventory/object_confirm_delete.html:12
-#: inventory/templates/inventory/object_detail.html:102
-#: inventory/templates/inventory/sensor_confirm_delete.html:12
-#: maintenance/templates/maintenance/journal_confirm_delete.html:12
-#: maintenance/templates/maintenance/task_confirm_delete.html:12
-#: maintenance/templates/maintenance/task_detail.html:118
-#: maintenance/templates/maintenance/trigger_confirm_delete.html:12
-msgid "List"
-msgstr "Liste"
-
 #: inventory/templates/inventory/location_detail.html:3
 #: inventory/templates/inventory/location_detail.html:4
 msgid "Location detail"
 msgstr "Standortdetails"
+
+#: inventory/templates/inventory/location_detail.html:118
+#: inventory/templates/inventory/object_detail.html:102
+#: maintenance/templates/maintenance/task_detail.html:118
+msgid "List"
+msgstr "Liste"
 
 #: inventory/templates/inventory/location_detail.html:155
 #: inventory/templates/inventory/location_list.html:26

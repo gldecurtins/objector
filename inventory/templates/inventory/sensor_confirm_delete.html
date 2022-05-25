@@ -5,12 +5,16 @@
 {% block h2 %}{{ sensor }}{% endblock %}
 {% block content %}
 <form method="post">{% csrf_token %}
-    <p>{% translate "Are you sure you want to delete" %} "{{ sensor }}"?</p>
-    <div class="pt-5">
-      <div class="flex justify-end">
-        <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Delete" %}</button>
-        <button type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><a href="{% url 'inventory:sensor-detail' sensor.id %}">{% translate "Cancel" %}</a></button>
+  <p>{% translate "Are you sure you want to delete" %} "{{ sensor }}"?</p>
+  <div class="pt-5">
+    <div class="flex justify-end">
+      <button type="submit" class="ml-3 bg-white py-2 px-4 border border-red-300 rounded-md shadow-sm text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        {% translate "Delete" %}
+      </button>
+      <button type="button" class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <a href="{% url 'inventory:sensor-detail' sensor.id %}">{% translate "Cancel" %}</a>
+      </button>
     </div>
-    </div>
+  </div>
 </form>
 {% endblock %}

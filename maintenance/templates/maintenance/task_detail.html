@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load rules %}
 {% block title %}Objector + {% translate "Task detail" %} + {{ task }}{% endblock %}
 {% block h1 %}{% translate "Task detail" %}{% endblock %}
 {% block h2 %}{{ task }}{% endblock %}
@@ -112,12 +113,21 @@
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <div class="pt-5">
         <div class="flex justify-end">
-          <a href="{% url 'maintenance:task-update' task.id %}"><button type="button"
-              class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Change" %}</button></a>
-          <a href="{% url 'maintenance:task-list' %}"><button type="button"
-              class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "List" %}</button></a>
-          <a href="{% url 'maintenance:task-delete' task.id %}"><button type="button"
-              class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{% translate "Delete" %}</button></a>
+          {% has_perm 'maintenance.change_task' user task as can_change_task %}
+          {% if can_change_task %}
+          <button type="button" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <a href="{% url 'maintenance:task-update' task.id %}">{% translate "Change" %}</a>
+          </button>
+          {% endif %}
+          <button type="button" class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <a href="{% url 'maintenance:task-list' %}">{% translate "List" %}</a>
+          </button>
+          {% has_perm 'maintenance.delete_task' user task as can_delete_task %}
+          {% if can_delete_task %}
+          <button type="button" class="ml-3 bg-white py-2 px-4 border border-red-300 rounded-md shadow-sm text-sm font-medium text-red-700 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <a href="{% url 'maintenance:task-delete' task.id %}">{% translate "Delete" %}</a>
+          </button>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -128,7 +138,6 @@
     </h2>
   </div>
   {% if journals %}
-  {% load rules %}
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -169,27 +178,24 @@
                   {{ journal.material_costs }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <div class="ml-4 flex-shrink-0 flex space-x-4">
+                  <div class="ml-4 flex-shrink-0 flex space-x-4 justify-end">
                     {% has_perm 'maintenance.view_journal' user journal as can_view_journal %}
                     {% if can_view_journal %}
-                    <a href="{% url 'maintenance:journal-detail' journal.id %}"><button type="button"
-                        class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {% translate "View" %}
-                      </button></a>
+                    <button type="button" class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <a href="{% url 'maintenance:journal-detail' journal.id %}">{% translate "View" %}</a>
+                    </button>
                     {% endif %}
                     {% has_perm 'maintenance.change_journal' user journal as can_change_journal %}
                     {% if can_change_journal %}
-                    <a href="{% url 'maintenance:journal-update' journal.id %}"><button type="button"
-                        class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {% translate "Change" %}
-                      </button></a>
+                    <button type="button" class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <a href="{% url 'maintenance:journal-update' journal.id %}">{% translate "Change" %}</a>
+                    </button>
                     {% endif %}
                     {% has_perm 'maintenance.delete_journal' user journal as can_delete_journal %}
                     {% if can_delete_journal %}
-                    <a href="{% url 'maintenance:journal-delete' journal.id %}"><button type="button"
-                        class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {% translate "Delete" %}
-                      </button></a>
+                    <button type="button" class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      <a href="{% url 'maintenance:journal-delete' journal.id %}">{% translate "Delete" %}</a>
+                    </button>
                     {% endif %}
                   </div>
                 </td>
@@ -203,16 +209,15 @@
   </div>
   {% endif %}
   <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-    <a href="{% url 'maintenance:journal-create' %}?object={{ task.object.id }}&task={{ task.id }}">
-      <button type="button"
-        class="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+    <button type="button" class="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      <a href="{% url 'maintenance:journal-create' %}?object={{ task.object.id }}&task={{ task.id }}">
         <!-- Heroicon name: outline/plus-sm -->
         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
           aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
         </svg>
-      </button>
-    </a>
+      </a>
+    </button>
   </div>
 </section>
 {% endblock %}

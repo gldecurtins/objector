@@ -148,26 +148,20 @@
                   <div class="ml-4 flex-shrink-0 flex space-x-4">
                     {% has_perm 'maintenance.view_trigger' user trigger as can_view_trigger %}
                     {% if can_view_trigger %}
-                    <a href="{% url 'maintenance:trigger-detail' trigger.id %}">
-                      <button type="button" class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {% translate "View" %}
-                      </button>
+                    <a href="{% url 'maintenance:trigger-detail' trigger.id %}" class="text-indigo-600 hover:text-indigo-900">
+                      {% translate "View" %}
                     </a>
                     {% endif %}
                     {% has_perm 'maintenance.change_trigger' user trigger as can_change_trigger %}
                     {% if can_change_trigger %}
-                    <a href="{% url 'maintenance:trigger-update' trigger.id %}">
-                      <button type="button" class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {% translate "Change" %}
-                      </button>
+                    <a href="{% url 'maintenance:trigger-update' trigger.id %}" class="text-indigo-600 hover:text-indigo-900">
+                      {% translate "Change" %}
                     </a>
                     {% endif %}
                     {% has_perm 'maintenance.delete_trigger' user trigger as can_delete_trigger %}
                     {% if can_delete_trigger %}
-                    <a href="{% url 'maintenance:trigger-delete' trigger.id %}">
-                      <button type="button" class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {% translate "Delete" %}
-                      </button>
+                    <a href="{% url 'maintenance:trigger-delete' trigger.id %}" class="text-indigo-600 hover:text-indigo-900">
+                      {% translate "Delete" %}
                     </a>
                     {% endif %}
                   </div>

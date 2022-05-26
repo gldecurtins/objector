@@ -187,26 +187,20 @@
                   <div class="ml-4 flex-shrink-0 flex space-x-4 justify-end">
                     {% has_perm 'maintenance.view_journal' user journal as can_view_journal %}
                     {% if can_view_journal %}
-                    <a href="{% url 'maintenance:journal-detail' journal.id %}">
-                      <button type="button" class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {% translate "View" %}
-                      </button>
+                    <a href="{% url 'maintenance:journal-detail' journal.id %}" class="text-indigo-600 hover:text-indigo-900">
+                      {% translate "View" %}
                     </a>
                     {% endif %}
                     {% has_perm 'maintenance.change_journal' user journal as can_change_journal %}
                     {% if can_change_journal %}
-                    <a href="{% url 'maintenance:journal-update' journal.id %}">
-                      <button type="button" class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {% translate "Change" %}
-                      </button>
+                    <a href="{% url 'maintenance:journal-update' journal.id %}" class="text-indigo-600 hover:text-indigo-900">
+                      {% translate "Change" %}
                     </a>
                     {% endif %}
                     {% has_perm 'maintenance.delete_journal' user journal as can_delete_journal %}
                     {% if can_delete_journal %}
-                    <a href="{% url 'maintenance:journal-delete' journal.id %}">
-                      <button type="button" class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {% translate "Delete" %}
-                      </button>
+                    <a href="{% url 'maintenance:journal-delete' journal.id %}" class="text-indigo-600 hover:text-indigo-900">
+                      {% translate "Delete" %}
                     </a>
                     {% endif %}
                   </div>

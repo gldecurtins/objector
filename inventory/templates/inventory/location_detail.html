@@ -191,18 +191,14 @@
                     {% endif %}
                     {% has_perm 'inventory.change_object' user object as can_change_object %}
                     {% if can_change_object %}
-                    <a href="{% url 'inventory:object-update' object.id %}">
-                      <button type="button" class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {% translate "Change" %}
-                      </button>
+                    <a href="{% url 'inventory:object-update' object.id %}" class="text-indigo-600 hover:text-indigo-900">
+                      {% translate "Change" %}
                     </a>
                     {% endif %}
                     {% has_perm 'inventory.delete_object' user object as can_delete_object %}
                     {% if can_delete_object %}
-                    <a href="{% url 'inventory:object-delete' object.id %}">
-                      <button type="button" class="bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {% translate "Delete" %}
-                      </button>
+                    <a href="{% url 'inventory:object-delete' object.id %}" class="text-indigo-600 hover:text-indigo-900">
+                      {% translate "Delete" %}
                     </a>
                     {% endif %}
                   </div>
@@ -227,7 +223,4 @@
     </a>
   </div>
 </section>
-
-
-
 {% endblock %}

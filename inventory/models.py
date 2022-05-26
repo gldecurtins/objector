@@ -141,7 +141,10 @@ class Object(RulesModel):
         ]
 
     def __str__(self) -> str:
-        return self.name
+        str = self.name
+        if self.location:
+            str = f"{str} @{self.location}"
+        return str
 
     def get_absolute_url(self) -> str:
         return f"/object/{self.id}"

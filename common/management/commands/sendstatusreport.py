@@ -51,12 +51,12 @@ class Command(BaseCommand):
 
         text_content = ""
         text_content += (
-            f"{_('Overdue')}: {overdue_tasks.get('count', 0)},"
-            f" {_('Due')}: {due_tasks.get('count', 0)}\n\n"
+            f"{_('Tasks')}: {overdue_tasks.get('count', 0)} {_('Overdue')},"
+            f" {due_tasks.get('count', 0)} {_('Due')}\n\n"
         )
         text_content += (
-            f"{_('Alert')}: {red_sensors.get('count', 0)},"
-            f" {_('Warning')}: {amber_sensors.get('count', 0)}\n\n"
+            f"{_('Sensors')}: {red_sensors.get('count', 0)} {_('Alert')},"
+            f" {amber_sensors.get('count', 0)} {_('Warning')}\n\n"
         )
         if overdue_tasks.get("count", 0) > 0 or due_tasks.get("count", 0) > 0:
             text_content += f"## {_('Tasks')}\n"

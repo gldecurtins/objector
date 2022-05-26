@@ -52,8 +52,7 @@
             {% for task in task_list %}
             <tr class="bg-white">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                <div
-                  class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ task.status_color }}-100 text-{{ task.status_color }}-800">
+                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ task.status_color }}-100 text-{{ task.status_color }}-800">
                 <a href="{% url 'maintenance:task-detail' task.id %}">{{ task.name|truncatewords:"5" }}</a>
               </div>
               </td>

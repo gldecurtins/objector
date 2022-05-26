@@ -20,7 +20,7 @@
                 {% translate "Location" %}
               </th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                {% translate "Status" %}
+                {% translate "Description" %}
               </th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
                 {% translate "Updated" %}
@@ -34,22 +34,19 @@
             {% for object in object_list %}
             <tr class="bg-white">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                <a href="{% url 'inventory:object-detail' object.id %}">{{ object.name|truncatewords:"5" }}</a>
+                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ object.status_color }}-100 text-{{ object.status_color }}-800">
+                  <a href="{% url 'inventory:object-detail' object.id %}">{{ object.name|truncatewords:"5" }}</a>
+                </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {% if object.location %}
                 <a href="{% url 'inventory:location-detail' object.location.id %}">
                   {{ object.location }}
                 </a>
-                {% else %}
-                {{ object.location }}
                 {% endif %}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <div
-                  class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ object.status_color }}-100 text-{{ object.status_color }}-800">
-                  {{ object.get_status_display }}
-                </div>
+                {{ object.description|truncatewords:"5" }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
                 {{ object.updated_at|naturaltime }}

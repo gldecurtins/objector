@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load rules %}
+{% load humanize %}
 {% block title %}Objector + {% translate "Object detail" %} + {{ object }}{% endblock %}
 {% block h1 %}{% translate "Object detail" %}{% endblock %}
 {% block h2 %}{{ object }}{% endblock %}
@@ -22,8 +23,7 @@
             {% translate "Status" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            <div
-              class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ object.status_color }}-100 text-{{ object.status_color }}-800">
+            <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ object.status_color }}-100 text-{{ object.status_color }}-800">
               {{ object.get_status_display }}
             </div>
           </dd>
@@ -136,13 +136,13 @@
                   {% translate "Description" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {% translate "Status" %}
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {% translate "Due on" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {% translate "Overdue on" %}
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {% translate "Updated" %}
                 </th>
                 <th scope="col" class="relative px-6 py-3">
                   <span class="sr-only">{% translate "Action" %}</span>
@@ -153,22 +153,21 @@
               {% for task in tasks %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  <a href="{% url 'maintenance:task-detail' task.id %}">{{ task.name }}</a>
+                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ task.status_color }}-100 text-{{ task.status_color }}-800">
+                    <a href="{% url 'maintenance:task-detail' task.id %}">{{ task.name }}</a>
+                  </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {{ task.description|truncatewords:"5" }}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <div
-                    class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ task.status_color }}-100 text-{{ task.status_color }}-800">
-                    {{ task.get_status_display }}
-                  </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {{ task.due_at }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {{ task.overdue_at }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
+                  {{ task.updated_at|naturaltime }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div class="ml-4 flex-shrink-0 flex space-x-4 justify-end">
@@ -225,7 +224,7 @@
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {% translate "Updated at" %}
+                  {% translate "ID" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {% translate "Notes" %}
@@ -242,6 +241,9 @@
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {% translate "material costs" %}
                 </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {% translate "Updated" %}
+                </th>
                 <th scope="col" class="relative px-6 py-3">
                   <span class="sr-only">{% translate "Action" %}</span>
                 </th>
@@ -251,7 +253,7 @@
               {% for journal in journals %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  <a href="{% url 'maintenance:journal-detail' journal.id %}">{{ journal.updated_at }}</a>
+                  <a href="{% url 'maintenance:journal-detail' journal.id %}">{{ journal.id }}</a>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {{ journal.notes }}
@@ -269,8 +271,6 @@
                         d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
                         clip-rule="evenodd" />
                     </svg></a>
-                  {% else %}
-                  {{ journal.image }}
                   {% endif %}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -278,6 +278,9 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {{ journal.material_costs }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
+                  {{ journal.updated_at|naturaltime }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div class="ml-4 flex-shrink-0 flex space-x-4 justify-end">
@@ -337,7 +340,10 @@
                   {% translate "Name" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {% translate "Status" %}
+                  {% translate "Description" %}
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {% translate "Updated" %}
                 </th>
                 <th scope="col" class="relative px-6 py-3">
                   <span class="sr-only">{% translate "Action" %}</span>
@@ -348,12 +354,15 @@
               {% for sensor in sensors %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  <a href="{% url 'inventory:sensor-detail' sensor.id %}">{{ sensor.name }}</a>
+                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ sensor.status_color }}-100 text-{{ sensor.status_color }}-800">
+                    <a href="{% url 'inventory:sensor-detail' sensor.id %}">{{ sensor.name }}</a>
+                  </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ sensor.status_color }}-100 text-{{ sensor.status_color }}-800">
-                    {{ sensor.get_status_display }}
-                  </div>
+                  {{ sensor.description|truncatewords:"5" }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
+                  {{ sensor.updated_at|naturaltime }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div class="ml-4 flex-shrink-0 flex space-x-4 justify-end">

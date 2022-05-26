@@ -20,7 +20,7 @@
                 {% translate "Object" %}
               </th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                {% translate "Status" %}
+                {% translate "Description" %}
               </th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
                 {% translate "Updated" %}
@@ -34,22 +34,19 @@
             {% for sensor in sensor_list %}
             <tr class="bg-white">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                <a href="{% url 'inventory:sensor-detail' sensor.id %}">{{ sensor.name|truncatewords:"5" }}</a>
+                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ sensor.status_color }}-100 text-{{ sensor.status_color }}-800">
+                  <a href="{% url 'inventory:sensor-detail' sensor.id %}">{{ sensor.name|truncatewords:"5" }}</a>
+                </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {% if sensor.object %}
                 <a href="{% url 'inventory:object-detail' sensor.object.id %}">
                   {{ sensor.object }}
                 </a>
-                {% else %}
-                {{ sensor.object }}
                 {% endif %}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <div
-                  class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ sensor.status_color }}-100 text-{{ sensor.status_color }}-800">
-                  {{ sensor.get_status_display }}
-                </div>
+                  {{ sensor.description|truncatewords:"5" }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
                 {{ sensor.updated_at|naturaltime }}

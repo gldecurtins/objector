@@ -11,6 +11,7 @@ from django.views.generic import (
 from django.db.models import Min, Max
 from inventory.models import Location
 from maintenance.models import Task
+from inventory.models import Sensor
 from django.utils import timezone
 from rules.contrib.views import AutoPermissionRequiredMixin
 from .models import User
@@ -79,6 +80,43 @@ class DashboardTemplateView(LoginRequiredMixin, TemplateView):
                 status=Task.Statuses.PENDING,
             )
         )
+        red_sensors_queryset = (
+            Sensor.objects.filter(
+                object__owner=self.request.user, status=Sensor.Statuses.RED
+            )
+            | Sensor.objects.filter(
+                object__management_group__in=groups_as_list, status=Sensor.Statuses.RED
+            )
+            | Sensor.objects.filter(
+                object__maintenance_group__in=groups_as_list, status=Sensor.Statuses.RED
+            )
+        )
+        amber_sensors_queryset = (
+            Sensor.objects.filter(
+                object__owner=self.request.user, status=Sensor.Statuses.AMBER
+            )
+            | Sensor.objects.filter(
+                object__management_group__in=groups_as_list,
+                status=Sensor.Statuses.AMBER,
+            )
+            | Sensor.objects.filter(
+                object__maintenance_group__in=groups_as_list,
+                status=Sensor.Statuses.AMBER,
+            )
+        )
+        green_sensors_queryset = (
+            Sensor.objects.filter(
+                object__owner=self.request.user, status=Sensor.Statuses.GREEN
+            )
+            | Sensor.objects.filter(
+                object__management_group__in=groups_as_list,
+                status=Sensor.Statuses.GREEN,
+            )
+            | Sensor.objects.filter(
+                object__maintenance_group__in=groups_as_list,
+                status=Sensor.Statuses.GREEN,
+            )
+        )
         location_queryset = (
             Location.objects.filter(
                 owner=self.request.user, latitude__isnull=False, longitude__isnull=False
@@ -97,6 +135,9 @@ class DashboardTemplateView(LoginRequiredMixin, TemplateView):
         context["overdue_tasks_count"] = overdue_tasks_queryset.count()
         context["due_tasks_count"] = due_tasks_queryset.count()
         context["pending_tasks_count"] = pending_tasks_queryset.count()
+        context["red_sensors_count"] = red_sensors_queryset.count()
+        context["amber_sensors_count"] = amber_sensors_queryset.count()
+        context["green_sensors_count"] = green_sensors_queryset.count()
         context["locations"] = location_queryset
         context["locations_aggregates"] = location_queryset.aggregate(
             Min("latitude"), Max("latitude"), Min("longitude"), Max("longitude")

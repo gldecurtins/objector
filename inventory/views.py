@@ -22,6 +22,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbid
 from django.views.generic.detail import SingleObjectMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from jsonpath_ng import parse
+from .filters import SensorFilter
 
 logger = logging.getLogger(__name__)
 
@@ -181,7 +182,14 @@ class SensorListView(LoginRequiredMixin, ListView):
             | Sensor.objects.filter(object__management_group__in=groups_as_list)
             | Sensor.objects.filter(object__maintenance_group__in=groups_as_list)
         )
-        return queryset
+        filterset = SensorFilter(self.request.GET, queryset=queryset)
+        return filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super(SensorListView, self).get_context_data(**kwargs)
+        filterset = SensorFilter(self.request.GET, queryset=self.queryset)
+        context["filter"] = filterset
+        return context
 
 
 class SensorCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):

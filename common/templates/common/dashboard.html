@@ -19,70 +19,54 @@
 
 <div class="px-4 py-5 sm:px-6">
   <h2 id="tasks-title" class="text-lg leading-6 font-medium text-gray-900">
-    {% translate "Tasks" %}
+    {% translate "Summary" %}
   </h2>
 </div>
 
-<div class="flex flex-col">
-  <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
-            <tr>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                {% translate "Overdue" %}
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                {% translate "Due" %}
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                {% translate "Pending" %}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-white">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {% if overdue_tasks_count > 0 %}
-                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-red-100 text-red-800">
-                  <a href="{% url 'maintenance:task-list' %}?status=10">{{ overdue_tasks_count }}</a>
-                </div>
-                {% else %}
-                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
-                  <a href="{% url 'maintenance:task-list' %}">{{ overdue_tasks_count }}</a>
-                </div>
-                {% endif %}
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {% if due_tasks_count > 0 %}
-                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800">
-                  <a href="{% url 'maintenance:task-list' %}?status=20">{{ due_tasks_count }}</a>
-                </div>
-                {% else %}
-                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
-                  <a href="{% url 'maintenance:task-list' %}">{{ due_tasks_count }}</a>
-                </div>
-                {% endif %}
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {% if pending_tasks_count > 0 %}
-                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-green-100 text-green-800">
-                  <a href="{% url 'maintenance:task-list' %}?status=30">{{ pending_tasks_count }}</a>
-                </div>
-                {% else %}
-                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
-                  <a href="{% url 'maintenance:task-list' %}">{{ pending_tasks_count }}</a>
-                </div>
-                {% endif %}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+    <div class="flex-1 min-w-0">
+      <p class="text-sm font-medium text-gray-900">{% translate "Tasks" %}</p>
+      {% if overdue_tasks_count > 0 %}
+      <p class="text-sm text-red-500 truncate"><a href="{% url 'maintenance:task-list' %}?status=10">{{ overdue_tasks_count }} {% translate "Overdue" %}</a></p>
+      {% else %}
+      <p class="text-sm text-gray-500 truncate"><a href="{% url 'maintenance:task-list' %}">{{ overdue_tasks_count }} {% translate "Overdue" %}</a></p>
+      {% endif %}
+      {% if due_tasks_count > 0 %}
+      <p class="text-sm text-amber-500 truncate"><a href="{% url 'maintenance:task-list' %}?status=20">{{ due_tasks_count }} {% translate "Due" %}</a></p>
+      {% else %}
+      <p class="text-sm text-gray-500 truncate"><a href="{% url 'maintenance:task-list' %}">{{ due_tasks_count }} {% translate "Due" %}</a></p>
+      {% endif %}
+      {% if pending_tasks_count > 0 %}
+      <p class="text-sm text-green-500 truncate"><a href="{% url 'maintenance:task-list' %}?status=30">{{ pending_tasks_count }} {% translate "Pending" %}</a></p>
+      {% else %}
+      <p class="text-sm text-gray-500 truncate"><a href="{% url 'maintenance:task-list' %}">{{ pending_tasks_count }} {% translate "Pending" %}</a></p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+    <div class="flex-1 min-w-0">
+      <p class="text-sm font-medium text-gray-900">{% translate "Sensors" %}</p>
+      {% if red_sensors_count > 0 %}
+      <p class="text-sm text-red-500 truncate"><a href="{% url 'inventory:sensor-list' %}?status=10">{{ red_sensors_count }} {% translate "Overdue" %}</a></p>
+      {% else %}
+      <p class="text-sm text-gray-500 truncate"><a href="{% url 'inventory:sensor-list' %}">{{ red_sensors_count }} {% translate "Alert" %}</a></p>
+      {% endif %}
+      {% if amber_sensors_count > 0 %}
+      <p class="text-sm text-amber-500 truncate"><a href="{% url 'inventory:sensor-list' %}?status=20">{{ amber_sensors_count }} {% translate "Due" %}</a></p>
+      {% else %}
+      <p class="text-sm text-gray-500 truncate"><a href="{% url 'inventory:sensor-list' %}">{{ amber_sensors_count }} {% translate "Warning" %}</a></p>
+      {% endif %}
+      {% if green_sensors_count > 0 %}
+      <p class="text-sm text-green-500 truncate"><a href="{% url 'inventory:sensor-list' %}?status=30">{{ green_sensors_count }} {% translate "Pending" %}</a></p>
+      {% else %}
+      <p class="text-sm text-gray-500 truncate"><a href="{% url 'inventory:sensor-list' %}">{{ green_sensors_count }} {% translate "Normal" %}</a></p>
+      {% endif %}
     </div>
   </div>
 </div>
+
 {% if locations %}
 <div class="px-4 py-5 sm:px-6">
   <h2 id="map-title" class="text-lg leading-6 font-medium text-gray-900">

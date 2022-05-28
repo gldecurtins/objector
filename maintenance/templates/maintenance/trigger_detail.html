@@ -10,46 +10,61 @@
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Object" %}
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            {% if trigger.sensor.object %}
-            <a href="{% url 'inventory:object-detail' trigger.sensor.object.id %}">
-              {{ trigger.sensor.object }}
-            </a>
-            {% else %}
-            {{ trigger.sensor.object }}
-            {% endif %}
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">
-            {% translate "Sensor" %}
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            <div>
-              {% if trigger.sensor %}
-              <a href="{% url 'inventory:sensor-detail' trigger.sensor.id %}">
-                {{ trigger.sensor }}
-              </a>
-              {% else %}
-              {{ trigger.sensor }}
-              {% endif %}
-            </div>
-          </dd>
-        </div>
-        <div class="sm:col-span-2">
-          <dt class="text-sm font-medium text-gray-500">
             {% translate "Name" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ trigger.name }}
           </dd>
         </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Status" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <div
+              class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ trigger.status_color }}-100 text-{{ trigger.status_color }}-800">
+              {{ trigger.get_status_display }}
+            </div>
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Object" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <a href="{% url 'inventory:object-detail' trigger.sensor.object.id %}">
+              {{ trigger.sensor.object }}
+            </a>
+          </dd>
+        </div>
       </dl>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
-      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-3">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Sensor" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <div>
+              <a href="{% url 'inventory:sensor-detail' trigger.sensor.id %}">
+                {{ trigger.sensor }}
+              </a>
+            </div>
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Sensor value" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ trigger.sensor_value }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
             {% translate "JSONPath expression" %}
@@ -68,10 +83,18 @@
         </div>
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
-            {% translate "Value" %}
+            {% translate "Warning value" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ trigger.value }}
+            {{ trigger.amber_value }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Alert value" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ trigger.red_value }}
           </dd>
         </div>
       </dl>

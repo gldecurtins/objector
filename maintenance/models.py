@@ -132,7 +132,7 @@ class Trigger(RulesModel):
         _("Condition"), max_length=2, choices=Conditions.choices
     )
     sensor_value = models.CharField(
-        _("Sensor alue"), max_length=200, blank=True, null=True
+        _("Sensor value"), max_length=200, blank=True, null=True
     )
     amber_value = models.CharField(
         _("Warning value"), max_length=200, blank=True, null=True
@@ -155,8 +155,8 @@ class Trigger(RulesModel):
     @property
     def status_color(self) -> str:
         status_color = "green"
-        if self.sensor_status == Sensor.Statuses.RED:
+        if self.status == Trigger.Statuses.RED:
             status_color = "red"
-        elif self.sensor_status == Sensor.Statuses.AMBER:
+        elif self.status == Trigger.Statuses.AMBER:
             status_color = "amber"
         return status_color

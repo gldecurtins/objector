@@ -115,6 +115,11 @@ class Trigger(RulesModel):
         GREATERTHAN = ">", _("greater than")
         GREATERTHANOREQUALTO = ">=", _("greater than or equal to")
 
+    class Statuses(models.IntegerChoices):
+        RED = 10, _("Alert")
+        AMBER = 20, _("Warning")
+        GREEN = 30, _("Normal")
+
     name = models.CharField(_("name"), max_length=200)
     sensor = models.ForeignKey(
         Sensor,
@@ -126,10 +131,17 @@ class Trigger(RulesModel):
     condition = models.CharField(
         _("Condition"), max_length=2, choices=Conditions.choices
     )
-    value = models.CharField(_("Value"), max_length=200)
-    sensor_status = models.PositiveSmallIntegerField(
-        _("Sensor status"),
-        choices=Sensor.Statuses.choices,
+    sensor_value = models.CharField(
+        _("Sensor alue"), max_length=200, blank=True, null=True
+    )
+    amber_value = models.CharField(
+        _("Warning value"), max_length=200, blank=True, null=True
+    )
+    red_value = models.CharField(
+        _("Alert value"), max_length=200, blank=True, null=True
+    )
+    status = models.PositiveSmallIntegerField(
+        _("Status"), choices=Statuses.choices, default=Statuses.GREEN
     )
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)

@@ -275,48 +275,95 @@ class SensorWebhookView(SingleObjectMixin, View):
         triggers = Trigger.objects.filter(sensor=self.object.id)
         for trigger in triggers:
             logger.info(f"Trigger: {trigger.name}")
+
+            trigger.status = Trigger.Statuses.GREEN
+            trigger_sensor_value = ""
             jsonpath_expression = parse(trigger.jsonpath_expression)
+
             for match in jsonpath_expression.find(self.object.webhook_payload):
-                logger.info(f"Trigger condition: {trigger.condition}")
-                logger.info(f"Trigger value: {trigger.value}")
-                logger.info(f"Trigger sensor status: {trigger.sensor_status}")
+
                 logger.info(f"Match value: {match.value}")
-                logger.info(f"Sensor status: {sensor_status}")
+                logger.info(f"Trigger condition: {trigger.condition}")
+                logger.info(f"Trigger amber value: {trigger.amber_value}")
+                logger.info(f"Trigger red value: {trigger.red_value}")
+
                 if (
-                    Trigger.Conditions.EQUALS == trigger.condition
-                    and match.value == trigger.value
-                    and sensor_status > trigger.sensor_status
+                    (
+                        Trigger.Conditions.EQUALS == trigger.condition
+                        and match.value == trigger.red_value
+                        and Trigger.Statuses.RED < trigger.status
+                    )
+                    or (
+                        Trigger.Conditions.NOTEQUALS == trigger.condition
+                        and match.value != trigger.red_value
+                        and Trigger.Statuses.RED < trigger.status
+                    )
+                    or (
+                        Trigger.Conditions.LESSTHAN == trigger.condition
+                        and float(match.value) < float(trigger.red_value)
+                        and Trigger.Statuses.RED < trigger.status
+                    )
+                    or (
+                        Trigger.Conditions.LESSTHANOREQUALTO == trigger.condition
+                        and float(match.value) <= float(trigger.red_value)
+                        and Trigger.Statuses.RED < trigger.status
+                    )
+                    or (
+                        Trigger.Conditions.GREATERTHAN == trigger.condition
+                        and float(match.value) > float(trigger.red_value)
+                        and Trigger.Statuses.RED < trigger.status
+                    )
+                    or (
+                        Trigger.Conditions.GREATERTHANOREQUALTO == trigger.condition
+                        and float(match.value) >= float(trigger.red_value)
+                        and Trigger.Statuses.RED < trigger.status
+                    )
                 ):
-                    sensor_status = trigger.sensor_status
+                    trigger_sensor_value = match.value
+                    trigger.status = Trigger.Statuses.RED
+                    sensor_status = Sensor.Statuses.RED
+
                 elif (
-                    Trigger.Conditions.NOTEQUALS == trigger.condition
-                    and match.value != trigger.value
-                    and sensor_status > trigger.sensor_status
+                    (
+                        Trigger.Conditions.EQUALS == trigger.condition
+                        and match.value == trigger.amber_value
+                        and Trigger.Statuses.AMBER < trigger.status
+                    )
+                    or (
+                        Trigger.Conditions.NOTEQUALS == trigger.condition
+                        and match.value != trigger.amber_value
+                        and Trigger.Statuses.AMBER < trigger.status
+                    )
+                    or (
+                        Trigger.Conditions.LESSTHAN == trigger.condition
+                        and float(match.value) < float(trigger.amber_value)
+                        and Trigger.Statuses.AMBER < trigger.status
+                    )
+                    or (
+                        Trigger.Conditions.LESSTHANOREQUALTO == trigger.condition
+                        and float(match.value) <= float(trigger.amber_value)
+                        and Trigger.Statuses.AMBER < trigger.status
+                    )
+                    or (
+                        Trigger.Conditions.GREATERTHAN == trigger.condition
+                        and float(match.value) > float(trigger.amber_value)
+                        and Trigger.Statuses.AMBER < trigger.status
+                    )
+                    or (
+                        Trigger.Conditions.GREATERTHANOREQUALTO == trigger.condition
+                        and float(match.value) >= float(trigger.amber_value)
+                        and Trigger.Statuses.AMBER < trigger.status
+                    )
                 ):
-                    sensor_status = trigger.sensor_status
-                elif (
-                    Trigger.Conditions.LESSTHAN == trigger.condition
-                    and float(match.value) < float(trigger.value)
-                    and sensor_status > trigger.sensor_status
-                ):
-                    sensor_status = trigger.sensor_status
-                elif (
-                    Trigger.Conditions.LESSTHANOREQUALTO == trigger.condition
-                    and float(match.value) <= float(trigger.value)
-                    and sensor_status > trigger.sensor_status
-                ):
-                    sensor_status = trigger.sensor_status
-                elif (
-                    Trigger.Conditions.GREATERTHAN == trigger.condition
-                    and float(match.value) > float(trigger.value)
-                    and sensor_status > trigger.sensor_status
-                ):
-                    sensor_status = trigger.sensor_status
-                elif (
-                    Trigger.Conditions.GREATERTHANOREQUALTO == trigger.condition
-                    and float(match.value) >= float(trigger.value)
-                    and sensor_status > trigger.sensor_status
-                ):
-                    sensor_status = trigger.sensor_status
-                logger.info(f"New sensor status: {sensor_status}")
+                    trigger_sensor_value = match.value
+                    trigger.status = Trigger.Statuses.AMBER
+                    sensor_status = Sensor.Statuses.AMBER
+
+                elif Trigger.Statuses.GREEN == trigger.status:
+                    trigger_sensor_value = match.value
+
+            trigger.sensor_value = trigger_sensor_value
+            trigger.save()
+
+        logger.info(f"New sensor status: {sensor_status}")
         return sensor_status

@@ -11,7 +11,6 @@ from rules.contrib.views import AutoPermissionRequiredMixin
 from inventory.models import Sensor
 from .models import Task, Journal, Trigger
 from .forms import TaskForm, JournalForm
-from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext_lazy as _
 from .filters import TaskFilter
 
@@ -39,10 +38,9 @@ class TaskListView(LoginRequiredMixin, ListView):
         return context
 
 
-class TaskCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class TaskCreateView(AutoPermissionRequiredMixin, CreateView):
     model = Task
     form_class = TaskForm
-    success_message = _("%(name)s was created successfully")
 
     def get_initial(self) -> dict:
         initial = {}
@@ -82,7 +80,7 @@ class TaskUpdateView(AutoPermissionRequiredMixin, UpdateView):
         return super(TaskUpdateView, self).form_valid(form)
 
 
-class TaskDeleteView(AutoPermissionRequiredMixin, SuccessMessageMixin, DeleteView):
+class TaskDeleteView(AutoPermissionRequiredMixin, DeleteView):
     model = Task
     raise_exception = True
     success_url = reverse_lazy("maintenance:task-list")
@@ -130,10 +128,15 @@ class JournalDeleteView(AutoPermissionRequiredMixin, DeleteView):
         return reverse_lazy("inventory:object-detail", kwargs={"pk": object_id})
 
 
-class TriggerCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class TriggerCreateView(AutoPermissionRequiredMixin, CreateView):
     model = Trigger
-    fields = ["name", "jsonpath_expression", "condition", "value", "sensor_status"]
-    success_message = _("%(name)s was created successfully")
+    fields = [
+        "name",
+        "jsonpath_expression",
+        "condition",
+        "amber_value",
+        "red_value",
+    ]
 
     def form_valid(self, form):
         sensor = Sensor.objects.get(id=int(self.request.GET.get("sensor", False)))
@@ -149,7 +152,13 @@ class TriggerDetailView(AutoPermissionRequiredMixin, DetailView):
 class TriggerUpdateView(AutoPermissionRequiredMixin, UpdateView):
     model = Trigger
     raise_exception = True
-    fields = ["name", "jsonpath_expression", "condition", "value", "sensor_status"]
+    fields = [
+        "name",
+        "jsonpath_expression",
+        "condition",
+        "amber_value",
+        "red_value",
+    ]
 
 
 class TriggerDeleteView(AutoPermissionRequiredMixin, DeleteView):

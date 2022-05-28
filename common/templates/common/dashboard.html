@@ -45,37 +45,36 @@
             <tr class="bg-white">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 {% if overdue_tasks_count > 0 %}
-                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-red-100 text-red-800">
-                    <a href="{% url 'maintenance:task-list' %}?status=10">{{ overdue_tasks_count }}</a>
-                  </div>
+                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-red-100 text-red-800">
+                  <a href="{% url 'maintenance:task-list' %}?status=10">{{ overdue_tasks_count }}</a>
+                </div>
                 {% else %}
-                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
-                    <a href="{% url 'maintenance:task-list' %}">{{ overdue_tasks_count }}</a>
-                  </div>
+                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
+                  <a href="{% url 'maintenance:task-list' %}">{{ overdue_tasks_count }}</a>
+                </div>
                 {% endif %}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 {% if due_tasks_count > 0 %}
-                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800">
-                    <a href="{% url 'maintenance:task-list' %}?status=20">{{ due_tasks_count }}</a>
-                  </div>
+                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                  <a href="{% url 'maintenance:task-list' %}?status=20">{{ due_tasks_count }}</a>
+                </div>
                 {% else %}
-                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
-                    <a href="{% url 'maintenance:task-list' %}">{{ due_tasks_count }}</a>
-                  </div>
+                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
+                  <a href="{% url 'maintenance:task-list' %}">{{ due_tasks_count }}</a>
+                </div>
                 {% endif %}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 {% if pending_tasks_count > 0 %}
-                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-green-100 text-green-800">
-                    <a href="{% url 'maintenance:task-list' %}?status=30">{{ pending_tasks_count }}</a>
-                  </div>
-                {% else %}
-                  <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
-                    <a href="{% url 'maintenance:task-list' %}">{{ pending_tasks_count }}</a>
-                  </div>
-                {% endif %}
+                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-green-100 text-green-800">
+                  <a href="{% url 'maintenance:task-list' %}?status=30">{{ pending_tasks_count }}</a>
                 </div>
+                {% else %}
+                <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800">
+                  <a href="{% url 'maintenance:task-list' %}">{{ pending_tasks_count }}</a>
+                </div>
+                {% endif %}
               </td>
             </tr>
           </tbody>

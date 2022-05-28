@@ -49,17 +49,17 @@
     <div class="flex-1 min-w-0">
       <p class="text-sm font-medium text-gray-900">{% translate "Sensors" %}</p>
       {% if red_sensors_count > 0 %}
-      <p class="text-sm text-red-500 truncate"><a href="{% url 'inventory:sensor-list' %}?status=10">{{ red_sensors_count }} {% translate "Overdue" %}</a></p>
+      <p class="text-sm text-red-500 truncate"><a href="{% url 'inventory:sensor-list' %}?status=10">{{ red_sensors_count }} {% translate "Alert" %}</a></p>
       {% else %}
       <p class="text-sm text-gray-500 truncate"><a href="{% url 'inventory:sensor-list' %}">{{ red_sensors_count }} {% translate "Alert" %}</a></p>
       {% endif %}
       {% if amber_sensors_count > 0 %}
-      <p class="text-sm text-amber-500 truncate"><a href="{% url 'inventory:sensor-list' %}?status=20">{{ amber_sensors_count }} {% translate "Due" %}</a></p>
+      <p class="text-sm text-amber-500 truncate"><a href="{% url 'inventory:sensor-list' %}?status=20">{{ amber_sensors_count }} {% translate "Warning" %}</a></p>
       {% else %}
       <p class="text-sm text-gray-500 truncate"><a href="{% url 'inventory:sensor-list' %}">{{ amber_sensors_count }} {% translate "Warning" %}</a></p>
       {% endif %}
       {% if green_sensors_count > 0 %}
-      <p class="text-sm text-green-500 truncate"><a href="{% url 'inventory:sensor-list' %}?status=30">{{ green_sensors_count }} {% translate "Pending" %}</a></p>
+      <p class="text-sm text-green-500 truncate"><a href="{% url 'inventory:sensor-list' %}?status=30">{{ green_sensors_count }} {% translate "Normal" %}</a></p>
       {% else %}
       <p class="text-sm text-gray-500 truncate"><a href="{% url 'inventory:sensor-list' %}">{{ green_sensors_count }} {% translate "Normal" %}</a></p>
       {% endif %}

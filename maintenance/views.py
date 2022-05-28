@@ -166,5 +166,5 @@ class TriggerDeleteView(AutoPermissionRequiredMixin, DeleteView):
     raise_exception = True
 
     def get_success_url(self) -> str:
-        sensor_id = self.sensor.id
+        sensor_id = self.object.sensor.id
         return reverse_lazy("inventory:sensor-detail", kwargs={"pk": sensor_id})

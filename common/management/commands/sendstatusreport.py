@@ -220,6 +220,11 @@ class Command(BaseCommand):
         trigger_content = ""
         trigger_content += f"#### {_('Trigger')} [{trigger.name}](https://objector.app/trigger/{trigger.pk}/)\n"
         trigger_content += f"+ {_('Sensor value')}: {trigger.sensor_value}\n"
+        trigger_content += f"+ {_('Condition')}: {trigger.get_condition_display()}\n"
+        if trigger.amber_value:
+            trigger_content += f"+ {_('Warning value')}: {trigger.amber_value}\n"
+        if trigger.red_value:
+            trigger_content += f"+ {_('Alert value')}: {trigger.red_value}\n"
         trigger_content += f"+ {_('Status')}: {trigger.get_status_display()}\n"
         trigger_content += (
             f"+ {_('Updated at')}: {formats.localize(trigger.updated_at)}\n"

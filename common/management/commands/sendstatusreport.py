@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.core.mail import EmailMultiAlternatives
 from django.utils.translation import gettext_lazy as _
-from maintenance.models import Task
+from maintenance.models import Task, Trigger
 from inventory.models import Sensor
 from django.utils import translation, timezone, formats
 import markdown
@@ -113,7 +113,7 @@ class Command(BaseCommand):
             )
         )
         if due_tasks_queryset:
-            due_tasks["content"] = f"\n## {_('Due')}\n\n"
+            due_tasks["content"] = f"\n## {_('Due')}\n\n"
             for task in due_tasks_queryset:
                 due_tasks["content"] += self.compile_task_content(task)
                 due_tasks["count"] += 1
@@ -134,10 +134,16 @@ class Command(BaseCommand):
             )
         )
         if red_sensors_queryset:
-            red_sensors["content"] = f"\n## {_('Alert')}\n\n"
+            red_sensors["content"] = f"\n## {_('Alert')}\n\n"
             for sensor in red_sensors_queryset:
                 red_sensors["content"] += self.compile_sensor_content(sensor)
                 red_sensors["count"] += 1
+
+                red_sensor_triggers_queryset = Trigger.objects.filter(sensor=sensor)
+                if red_sensor_triggers_queryset:
+                    for trigger in red_sensor_triggers_queryset:
+                        red_sensors["content"] += self.compile_trigger_content(trigger)
+            red_sensors["content"] += "---\n"
 
         return red_sensors
 
@@ -157,10 +163,18 @@ class Command(BaseCommand):
             )
         )
         if amber_sensors_queryset:
-            amber_sensors["content"] = f"\n## {_('Warning')}\n\n"
+            amber_sensors["content"] = f"\n## {_('Warning')}\n\n"
             for sensor in amber_sensors_queryset:
                 amber_sensors["content"] += self.compile_sensor_content(sensor)
                 amber_sensors["count"] += 1
+
+                amber_sensor_triggers_queryset = Trigger.objects.filter(sensor=sensor)
+                if amber_sensor_triggers_queryset:
+                    for trigger in amber_sensor_triggers_queryset:
+                        amber_sensors["content"] += self.compile_trigger_content(
+                            trigger
+                        )
+            amber_sensors["content"] += "---\n"
 
         return amber_sensors
 
@@ -186,7 +200,7 @@ class Command(BaseCommand):
 
     def compile_sensor_content(self, sensor) -> str:
         sensor_content = ""
-        sensor_content += f"+ {_('Sensor')}: [{sensor.name}](https://objector.app/sensor/{sensor.pk}/)\n"
+        sensor_content += f"### {_('Sensor')} [{sensor.name}](https://objector.app/sensor/{sensor.pk}/)\n"
         sensor_content += (
             f"+ {_('Object')}: "
             f"[{sensor.object}](https://objector.app/object/{sensor.object.pk}/)\n"
@@ -199,6 +213,16 @@ class Command(BaseCommand):
         sensor_content += (
             f"+ {_('Updated at')}: {formats.localize(sensor.updated_at)}\n"
         )
-        sensor_content += "---\n"
 
         return sensor_content
+
+    def compile_trigger_content(self, trigger) -> str:
+        trigger_content = ""
+        trigger_content += f"#### {_('Trigger')} [{trigger.name}](https://objector.app/trigger/{trigger.pk}/)\n"
+        trigger_content += f"+ {_('Sensor value')}: {trigger.sensor_value}\n"
+        trigger_content += f"+ {_('Status')}: {trigger.get_status_display()}\n"
+        trigger_content += (
+            f"+ {_('Updated at')}: {formats.localize(trigger.updated_at)}\n"
+        )
+
+        return trigger_content

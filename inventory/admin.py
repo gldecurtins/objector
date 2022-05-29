@@ -12,6 +12,7 @@ class LocationAdmin(admin.ModelAdmin):
         "maintenance_group",
     )
     list_editable = ("status",)
+    readonly_fields = ("created_at", "updated_at", "created_by", "updated_by")
 
 
 class ObjectAdmin(admin.ModelAdmin):
@@ -25,11 +26,13 @@ class ObjectAdmin(admin.ModelAdmin):
         "maintenance_group",
     )
     list_editable = ("status",)
+    readonly_fields = ("created_at", "updated_at", "created_by", "updated_by")
 
 
 class SensorAdmin(admin.ModelAdmin):
     list_display = ("name", "description", "object", "status")
     list_editable = ("status",)
+    readonly_fields = ("created_at", "updated_at", "created_by", "updated_by")
 
 
 admin.site.register(Location, LocationAdmin)

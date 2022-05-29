@@ -68,6 +68,11 @@ class LocationCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, Creat
         )
         return initial
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+
 
 class LocationDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Location
@@ -93,6 +98,10 @@ class LocationUpdateView(AutoPermissionRequiredMixin, UpdateView):
         "management_group",
         "maintenance_group",
     ]
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 
 class LocationDeleteView(AutoPermissionRequiredMixin, DeleteView):
@@ -139,6 +148,11 @@ class ObjectCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateV
         kwargs["request"] = self.request
         return kwargs
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+
 
 class ObjectDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Object
@@ -161,6 +175,10 @@ class ObjectUpdateView(AutoPermissionRequiredMixin, UpdateView):
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 
 class ObjectDeleteView(AutoPermissionRequiredMixin, DeleteView):
@@ -208,6 +226,11 @@ class SensorCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateV
         initial["object"] = int(self.request.GET.get("object", False))
         return initial
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+
 
 class SensorDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Sensor
@@ -231,6 +254,10 @@ class SensorUpdateView(AutoPermissionRequiredMixin, UpdateView):
         "webhook_payload",
         "status",
     ]
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 
 class SensorDeleteView(AutoPermissionRequiredMixin, DeleteView):

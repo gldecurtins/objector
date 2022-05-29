@@ -52,6 +52,11 @@ class TaskCreateView(AutoPermissionRequiredMixin, CreateView):
         kwargs["request"] = self.request
         return kwargs
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+
 
 class TaskDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Task
@@ -77,6 +82,7 @@ class TaskUpdateView(AutoPermissionRequiredMixin, UpdateView):
         instance = form.save(commit=False)
         instance.status = Task.get_new_task_status(instance)
         instance.save()
+        form.instance.updated_by = self.request.user
         return super(TaskUpdateView, self).form_valid(form)
 
 
@@ -102,6 +108,11 @@ class JournalCreate(AutoPermissionRequiredMixin, CreateView):
         kwargs["request"] = self.request
         return kwargs
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+
 
 class JournalDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Journal
@@ -117,6 +128,10 @@ class JournalUpdateView(AutoPermissionRequiredMixin, UpdateView):
         kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 
 class JournalDeleteView(AutoPermissionRequiredMixin, DeleteView):
@@ -141,6 +156,8 @@ class TriggerCreateView(AutoPermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         sensor = Sensor.objects.get(id=int(self.request.GET.get("sensor", False)))
         form.instance.sensor = sensor
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
         return super().form_valid(form)
 
 
@@ -159,6 +176,10 @@ class TriggerUpdateView(AutoPermissionRequiredMixin, UpdateView):
         "amber_value",
         "red_value",
     ]
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
 
 
 class TriggerDeleteView(AutoPermissionRequiredMixin, DeleteView):

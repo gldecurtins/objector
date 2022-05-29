@@ -92,6 +92,10 @@
             {{ location.maintenance_group }}
           </dd>
         </div>
+      </dl>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div class="sm:col-span-1">
           <dt class="text-sm font-medium text-gray-500">
             {% translate "Created at" %}
@@ -106,6 +110,22 @@
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
             {{ location.updated_at }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Created by" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ location.created_by }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Updated by" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ location.updated_by }}
           </dd>
         </div>
       </dl>

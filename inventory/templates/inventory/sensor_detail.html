@@ -58,7 +58,7 @@
             {% translate "Created at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ object.created_at }}
+            {{ sensor.created_at }}
           </dd>
         </div>
         <div class="sm:col-span-1">
@@ -66,7 +66,23 @@
             {% translate "Updated at" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
-            {{ object.updated_at }}
+            {{ sensor.updated_at }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Created by" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ sensor.created_by }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Updated by" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ sensor.updated_by }}
           </dd>
         </div>
       </dl>

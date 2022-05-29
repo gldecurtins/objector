@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from rules.contrib.models import RulesModel
@@ -35,6 +36,20 @@ class Task(RulesModel):
     overdue_at = models.DateTimeField(_("Overdue at"), blank=True, null=True)
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("Created by"),
+        related_name="task_created_by",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("Updated by"),
+        related_name="task_updated_by",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
 
     class Meta:
         verbose_name = _("Task")
@@ -95,6 +110,20 @@ class Journal(RulesModel):
     )
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("Created by"),
+        related_name="journal_created_by",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("Updated by"),
+        related_name="journal_updated_by",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
 
     def __str__(self) -> str:
         return str(self.id)
@@ -145,6 +174,20 @@ class Trigger(RulesModel):
     )
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("Created by"),
+        related_name="trigger_created_by",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("Updated by"),
+        related_name="trigger_updated_by",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
 
     def __str__(self) -> str:
         return self.name

@@ -4,10 +4,12 @@ from .models import Task, Journal, Trigger
 
 class TaskAdmin(admin.ModelAdmin):
     list_display = ("name", "description", "object", "status", "due_at", "overdue_at")
+    readonly_fields = ("created_at", "updated_at", "created_by", "updated_by")
 
 
 class JournalAdmin(admin.ModelAdmin):
     list_display = ("object", "task", "notes", "labor_costs", "material_costs")
+    readonly_fields = ("created_at", "updated_at", "created_by", "updated_by")
 
 
 class TriggerAdmin(admin.ModelAdmin):
@@ -19,6 +21,12 @@ class TriggerAdmin(admin.ModelAdmin):
         "condition",
         "amber_value",
         "red_value",
+    )
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+        "created_by",
+        "updated_by",
     )
 
 

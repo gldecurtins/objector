@@ -117,6 +117,22 @@
             {{ trigger.updated_at }}
           </dd>
         </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Created by" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ trigger.created_by }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Updated by" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ trigger.updated_by }}
+          </dd>
+        </div>
       </dl>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">

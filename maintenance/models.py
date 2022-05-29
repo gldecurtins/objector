@@ -11,7 +11,7 @@ import pathlib
 def journal_image_upload_handler(instance, filename: str) -> str:
     file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
     file_suffix = pathlib.Path(filename).suffix
-    return f"journal_image/{instance.object.id}/{file_name}{file_suffix}"
+    return f"journal_image/{file_name}{file_suffix}"
 
 
 class Task(RulesModel):

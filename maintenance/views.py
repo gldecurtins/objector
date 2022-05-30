@@ -11,7 +11,6 @@ from rules.contrib.views import AutoPermissionRequiredMixin
 from inventory.models import Sensor
 from .models import Task, Journal, Trigger
 from .forms import TaskForm, JournalForm
-from django.utils.translation import gettext_lazy as _
 from .filters import TaskFilter, JournalFilter
 
 

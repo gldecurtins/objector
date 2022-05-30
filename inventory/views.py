@@ -13,7 +13,7 @@ from django.views.generic import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import AutoPermissionRequiredMixin
 from .models import Location, Object, Sensor
-from maintenance.models import Task, Journal, Trigger
+from maintenance.models import Task, Trigger
 from .forms import ObjectForm
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _

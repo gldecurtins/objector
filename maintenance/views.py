@@ -64,7 +64,7 @@ class TaskDetailView(AutoPermissionRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
-        context["journals"] = Journal.objects.filter(task=self.object.id)
+        context["journal_list"] = Journal.objects.filter(task=self.object.id)
         return context
 
 

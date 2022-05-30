@@ -114,7 +114,7 @@
       {% translate "Trigger" %}
     </h2>
   </div>
-  {% if triggers %}
+  {% if trigger_list %}
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -146,7 +146,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for trigger in triggers %}
+              {% for trigger in trigger_list %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ trigger.status_color }}-100 text-{{ trigger.status_color }}-800">

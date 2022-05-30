@@ -141,7 +141,7 @@
       {% translate "Tasks" %}
     </h2>
   </div>
-  {% if tasks %}
+  {% if task_list %}
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -170,7 +170,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for task in tasks %}
+              {% for task in task_list %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ task.status_color }}-100 text-{{ task.status_color }}-800">
@@ -233,7 +233,7 @@
       {% translate "Journal" %}
     </h2>
   </div>
-  {% if journals %}
+  {% if journal_list %}
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -265,7 +265,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for journal in journals %}
+              {% for journal in journal_list %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   <a href="{% url 'maintenance:journal-detail' journal.id %}">{{ journal.id }}</a>
@@ -338,7 +338,7 @@
       {% translate "Sensor" %}
     </h2>
   </div>
-  {% if sensors %}
+  {% if sensor_list %}
   <div class="flex flex-col">
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -361,7 +361,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for sensor in sensors %}
+              {% for sensor in sensor_list %}
               <tr class="bg-white">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ sensor.status_color }}-100 text-{{ sensor.status_color }}-800">

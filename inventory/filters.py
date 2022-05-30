@@ -5,4 +5,4 @@ import django_filters
 class SensorFilter(django_filters.FilterSet):
     class Meta:
         model = Sensor
-        fields = ["status", "object"]
+        fields = ["object__location", "object", "status"]

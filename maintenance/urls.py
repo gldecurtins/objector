@@ -25,6 +25,7 @@ urlpatterns = [
         views.TaskDeleteView.as_view(),
         name="task-delete",
     ),
+    path("journal/", views.JournalListView.as_view(), name="journal-list"),
     path(
         "journal/add",
         views.JournalCreate.as_view(),

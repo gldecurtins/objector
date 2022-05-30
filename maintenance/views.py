@@ -12,7 +12,7 @@ from inventory.models import Sensor
 from .models import Task, Journal, Trigger
 from .forms import TaskForm, JournalForm
 from django.utils.translation import gettext_lazy as _
-from .filters import TaskFilter
+from .filters import TaskFilter, JournalFilter
 
 
 class TaskListView(LoginRequiredMixin, ListView):
@@ -90,6 +90,29 @@ class TaskDeleteView(AutoPermissionRequiredMixin, DeleteView):
     model = Task
     raise_exception = True
     success_url = reverse_lazy("maintenance:task-list")
+
+
+class JournalListView(LoginRequiredMixin, ListView):
+    model = Task
+    paginate_by = 10
+
+    def get_queryset(self):
+        # all groups for user
+        groups = self.request.user.groups.values_list("pk", flat=True)
+        groups_as_list = list(groups)
+        queryset = (
+            Journal.objects.filter(object__owner=self.request.user)
+            | Journal.objects.filter(object__management_group__in=groups_as_list)
+            | Journal.objects.filter(object__maintenance_group__in=groups_as_list)
+        )
+        filterset = TaskFilter(self.request.GET, queryset=queryset)
+        return filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super(JournalListView, self).get_context_data(**kwargs)
+        filterset = JournalFilter(self.request.GET, queryset=self.queryset)
+        context["filter"] = filterset
+        return context
 
 
 class JournalCreate(AutoPermissionRequiredMixin, CreateView):

@@ -59,7 +59,6 @@ class JournalForm(forms.ModelForm):
         model = Journal
         fields = [
             "object",
-            "task",
             "notes",
             "image",
             "labor_costs",
@@ -78,11 +77,5 @@ class JournalForm(forms.ModelForm):
             | Object.objects.filter(management_group__in=groups_as_list)
             | Object.objects.filter(maintenance_group__in=groups_as_list)
         )
-        task_queryset = (
-            Task.objects.filter(object__owner=self.request.user)
-            | Task.objects.filter(object__management_group__in=groups_as_list)
-            | Task.objects.filter(object__maintenance_group__in=groups_as_list)
-        )
 
         self.fields["object"].queryset = object_queryset
-        self.fields["task"].queryset = task_queryset

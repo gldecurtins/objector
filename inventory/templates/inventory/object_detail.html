@@ -117,6 +117,9 @@
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <div class="pt-5">
         <div class="flex justify-end">
+          <a href="{% url 'maintenance:journal-list' %}?object={{ object.id }}" class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            {% translate "Journal" %}
+          </a>
           {% has_perm 'inventory.change_object' user object as can_change_object %}
           {% if can_change_object %}
           <a href="{% url 'inventory:object-update' object.id %}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -162,7 +165,7 @@
                   {% translate "Overdue on" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
-                  {% translate "Updated" %}
+                  {% translate "Updated at" %}
                 </th>
                 <th scope="col" class="relative px-6 py-3 hidden lg:table-cell">
                   <span class="sr-only">{% translate "Action" %}</span>
@@ -229,113 +232,8 @@
     </a>
   </div>
   <div class="px-4 py-5 sm:px-6">
-    <h2 id="object-journal-title" class="text-lg leading-6 font-medium text-gray-900">
-      {% translate "Journal" %}
-    </h2>
-  </div>
-  {% if journal_list %}
-  <div class="flex flex-col">
-    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {% translate "ID" %}
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {% translate "Notes" %}
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {% translate "Task" %}
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
-                  {% translate "Image" %}
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
-                  {% translate "Updated at" %}
-                </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
-                  {% translate "Updated by" %}
-                </th>
-                <th scope="col" class="relative px-6 py-3 hidden lg:table-cell">
-                  <span class="sr-only">{% translate "Action" %}</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for journal in journal_list %}
-              <tr class="bg-white">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  <a href="{% url 'maintenance:journal-detail' journal.id %}">{{ journal.id }}</a>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {{ journal.notes }}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {% if journal.task %}
-                  <a href="{% url 'maintenance:task-detail' journal.task.id %}">{{ journal.task }}</a>
-                  {% endif %}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900  hidden md:table-cell">
-                  {% if journal.image %}
-                  <a href="{{ journal.image.url }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                      viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd"
-                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                        clip-rule="evenodd" />
-                    </svg></a>
-                  {% endif %}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
-                  {{ journal.updated_at|naturaltime }}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 hidden md:table-cell">
-                  {{ journal.updated_by }}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium hidden lg:table-cell">
-                  <div class="ml-4 flex-shrink-0 flex space-x-4 justify-end">
-                    {% has_perm 'maintenance.view_journal' user journal as can_view_journal %}
-                    {% if can_view_journal %}
-                    <a href="{% url 'maintenance:journal-detail' journal.id %}" class="text-indigo-600 hover:text-indigo-900">
-                      {% translate "View" %}
-                    </a>
-                    {% endif %}
-                    {% has_perm 'maintenance.change_journal' user journal as can_change_journal %}
-                    {% if can_change_journal %}
-                    <a href="{% url 'maintenance:journal-update' journal.id %}" class="text-indigo-600 hover:text-indigo-900">
-                      {% translate "Change" %}
-                    </a>
-                    {% endif %}
-                    {% has_perm 'maintenance.delete_journal' user journal as can_delete_journal %}
-                    {% if can_delete_journal %}
-                    <a href="{% url 'maintenance:journal-delete' journal.id %}" class="text-indigo-600 hover:text-indigo-900">
-                      {% translate "Delete" %}
-                    </a>
-                    {% endif %}
-                  </div>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-  <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-    <a href="{% url 'maintenance:journal-create' %}?object={{ object.id }}" class="inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-      <!-- Heroicon name: outline/plus-sm -->
-      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-      </svg>
-    </a>
-  </div>
-  <div class="px-4 py-5 sm:px-6">
     <h2 id="object-sensor-title" class="text-lg leading-6 font-medium text-gray-900">
-      {% translate "Sensor" %}
+      {% translate "Sensors" %}
     </h2>
   </div>
   {% if sensor_list %}
@@ -353,7 +251,7 @@
                   {% translate "Description" %}
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
-                  {% translate "Updated" %}
+                  {% translate "Updated at" %}
                 </th>
                 <th scope="col" class="relative px-6 py-3 hidden lg:table-cell">
                   <span class="sr-only">{% translate "Action" %}</span>

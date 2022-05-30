@@ -13,7 +13,7 @@
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-        <div class="sm:col-span-1">
+        <div class="sm:col-span-2">
           <dt class="text-sm font-medium text-gray-500">
             {% translate "Object" %}
           </dt>
@@ -25,22 +25,6 @@
             {% else %}
             {{ journal.object }}
             {% endif %}
-          </dd>
-        </div>
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">
-            {% translate "Task" %}
-          </dt>
-          <dd class="mt-1 text-sm text-gray-900">
-            <div>
-              {% if journal.task %}
-              <a href="{% url 'maintenance:task-detail' journal.task.id %}">
-                {{ journal.task }}
-              </a>
-              {% else %}
-              {{ journal.task }}
-              {% endif %}
-            </div>
           </dd>
         </div>
         <div class="sm:col-span-2">
@@ -112,20 +96,21 @@
     <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
       <div class="pt-5">
         <div class="flex justify-end">
+          {% has_perm 'maintenance.change_journal' user journal as can_change_journal %}
+          {% if can_change_journal %}
           <a href="{% url 'maintenance:journal-update' journal.id %}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             {% translate "Change" %}
           </a>
-          <a href="{% url 'inventory:object-detail' journal.object.id %}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            {% translate "Object" %}
-          </a>
-          {% if journal.task %}
-          <a href="{% url 'maintenance:task-detail' journal.task.id%}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-400 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            {% translate "Task" %}
-          </a>
           {% endif %}
+          <a href="{% url 'maintenance:journal-list' %}" class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            {% translate "List" %}
+          </a>
+          {% has_perm 'maintenance.delete_journal' user journal as can_delete_journal %}
+          {% if can_delete_journal %}
           <a href="{% url 'maintenance:journal-delete' journal.id %}" class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             {% translate "Delete" %}
           </a>
+          {% endif %}
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 class JournalAdmin(admin.ModelAdmin):
-    list_display = ("object", "task", "notes", "labor_costs", "material_costs")
+    list_display = ("object", "notes", "labor_costs", "material_costs")
     readonly_fields = ("created_at", "updated_at", "created_by", "updated_by")
 
 

@@ -62,11 +62,6 @@ class TaskDetailView(AutoPermissionRequiredMixin, DetailView):
     model = Task
     raise_exception = True
 
-    def get_context_data(self, **kwargs) -> dict:
-        context = super().get_context_data(**kwargs)
-        context["journal_list"] = Journal.objects.filter(task=self.object.id)
-        return context
-
 
 class TaskUpdateView(AutoPermissionRequiredMixin, UpdateView):
     model = Task
@@ -93,7 +88,7 @@ class TaskDeleteView(AutoPermissionRequiredMixin, DeleteView):
 
 
 class JournalListView(LoginRequiredMixin, ListView):
-    model = Task
+    model = Journal
     paginate_by = 10
 
     def get_queryset(self):
@@ -105,7 +100,7 @@ class JournalListView(LoginRequiredMixin, ListView):
             | Journal.objects.filter(object__management_group__in=groups_as_list)
             | Journal.objects.filter(object__maintenance_group__in=groups_as_list)
         )
-        filterset = TaskFilter(self.request.GET, queryset=queryset)
+        filterset = JournalFilter(self.request.GET, queryset=queryset)
         return filterset.qs
 
     def get_context_data(self, **kwargs):
@@ -118,12 +113,10 @@ class JournalListView(LoginRequiredMixin, ListView):
 class JournalCreate(AutoPermissionRequiredMixin, CreateView):
     model = Journal
     form_class = JournalForm
-    success_message = _("Journal entry created successfully")
 
     def get_initial(self) -> dict:
         initial = {}
         initial["object"] = int(self.request.GET.get("object", False))
-        initial["task"] = int(self.request.GET.get("task", False))
         return initial
 
     def get_form_kwargs(self) -> dict:

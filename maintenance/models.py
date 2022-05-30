@@ -90,14 +90,6 @@ class Journal(RulesModel):
         related_name="journal_object",
         on_delete=models.CASCADE,
     )
-    task = models.ForeignKey(
-        Task,
-        verbose_name=_("Task"),
-        related_name="journal_task",
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-    )
     notes = models.TextField(_("Notes"), blank=True)
     image = models.ImageField(
         _("Image"), upload_to=journal_image_upload_handler, blank=True, null=True
@@ -132,6 +124,8 @@ class Journal(RulesModel):
         return f"/journal/{self.id}"
 
     class Meta:
+        verbose_name = _("Journal")
+        verbose_name_plural = _("Journals")
         ordering = ("-updated_at",)
 
 

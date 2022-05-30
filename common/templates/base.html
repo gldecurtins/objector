@@ -48,17 +48,13 @@
               class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               aria-controls="mobile-menu" @click="mobilemenuopen = !mobilemenuopen" x-bind:aria-expanded="mobilemenuopen.toString()">
               <span class="sr-only">Open main menu</span>
-              <svg x-description="Icon when menu is closed.
-
-              Heroicon name: outline/menu" x-state:on="Menu open" x-state:off="Menu closed" class="h-6 w-6 hidden"
+              <svg x-description="Icon when menu is closed. Heroicon name: outline/menu" x-state:on="Menu open" x-state:off="Menu closed" class="h-6 w-6 hidden"
                 :class="{ 'hidden': mobilemenuopen, 'block': !(mobilemenuopen) }" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
                 </path>
               </svg>
-              <svg x-description="Icon when menu is open.
-
-              Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class="h-6 w-6 block"
+              <svg x-description="Icon when menu is open. Heroicon name: outline/x" x-state:on="Menu open" x-state:off="Menu closed" class="h-6 w-6 block"
                 :class="{ 'block': mobilemenuopen, 'hidden': !(mobilemenuopen) }" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -67,28 +63,17 @@
           </div>
           <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div class="flex-shrink-0 flex items-center">
-              <a href="{% url 'common:home' %}"><img class="block lg:hidden h-8 w-auto"
-                  src="{% static 'common/img/objector-mark.svg' %}" alt="Objector"></a>
-              <a href="{% url 'common:home' %}"><img class="hidden lg:block h-8 w-auto"
-                  src="{% static 'common/img/objector-logo.svg' %}" alt="Objector"></a>
+              <a href="{% url 'common:home' %}"><img class="block lg:hidden h-8 w-auto" src="{% static 'common/img/objector-mark.svg' %}" alt="Objector"></a>
+              <a href="{% url 'common:home' %}"><img class="hidden lg:block h-8 w-auto" src="{% static 'common/img/objector-logo.svg' %}" alt="Objector"></a>
             </div>
             <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-              {% if user.is_staff %}
-              <a href="/admin/" target="_blank"
-                class="border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Admin" %}</a>
-              {% endif %}
               {% if user.is_authenticated %}
-              <a href="{% url 'common:dashboard' %}"
-                class="{% url_active 'common:dashboard' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Dashboard" %}</a>
-              <a href="{% url 'inventory:location-list' %}"
-                class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Location" %}</a>
-              <a href="{% url 'inventory:object-list' %}"
-                class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Object" %}</a>
-                <a href="{% url 'inventory:sensor-list' %}"
-                class="{% url_active 'inventory:sensor-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Sensor" %}</a>
-                <a href="{% url 'maintenance:task-list' %}"
-                class="{% url_active 'maintenance:task-list' %} border-transparent hover:text-gray-700 hover:border-indigo-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Task" %}</a>
+              <a href="{% url 'common:dashboard' %}" class="{% url_active 'common:dashboard' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Dashboard" %}</a>
+              <a href="{% url 'inventory:location-list' %}" class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Location" %}</a>
+              <a href="{% url 'inventory:object-list' %}" class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Object" %}</a>
+              <a href="{% url 'inventory:sensor-list' %}" class="{% url_active 'inventory:sensor-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Sensor" %}</a>
+              <a href="{% url 'maintenance:task-list' %}" class="{% url_active 'maintenance:task-list' %} border-transparent hover:text-gray-700 hover:border-indigo-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Task" %}</a>
+              <a href="{% url 'maintenance:journal-list' %}" class="{% url_active 'maintenance:journal-list' %} border-transparent hover:text-gray-700 hover:border-indigo-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">{% translate "Journal" %}</a>
               {% endif %}
             </div>
           </div>
@@ -109,19 +94,10 @@
                   {% endif %}
                 </button>
               </div>
-
-              <!--
-                Dropdown menu, show/hide based on menu state.
-
-                Entering: "transition ease-out duration-100"
-                  From: "transform opacity-0 scale-95"
-                  To: "transform opacity-100 scale-100"
-                Leaving: "transition ease-in duration-75"
-                  From: "transform opacity-100 scale-100"
-                  To: "transform opacity-0 scale-95"
-              -->
               <div class="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" x-show="usermenuopen">
-                <!-- Active: "bg-gray-100", Not Active: "" -->
+                {% if user.is_staff %}
+                <a href="/admin/" target="_blank" class="block py-2 px-4 text-sm text-gray-700">{% translate "Admin" %}</a>
+                {% endif %}
                 <a href="{% url 'common:user-detail' user.id %}" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0"> {% translate "Profile" %} </a>
                 <a href="/logout" class="block py-2 px-4 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2"> {% translate "Log out" %} </a>
               </div>
@@ -137,21 +113,13 @@
           x-show="mobilemenuopen" style="display: none;">
           <div class="pt-2 pb-4 space-y-1">
             <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
-            {% if user.is_staff %}
-            <a href="/admin/" target="_blank"
-              class="border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Admin" %}</a>
-            {% endif %}
             {% if user.is_authenticated %}
-            <a href="{% url 'common:dashboard' %}"
-              class="{% url_active 'common:dashboard' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Dashboard" %}</a>
-            <a href="{% url 'inventory:location-list' %}"
-              class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Location" %}</a>
-            <a href="{% url 'inventory:object-list' %}"
-              class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Object" %}</a>
-            <a href="{% url 'inventory:sensor-list' %}"
-              class="{% url_active 'inventory:sensor-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Sensor" %}</a>
-            <a href="{% url 'maintenance:task-list' %}"
-              class="{% url_active 'maintenance:task-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Task" %}</a>
+            <a href="{% url 'common:dashboard' %}" class="{% url_active 'common:dashboard' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Dashboard" %}</a>
+            <a href="{% url 'inventory:location-list' %}" class="{% url_active 'inventory:location-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Location" %}</a>
+            <a href="{% url 'inventory:object-list' %}" class="{% url_active 'inventory:object-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Object" %}</a>
+            <a href="{% url 'inventory:sensor-list' %}" class="{% url_active 'inventory:sensor-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Sensor" %}</a>
+            <a href="{% url 'maintenance:task-list' %}" class="{% url_active 'maintenance:task-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Task" %}</a>
+            <a href="{% url 'maintenance:journal-list' %}" class="{% url_active 'maintenance:journal-list' %} border-transparent hover:text-gray-700 hover:border-gray-300 block pl-3 pr-4 py-2 border-l-2 text-base font-medium">{% translate "Journal" %}</a>
             {% endif %}
           </div>
         </div>

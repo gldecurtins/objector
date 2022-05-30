@@ -22,7 +22,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbid
 from django.views.generic.detail import SingleObjectMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from jsonpath_ng import parse
-from .filters import SensorFilter
+from .filters import LocationFilter, ObjectFilter, SensorFilter
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +40,14 @@ class LocationListView(LoginRequiredMixin, ListView):
             | Location.objects.filter(management_group__in=groups_as_list)
             | Location.objects.filter(maintenance_group__in=groups_as_list)
         )
-        return queryset
+        filterset = LocationFilter(self.request.GET, queryset=queryset)
+        return filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super(LocationListView, self).get_context_data(**kwargs)
+        filterset = LocationFilter(self.request.GET, queryset=self.queryset)
+        context["filter"] = filterset
+        return context
 
 
 class LocationCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -123,7 +130,14 @@ class ObjectListView(LoginRequiredMixin, ListView):
             | Object.objects.filter(management_group__in=groups_as_list)
             | Object.objects.filter(maintenance_group__in=groups_as_list)
         )
-        return queryset
+        filterset = ObjectFilter(self.request.GET, queryset=queryset)
+        return filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super(ObjectListView, self).get_context_data(**kwargs)
+        filterset = ObjectFilter(self.request.GET, queryset=self.queryset)
+        context["filter"] = filterset
+        return context
 
 
 class ObjectCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -161,7 +175,6 @@ class ObjectDetailView(AutoPermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["task_list"] = Task.objects.filter(object=self.object.id)
-        context["journal_list"] = Journal.objects.filter(object=self.object.id)
         context["sensor_list"] = Sensor.objects.filter(object=self.object.id)
         return context
 

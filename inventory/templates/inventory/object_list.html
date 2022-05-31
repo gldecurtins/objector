@@ -20,7 +20,7 @@
 </div>
 </form>
 <div class="pb-5 border-b border-gray-200">
-  <h3 class="text-lg leading-6 font-medium text-gray-900">{% translate "Objects" %}</h3>
+  <h3 class="text-lg leading-6 font-medium text-gray-900">{% translate "List" %}</h3>
 </div>
 {% if object_list %}
 <div class="flex flex-col">
@@ -63,7 +63,7 @@
                 {% endif %}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
-                {{ object.description|truncatewords:"5" }}
+                {{ object.description|truncatewords:5 }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden lg:table-cell">
                 {{ object.updated_at|naturaltime }}

@@ -208,9 +208,9 @@ class Sensor(RulesModel):
         _("Status"), choices=Statuses.choices, default=Statuses.GREEN
     )
     webhook_authorization = models.CharField(
-        _("Webhook authorization"), max_length=255, blank=True, null=True
+        _("Webhook authorization"), max_length=255, blank=True
     )
-    webhook_payload = models.JSONField(_("Webhook payload"), blank=True, null=True)
+    webhook_payload = models.JSONField(_("Webhook payload"), blank=True)
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
     created_by = models.ForeignKey(

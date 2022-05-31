@@ -181,7 +181,7 @@
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
-                  {{ task.description|truncatewords:"5" }}
+                  {{ task.description|truncatewords:5 }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {{ task.due_at }}
@@ -267,7 +267,7 @@
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {{ sensor.description|truncatewords:"5" }}
+                  {{ sensor.description|truncatewords:5 }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell hidden md:table-cell">
                   {{ sensor.updated_at|naturaltime }}

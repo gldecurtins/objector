@@ -154,15 +154,9 @@ class Trigger(RulesModel):
     condition = models.CharField(
         _("Condition"), max_length=2, choices=Conditions.choices
     )
-    sensor_value = models.CharField(
-        _("Sensor value"), max_length=200, blank=True, null=True
-    )
-    amber_value = models.CharField(
-        _("Warning value"), max_length=200, blank=True, null=True
-    )
-    red_value = models.CharField(
-        _("Alert value"), max_length=200, blank=True, null=True
-    )
+    sensor_value = models.CharField(_("Sensor value"), max_length=200, blank=True)
+    amber_value = models.CharField(_("Warning value"), max_length=200, blank=True)
+    red_value = models.CharField(_("Alert value"), max_length=200, blank=True)
     status = models.PositiveSmallIntegerField(
         _("Status"), choices=Statuses.choices, default=Statuses.GREEN
     )

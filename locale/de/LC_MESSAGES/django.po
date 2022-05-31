@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-30 16:24+0200\n"
+"POT-Creation-Date: 2022-05-31 08:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,7 +126,7 @@ msgstr ""
 
 #: common/templates/common/dashboard.html:29
 #: inventory/templates/inventory/object_detail.html:144
-#: maintenance/models.py:56 maintenance/templates/maintenance/task_list.html:23
+#: maintenance/models.py:56
 msgid "Tasks"
 msgstr "Aufgaben"
 
@@ -149,7 +149,6 @@ msgstr "Pendent"
 
 #: common/templates/common/dashboard.html:50 inventory/models.py:233
 #: inventory/templates/inventory/object_detail.html:236
-#: inventory/templates/inventory/sensor_list.html:23
 msgid "Sensors"
 msgstr "Sensoren"
 
@@ -464,7 +463,7 @@ msgstr "Erstellt von"
 msgid "Updated by"
 msgstr "Aktualisiert von"
 
-#: inventory/models.py:77 inventory/templates/inventory/location_list.html:23
+#: inventory/models.py:77
 msgid "Locations"
 msgstr "Standorte"
 
@@ -482,7 +481,6 @@ msgstr "Gruppenmitglieder können dieses Objekt ansehen."
 
 #: inventory/models.py:165
 #: inventory/templates/inventory/location_detail.html:160
-#: inventory/templates/inventory/object_list.html:23
 msgid "Objects"
 msgstr "Objekte"
 
@@ -505,10 +503,15 @@ msgid "Location detail"
 msgstr "Standortdetails"
 
 #: inventory/templates/inventory/location_detail.html:146
+#: inventory/templates/inventory/location_list.html:23
 #: inventory/templates/inventory/object_detail.html:130
+#: inventory/templates/inventory/object_list.html:23
 #: inventory/templates/inventory/sensor_detail.html:100
+#: inventory/templates/inventory/sensor_list.html:23
 #: maintenance/templates/maintenance/journal_detail.html:106
+#: maintenance/templates/maintenance/journal_list.html:23
 #: maintenance/templates/maintenance/task_detail.html:147
+#: maintenance/templates/maintenance/task_list.html:23
 msgid "List"
 msgstr "Liste"
 
@@ -703,7 +706,6 @@ msgid "Material costs"
 msgstr "Materialkosten"
 
 #: maintenance/models.py:128
-#: maintenance/templates/maintenance/journal_list.html:23
 msgid "Journals"
 msgstr "Journale"
 

@@ -20,7 +20,7 @@
 </div>
 </form>
 <div class="pb-5 border-b border-gray-200">
-  <h3 class="text-lg leading-6 font-medium text-gray-900">{% translate "Locations" %}</h3>
+  <h3 class="text-lg leading-6 font-medium text-gray-900">{% translate "List" %}</h3>
 </div>
 {% if location_list %}
 <div class="flex flex-col">
@@ -52,14 +52,14 @@
             <tr class="bg-white">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ location.status_color }}-100 text-{{ location.status_color }}-800">
-                  <a href="{% url 'inventory:location-detail' location.id %}">{{ location.name|truncatewords:"5" }}</a>
+                  <a href="{% url 'inventory:location-detail' location.id %}">{{ location.name|truncatewords:5 }}</a>
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ location.address|truncatewords:"5" }}
+                  {{ location.address|truncatewords:5 }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
-                {{ location.description|truncatewords:"5" }}
+                {{ location.description|truncatewords:5 }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden lg:table-cell">
                 {{ location.updated_at|naturaltime }}

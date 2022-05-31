@@ -3,15 +3,14 @@ import rules
 
 @rules.predicate
 def location_is_owner(user, location):
-    return rules.is_authenticated(user) and location.owner == user
+    return rules.is_authenticated(user) is True and location.owner == user
 
 
 @rules.predicate
 def location_is_manager(user, location):
     return (
         rules.is_authenticated(user)
-        and location.management_group is not None
-        and rules.is_group_member(str(location.management_group))
+        and user.groups.filter(name=str(location.management_group)).exists()
     )
 
 
@@ -19,8 +18,7 @@ def location_is_manager(user, location):
 def location_is_maintainer(user, location):
     return (
         rules.is_authenticated(user)
-        and location.maintenance_group is not None
-        and rules.is_group_member(str(location.maintenance_group))
+        and user.groups.filter(name=str(location.maintenance_group)).exists()
     )
 
 
@@ -33,8 +31,7 @@ def object_is_owner(user, object):
 def object_is_manager(user, object):
     return (
         rules.is_authenticated(user)
-        and object.management_group is not None
-        and rules.is_group_member(str(object.management_group))
+        and user.groups.filter(name=str(object.management_group)).exists()
     )
 
 
@@ -42,31 +39,28 @@ def object_is_manager(user, object):
 def object_is_maintainer(user, object):
     return (
         rules.is_authenticated(user)
-        and object.maintenance_group is not None
-        and rules.is_group_member(str(object.maintenance_group))
+        and user.groups.filter(name=str(object.maintenance_group)).exists()
     )
 
 
 @rules.predicate
-def sensor_is_object_owner(user, obj):
-    return rules.is_authenticated(user) and obj.object.owner == user
+def sensor_is_object_owner(user, sensor):
+    return rules.is_authenticated(user) and sensor.object.owner == user
 
 
 @rules.predicate
-def sensor_is_object_manager(user, obj):
+def sensor_is_object_manager(user, sensor):
     return (
         rules.is_authenticated(user)
-        and obj.object.management_group is not None
-        and rules.is_group_member(str(obj.object.management_group))
+        and user.groups.filter(name=str(sensor.object.management_group)).exists()
     )
 
 
 @rules.predicate
-def sensor_is_object_maintainer(user, obj):
+def sensor_is_object_maintainer(user, sensor):
     return (
         rules.is_authenticated(user)
-        and obj.object.maintenance_group is not None
-        and rules.is_group_member(str(obj.object.maintenance_group))
+        and user.groups.filter(name=str(sensor.object.maintenance_group)).exists()
     )
 
 

@@ -3,58 +3,70 @@ import rules
 
 @rules.predicate
 def location_is_owner(user, location):
-    return location.owner == user
+    return rules.is_authenticated(user) and location.owner == user
 
 
 @rules.predicate
 def location_is_manager(user, location):
-    return location.management_group is not None and rules.is_group_member(
-        str(location.management_group)
+    return (
+        rules.is_authenticated(user)
+        and location.management_group is not None
+        and rules.is_group_member(str(location.management_group))
     )
 
 
 @rules.predicate
 def location_is_maintainer(user, location):
-    return location.maintenance_group is not None and rules.is_group_member(
-        str(location.maintenance_group)
+    return (
+        rules.is_authenticated(user)
+        and location.maintenance_group is not None
+        and rules.is_group_member(str(location.maintenance_group))
     )
 
 
 @rules.predicate
 def object_is_owner(user, object):
-    return object.owner == user
+    return rules.is_authenticated(user) and object.owner == user
 
 
 @rules.predicate
 def object_is_manager(user, object):
-    return object.management_group is not None and rules.is_group_member(
-        str(object.management_group)
+    return (
+        rules.is_authenticated(user)
+        and object.management_group is not None
+        and rules.is_group_member(str(object.management_group))
     )
 
 
 @rules.predicate
 def object_is_maintainer(user, object):
-    return object.maintenance_group is not None and rules.is_group_member(
-        str(object.maintenance_group)
+    return (
+        rules.is_authenticated(user)
+        and object.maintenance_group is not None
+        and rules.is_group_member(str(object.maintenance_group))
     )
 
 
 @rules.predicate
 def sensor_is_object_owner(user, obj):
-    return obj.object.owner == user
+    return rules.is_authenticated(user) and obj.object.owner == user
 
 
 @rules.predicate
 def sensor_is_object_manager(user, obj):
-    return obj.object.management_group is not None and rules.is_group_member(
-        str(obj.object.management_group)
+    return (
+        rules.is_authenticated(user)
+        and obj.object.management_group is not None
+        and rules.is_group_member(str(obj.object.management_group))
     )
 
 
 @rules.predicate
 def sensor_is_object_maintainer(user, obj):
-    return obj.object.maintenance_group is not None and rules.is_group_member(
-        str(obj.object.maintenance_group)
+    return (
+        rules.is_authenticated(user)
+        and obj.object.maintenance_group is not None
+        and rules.is_group_member(str(obj.object.maintenance_group))
     )
 
 

@@ -3,7 +3,7 @@ import rules
 
 @rules.predicate
 def user_is_logged_in_user(user, user_record):
-    return user_record == user
+    return rules.is_authenticated(user) and user_record == user
 
 
 rules.add_perm("common.change_user", user_is_logged_in_user)

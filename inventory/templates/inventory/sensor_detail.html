@@ -122,25 +122,25 @@
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                   {% translate "Name" %}
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
                   {% translate "Sensor value" %}
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell">
                   {% translate "Condition" %}
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell">
                   {% translate "Warning value" %}
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell">
                   {% translate "Alert value" %}
                 </th>
-                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
+                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell">
                   {% translate "Updated at" %}
                 </th>
-                <th scope="col" class="relative px-6 py-3 hidden lg:table-cell">
+                <th scope="col" class="relative whitespace-nowrap py-3.5 pl-3 pr-4 sm:pr-6">
                   <span class="sr-only">{% translate "Action" %}</span>
                 </th>
               </tr>
@@ -148,27 +148,27 @@
             <tbody>
               {% for trigger in trigger_list %}
               <tr class="bg-white">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
                   <div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full bg-{{ trigger.status_color }}-100 text-{{ trigger.status_color }}-800">
                     <a href="{% url 'maintenance:trigger-detail' trigger.id %}">{{ trigger.name }}</a>
                   </div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
                   {{ trigger.sensor_value }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 hidden md:table-cell">
+                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 hidden md:table-cell">
                   {{ trigger.get_condition_display }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 hidden md:table-cell">
+                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 hidden md:table-cell">
                   {{ trigger.amber_value }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 hidden md:table-cell">
+                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 hidden md:table-cell">
                   {{ trigger.red_value }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
+                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 hidden md:table-cell">
                   {{ trigger.updated_at|naturaltime }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium hidden lg:table-cell">
+                <td class="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 hidden lg:table-cell">
                   <div class="ml-4 flex-shrink-0 flex space-x-4">
                     {% has_perm 'maintenance.view_trigger' user trigger as can_view_trigger %}
                     {% if can_view_trigger %}

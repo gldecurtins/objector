@@ -16,7 +16,6 @@ from .models import Location, Object, Sensor
 from maintenance.models import Task, Trigger
 from .forms import ObjectForm, SensorForm
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic.detail import SingleObjectMixin

@@ -87,7 +87,14 @@ class LocationDetailView(AutoPermissionRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
-        context["object_list"] = Object.objects.filter(location=self.object.id)
+        groups = self.request.user.groups.values_list("pk", flat=True)
+        groups_as_list = list(groups)
+        object_queryset = (
+            Object.objects.filter(owner=self.request.user)
+            | Object.objects.filter(management_group__in=groups_as_list)
+            | Object.objects.filter(maintenance_group__in=groups_as_list)
+        )
+        context["object_list"] = object_queryset
         return context
 
 

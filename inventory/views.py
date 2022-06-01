@@ -20,7 +20,6 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.generic.detail import SingleObjectMixin
-from django.contrib.messages.views import SuccessMessageMixin
 from jsonpath_ng import parse
 from .filters import LocationFilter, ObjectFilter, SensorFilter
 
@@ -50,7 +49,7 @@ class LocationListView(LoginRequiredMixin, ListView):
         return context
 
 
-class LocationCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class LocationCreateView(AutoPermissionRequiredMixin, CreateView):
     model = Location
     fields = [
         "name",
@@ -62,7 +61,6 @@ class LocationCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, Creat
         "management_group",
         "maintenance_group",
     ]
-    success_message = _("%(name)s was created successfully")
 
     def get_initial(self) -> dict:
         initial = {}
@@ -147,10 +145,9 @@ class ObjectListView(LoginRequiredMixin, ListView):
         return context
 
 
-class ObjectCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class ObjectCreateView(AutoPermissionRequiredMixin, CreateView):
     model = Object
     form_class = ObjectForm
-    success_message = _("%(name)s was created successfully")
 
     def get_initial(self) -> dict:
         initial = {}
@@ -230,7 +227,7 @@ class SensorListView(LoginRequiredMixin, ListView):
         return context
 
 
-class SensorCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class SensorCreateView(AutoPermissionRequiredMixin, CreateView):
     model = Sensor
     fields = [
         "name",
@@ -238,7 +235,6 @@ class SensorCreateView(AutoPermissionRequiredMixin, SuccessMessageMixin, CreateV
         "image",
         "object",
     ]
-    success_message = _("%(name)s was created successfully")
 
     def get_initial(self) -> dict:
         initial = {}

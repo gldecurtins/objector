@@ -1,5 +1,5 @@
 from django import forms
-from .models import Location, Object
+from .models import Location, Object, Sensor
 
 
 class ObjectForm(forms.ModelForm):
@@ -21,10 +21,32 @@ class ObjectForm(forms.ModelForm):
         # all groups for user
         groups = self.request.user.groups.values_list("pk", flat=True)
         groups_as_list = list(groups)
-        location_queryset = (
-            Location.objects.filter(owner=self.request.user)
-            | Location.objects.filter(management_group__in=groups_as_list)
-            | Location.objects.filter(maintenance_group__in=groups_as_list)
-        )
+        location_queryset = Location.objects.filter(
+            owner=self.request.user
+        ) | Location.objects.filter(management_group__in=groups_as_list)
 
         self.fields["location"].queryset = location_queryset
+
+
+class SensorForm(forms.ModelForm):
+    class Meta:
+        model = Sensor
+        fields = [
+            "name",
+            "description",
+            "image",
+            "object",
+        ]
+
+    def __init__(self, *args, **kwargs) -> None:
+        self.request = kwargs.pop("request")
+        super().__init__(*args, **kwargs)
+
+        # all groups for user
+        groups = self.request.user.groups.values_list("pk", flat=True)
+        groups_as_list = list(groups)
+        object_queryset = Object.objects.filter(
+            owner=self.request.user
+        ) | Object.objects.filter(management_group__in=groups_as_list)
+
+        self.fields["object"].queryset = object_queryset

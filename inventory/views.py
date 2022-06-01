@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import AutoPermissionRequiredMixin
 from .models import Location, Object, Sensor
 from maintenance.models import Task, Trigger
-from .forms import ObjectForm
+from .forms import ObjectForm, SensorForm
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
@@ -229,18 +229,18 @@ class SensorListView(LoginRequiredMixin, ListView):
 
 class SensorCreateView(AutoPermissionRequiredMixin, CreateView):
     model = Sensor
-    fields = [
-        "name",
-        "description",
-        "image",
-        "object",
-    ]
+    form_class = SensorForm
 
     def get_initial(self) -> dict:
         initial = {}
         initial["owner"] = self.request.user.id
         initial["object"] = int(self.request.GET.get("object", False))
         return initial
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user

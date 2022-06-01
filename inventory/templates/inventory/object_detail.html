@@ -33,7 +33,9 @@
             {% translate "Location" %}
           </dt>
           <dd class="mt-1 text-sm text-gray-900">
+            {% if object.location %}
             <a href="{% url 'inventory:location-detail' object.location.id %}">{{ object.location }}</a>
+            {% endif %}
           </dd>
         </div>
       </dl>

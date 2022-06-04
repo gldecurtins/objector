@@ -3,7 +3,6 @@ from django.views.generic import (
     CreateView,
     DetailView,
     UpdateView,
-    ListView,
     DeleteView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block title %}Objector + {% translate "Document form" %}+ {{ document }}{% endblock %}
+{% block h1 %}{% translate "Document form" %}{% endblock %}
+{% block h2 %}{{ document }}{% endblock %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data" class="space-y-8 divide-y divide-gray-200">{% csrf_token %}
+  {{ form | crispy }}
+  <div class="flex justify-end">
+    <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      {% translate "Save" %}
+    </button>
+    <a href="{% if document.object.id %}{% url 'inventory:object-detail' document.object.id %}{% else %}{% url 'inventory:object-list' %}{% endif %}" class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      {% translate "Cancel" %}
+    </a>
+  </div>
+</form>
+{% endblock %}

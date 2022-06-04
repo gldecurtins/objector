@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load rules %}
+{% block title %}Objector + {% translate "Document detail" %} + {{ document }}{% endblock %}
+{% block h1 %}{% translate "Document detail" %}{% endblock %}
+{% block h2 %}{{ document }}{% endblock %}
+{% block content %}
+<section aria-labelledby="document-detail-title">
+  <div class="bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6">
+      <h2 id="document-detail-title" class="text-lg leading-6 font-medium text-gray-900">
+        {% translate "Document detail" %}
+      </h2>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-2">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Document" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {% if document.object %}
+            <a href="{% url 'inventory:object-detail' document.object.id %}">
+              {{ document.object }}
+            </a>
+            {% else %}
+            {{ document.object }}
+            {% endif %}
+          </dd>
+        </div>
+        <div class="sm:col-span-2">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Content" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ document.content|linebreaksbr }}
+          </dd>
+        </div>
+        <div class="sm:col-span-2">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "File" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {% if document.file %}
+            <a href="{{ document.file.url }}" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+            </a>
+            {% endif %}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Created at" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ document.created_at }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Updated at" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ document.updated_at }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Created by" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ document.created_by }}
+          </dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">
+            {% translate "Updated by" %}
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            {{ document.updated_by }}
+          </dd>
+        </div>
+      </dl>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+      <div class="pt-5">
+        <div class="flex justify-end">
+          {% has_perm 'maintenance.change_document' user document as can_change_document %}
+          {% if can_change_document %}
+          <a href="{% url 'maintenance:document-update' document.id %}" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            {% translate "Change" %}
+          </a>
+          {% endif %}
+          <a href="{% url 'maintenance:document-list' %}" class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            {% translate "List" %}
+          </a>
+          {% has_perm 'maintenance.delete_document' user document as can_delete_document %}
+          {% if can_delete_document %}
+          <a href="{% url 'maintenance:document-delete' document.id %}" class="ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            {% translate "Delete" %}
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

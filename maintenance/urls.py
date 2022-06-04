@@ -66,4 +66,24 @@ urlpatterns = [
         views.TriggerDeleteView.as_view(),
         name="trigger-delete",
     ),
+    path(
+        "document/add",
+        views.DocumentCreateView.as_view(),
+        name="document-create",
+    ),
+    path(
+        "document/<int:pk>/",
+        views.DocumentDetailView.as_view(),
+        name="document-detail",
+    ),
+    path(
+        "document/<int:pk>/change/",
+        views.DocumentUpdateView.as_view(),
+        name="document-update",
+    ),
+    path(
+        "document/<int:pk>/delete/",
+        views.DocumentDeleteView.as_view(),
+        name="document-delete",
+    ),
 ]

@@ -8,8 +8,8 @@ from django.views.generic import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import AutoPermissionRequiredMixin
 from inventory.models import Sensor
-from .models import Task, Journal, Trigger
-from .forms import TaskForm, JournalForm
+from .models import Task, Journal, Trigger, Document
+from .forms import TaskForm, JournalForm, DocumentForm
 from .filters import TaskFilter, JournalFilter
 from django_filters.views import FilterView
 
@@ -191,3 +191,51 @@ class TriggerDeleteView(AutoPermissionRequiredMixin, DeleteView):
     def get_success_url(self) -> str:
         sensor_id = self.object.sensor.id
         return reverse_lazy("inventory:sensor-detail", kwargs={"pk": sensor_id})
+
+
+class DocumentCreateView(AutoPermissionRequiredMixin, CreateView):
+    model = Document
+    form_class = JournalForm
+
+    def get_initial(self) -> dict:
+        initial = {}
+        initial["object"] = int(self.request.GET.get("object", False))
+        return initial
+
+    def get_form_kwargs(self) -> dict:
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+
+
+class DocumentDetailView(AutoPermissionRequiredMixin, DetailView):
+    model = Document
+    raise_exception = True
+
+
+class DocumentUpdateView(AutoPermissionRequiredMixin, UpdateView):
+    model = Document
+    raise_exception = True
+    form_class = DocumentForm
+
+    def get_form_kwargs(self) -> dict:
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)
+
+
+class DocumentDeleteView(AutoPermissionRequiredMixin, DeleteView):
+    model = Document
+    raise_exception = True
+
+    def get_success_url(self) -> str:
+        return reverse_lazy("maintenance:journal-list")

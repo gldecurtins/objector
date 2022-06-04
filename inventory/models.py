@@ -6,11 +6,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 def location_image_upload_handler(instance, filename) -> str:
-    return f"location_image/{instance.id}/{filename}"
+    return f"location/{instance.id}/image/{filename}"
 
 
 def object_image_upload_handler(instance, filename) -> str:
-    return f"object_image/{instance.id}/{filename}"
+    return f"object/{instance.id}/image/{filename}"
 
 
 class Location(RulesModel):

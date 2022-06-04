@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-31 08:47+0200\n"
+"POT-Creation-Date: 2022-06-04 18:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: common/admin.py:11
 msgid "Custom Fields"
-msgstr ""
+msgstr "Benutzerdefinierte Felder"
 
 #: common/apps.py:8
 msgid "Common"
@@ -68,38 +68,38 @@ msgstr "Übersicht"
 #: common/templates/base.html:72 common/templates/base.html:118
 #: inventory/models.py:76 inventory/models.py:112
 #: inventory/templates/inventory/object_detail.html:33
-#: inventory/templates/inventory/object_list.html:37
+#: inventory/templates/inventory/object_filter.html:37 maintenance/models.py:97
 msgid "Location"
 msgstr "Standort"
 
 #: common/templates/base.html:73 common/templates/base.html:119
 #: inventory/models.py:164 inventory/models.py:203
 #: inventory/templates/inventory/sensor_detail.html:34
-#: inventory/templates/inventory/sensor_list.html:37 maintenance/models.py:28
-#: maintenance/models.py:89
-#: maintenance/templates/maintenance/journal_detail.html:18
-#: maintenance/templates/maintenance/journal_list.html:37
+#: inventory/templates/inventory/sensor_filter.html:37 maintenance/models.py:34
+#: maintenance/models.py:96 maintenance/models.py:101 maintenance/models.py:217
+#: maintenance/templates/maintenance/journal_detail.html:19
+#: maintenance/templates/maintenance/journal_filter.html:37
 #: maintenance/templates/maintenance/task_detail.html:34
-#: maintenance/templates/maintenance/task_list.html:37
+#: maintenance/templates/maintenance/task_filter.html:37
 #: maintenance/templates/maintenance/trigger_detail.html:32
 msgid "Object"
 msgstr "Objekt"
 
 #: common/templates/base.html:74 common/templates/base.html:120
-#: inventory/models.py:232 maintenance/models.py:149
+#: inventory/models.py:232 maintenance/models.py:94 maintenance/models.py:162
 #: maintenance/templates/maintenance/trigger_detail.html:46
 msgid "Sensor"
 msgstr "Sensor"
 
 #: common/templates/base.html:75 common/templates/base.html:121
-#: maintenance/models.py:55
+#: maintenance/models.py:61 maintenance/models.py:95
 msgid "Task"
 msgstr "Aufgabe"
 
 #: common/templates/base.html:76 common/templates/base.html:122
 #: inventory/templates/inventory/location_detail.html:137
-#: inventory/templates/inventory/object_detail.html:121
-#: maintenance/models.py:127
+#: inventory/templates/inventory/object_detail.html:123
+#: maintenance/models.py:140
 #: maintenance/templates/maintenance/task_detail.html:138
 msgid "Journal"
 msgstr "Journal"
@@ -122,51 +122,51 @@ msgstr "Anmelden"
 
 #: common/templates/common/dashboard.html:22
 msgid "Summary"
-msgstr ""
+msgstr "Zusammenfassung"
 
 #: common/templates/common/dashboard.html:29
-#: inventory/templates/inventory/object_detail.html:144
-#: maintenance/models.py:56
+#: inventory/templates/inventory/object_detail.html:146
+#: maintenance/models.py:62
 msgid "Tasks"
 msgstr "Aufgaben"
 
 #: common/templates/common/dashboard.html:31
-#: common/templates/common/dashboard.html:33 maintenance/models.py:19
-#: maintenance/templates/maintenance/task_list.html:43
+#: common/templates/common/dashboard.html:33 maintenance/models.py:25
+#: maintenance/templates/maintenance/task_filter.html:43
 msgid "Overdue"
 msgstr "Überfällig"
 
 #: common/templates/common/dashboard.html:36
-#: common/templates/common/dashboard.html:38 maintenance/models.py:20
-#: maintenance/templates/maintenance/task_list.html:40
+#: common/templates/common/dashboard.html:38 maintenance/models.py:26
+#: maintenance/templates/maintenance/task_filter.html:40
 msgid "Due"
 msgstr "Fällig"
 
 #: common/templates/common/dashboard.html:41
-#: common/templates/common/dashboard.html:43 maintenance/models.py:21
+#: common/templates/common/dashboard.html:43 maintenance/models.py:27
 msgid "Pending"
 msgstr "Pendent"
 
 #: common/templates/common/dashboard.html:50 inventory/models.py:233
-#: inventory/templates/inventory/object_detail.html:236
+#: inventory/templates/inventory/object_detail.html:238
 msgid "Sensors"
 msgstr "Sensoren"
 
 #: common/templates/common/dashboard.html:52
 #: common/templates/common/dashboard.html:54 inventory/models.py:18
-#: inventory/models.py:101 inventory/models.py:192 maintenance/models.py:142
+#: inventory/models.py:101 inventory/models.py:192 maintenance/models.py:155
 msgid "Alert"
 msgstr "Alarm"
 
 #: common/templates/common/dashboard.html:57
 #: common/templates/common/dashboard.html:59 inventory/models.py:19
-#: inventory/models.py:102 inventory/models.py:193 maintenance/models.py:143
+#: inventory/models.py:102 inventory/models.py:193 maintenance/models.py:156
 msgid "Warning"
 msgstr "Warnung"
 
 #: common/templates/common/dashboard.html:62
 #: common/templates/common/dashboard.html:64 inventory/models.py:20
-#: inventory/models.py:103 inventory/models.py:194 maintenance/models.py:144
+#: inventory/models.py:103 inventory/models.py:194 maintenance/models.py:157
 msgid "Normal"
 msgstr "Normal"
 
@@ -219,6 +219,7 @@ msgstr "Benutzer löschen bestätigen"
 #: inventory/templates/inventory/location_confirm_delete.html:8
 #: inventory/templates/inventory/object_confirm_delete.html:8
 #: inventory/templates/inventory/sensor_confirm_delete.html:8
+#: maintenance/templates/maintenance/document_confirm_delete.html:8
 #: maintenance/templates/maintenance/journal_confirm_delete.html:8
 #: maintenance/templates/maintenance/task_confirm_delete.html:8
 #: maintenance/templates/maintenance/trigger_confirm_delete.html:8
@@ -232,20 +233,23 @@ msgstr "Soll dieser Eintrag gelöscht werden:"
 #: inventory/templates/inventory/location_detail.html:216
 #: inventory/templates/inventory/location_list.html:84
 #: inventory/templates/inventory/object_confirm_delete.html:12
-#: inventory/templates/inventory/object_detail.html:135
-#: inventory/templates/inventory/object_detail.html:212
-#: inventory/templates/inventory/object_detail.html:292
-#: inventory/templates/inventory/object_list.html:88
+#: inventory/templates/inventory/object_detail.html:137
+#: inventory/templates/inventory/object_detail.html:214
+#: inventory/templates/inventory/object_detail.html:294
+#: inventory/templates/inventory/object_detail.html:386
+#: inventory/templates/inventory/object_filter.html:88
 #: inventory/templates/inventory/sensor_confirm_delete.html:12
 #: inventory/templates/inventory/sensor_detail.html:105
 #: inventory/templates/inventory/sensor_detail.html:188
-#: inventory/templates/inventory/sensor_list.html:88
+#: inventory/templates/inventory/sensor_filter.html:88
+#: maintenance/templates/maintenance/document_confirm_delete.html:12
+#: maintenance/templates/maintenance/document_detail.html:106
 #: maintenance/templates/maintenance/journal_confirm_delete.html:12
-#: maintenance/templates/maintenance/journal_detail.html:111
-#: maintenance/templates/maintenance/journal_list.html:86
+#: maintenance/templates/maintenance/journal_detail.html:126
+#: maintenance/templates/maintenance/journal_filter.html:104
 #: maintenance/templates/maintenance/task_confirm_delete.html:12
 #: maintenance/templates/maintenance/task_detail.html:152
-#: maintenance/templates/maintenance/task_list.html:86
+#: maintenance/templates/maintenance/task_filter.html:86
 #: maintenance/templates/maintenance/trigger_confirm_delete.html:12
 #: maintenance/templates/maintenance/trigger_detail.html:145
 msgid "Delete"
@@ -259,6 +263,8 @@ msgstr "Löschen"
 #: inventory/templates/inventory/object_form.html:15
 #: inventory/templates/inventory/sensor_confirm_delete.html:15
 #: inventory/templates/inventory/sensor_form.html:15
+#: maintenance/templates/maintenance/document_confirm_delete.html:15
+#: maintenance/templates/maintenance/document_form.html:15
 #: maintenance/templates/maintenance/journal_confirm_delete.html:15
 #: maintenance/templates/maintenance/journal_form.html:15
 #: maintenance/templates/maintenance/task_confirm_delete.html:15
@@ -289,17 +295,19 @@ msgstr "Nachname"
 #: inventory/templates/inventory/location_detail.html:142
 #: inventory/templates/inventory/location_detail.html:210
 #: inventory/templates/inventory/location_list.html:78
-#: inventory/templates/inventory/object_detail.html:126
-#: inventory/templates/inventory/object_detail.html:206
-#: inventory/templates/inventory/object_detail.html:286
-#: inventory/templates/inventory/object_list.html:82
+#: inventory/templates/inventory/object_detail.html:128
+#: inventory/templates/inventory/object_detail.html:208
+#: inventory/templates/inventory/object_detail.html:288
+#: inventory/templates/inventory/object_detail.html:380
+#: inventory/templates/inventory/object_filter.html:82
 #: inventory/templates/inventory/sensor_detail.html:96
 #: inventory/templates/inventory/sensor_detail.html:182
-#: inventory/templates/inventory/sensor_list.html:82
-#: maintenance/templates/maintenance/journal_detail.html:102
-#: maintenance/templates/maintenance/journal_list.html:80
+#: inventory/templates/inventory/sensor_filter.html:82
+#: maintenance/templates/maintenance/document_detail.html:97
+#: maintenance/templates/maintenance/journal_detail.html:117
+#: maintenance/templates/maintenance/journal_filter.html:98
 #: maintenance/templates/maintenance/task_detail.html:143
-#: maintenance/templates/maintenance/task_list.html:80
+#: maintenance/templates/maintenance/task_filter.html:80
 #: maintenance/templates/maintenance/trigger_detail.html:142
 msgid "Change"
 msgstr "Ändern"
@@ -313,6 +321,7 @@ msgstr "Benutzerformular"
 #: inventory/templates/inventory/location_form.html:12
 #: inventory/templates/inventory/object_form.html:12
 #: inventory/templates/inventory/sensor_form.html:12
+#: maintenance/templates/maintenance/document_form.html:12
 #: maintenance/templates/maintenance/journal_form.html:12
 #: maintenance/templates/maintenance/task_form.html:12
 #: maintenance/templates/maintenance/trigger_form.html:12
@@ -328,14 +337,16 @@ msgstr "Inventar"
 #: inventory/templates/inventory/location_detail.html:172
 #: inventory/templates/inventory/location_list.html:34
 #: inventory/templates/inventory/object_detail.html:15
-#: inventory/templates/inventory/object_detail.html:156
-#: inventory/templates/inventory/object_detail.html:248
-#: inventory/templates/inventory/object_list.html:34
+#: inventory/templates/inventory/object_detail.html:158
+#: inventory/templates/inventory/object_detail.html:250
+#: inventory/templates/inventory/object_detail.html:330
+#: inventory/templates/inventory/object_filter.html:34
 #: inventory/templates/inventory/sensor_detail.html:15
 #: inventory/templates/inventory/sensor_detail.html:126
-#: inventory/templates/inventory/sensor_list.html:34 maintenance/models.py:24
+#: inventory/templates/inventory/sensor_filter.html:34 maintenance/models.py:30
+#: maintenance/models.py:221
 #: maintenance/templates/maintenance/task_detail.html:15
-#: maintenance/templates/maintenance/task_list.html:34
+#: maintenance/templates/maintenance/task_filter.html:34
 #: maintenance/templates/maintenance/trigger_detail.html:13
 msgid "Name"
 msgstr ""
@@ -344,18 +355,20 @@ msgstr ""
 #: inventory/templates/inventory/location_detail.html:33
 #: inventory/templates/inventory/location_detail.html:175
 #: inventory/templates/inventory/location_list.html:40
-#: inventory/templates/inventory/object_detail.html:45
-#: inventory/templates/inventory/object_detail.html:159
-#: inventory/templates/inventory/object_detail.html:251
-#: inventory/templates/inventory/object_list.html:40
+#: inventory/templates/inventory/object_detail.html:47
+#: inventory/templates/inventory/object_detail.html:161
+#: inventory/templates/inventory/object_detail.html:253
+#: inventory/templates/inventory/object_filter.html:40
 #: inventory/templates/inventory/sensor_detail.html:46
-#: inventory/templates/inventory/sensor_list.html:40 maintenance/models.py:25
+#: inventory/templates/inventory/sensor_filter.html:40 maintenance/models.py:31
 #: maintenance/templates/maintenance/task_detail.html:62
 msgid "Description"
 msgstr "Beschreibung"
 
 #: inventory/models.py:25 inventory/models.py:108 inventory/models.py:199
-#: maintenance/models.py:95
+#: maintenance/models.py:107
+#: maintenance/templates/maintenance/journal_detail.html:41
+#: maintenance/templates/maintenance/journal_filter.html:43
 msgid "Image"
 msgstr "Bild"
 
@@ -375,8 +388,8 @@ msgstr "Länge (longitude)"
 #: inventory/models.py:31 inventory/models.py:119 inventory/models.py:208
 #: inventory/templates/inventory/location_detail.html:22
 #: inventory/templates/inventory/object_detail.html:23
-#: inventory/templates/inventory/sensor_detail.html:23 maintenance/models.py:33
-#: maintenance/models.py:167
+#: inventory/templates/inventory/sensor_detail.html:23 maintenance/models.py:39
+#: maintenance/models.py:174
 #: maintenance/templates/maintenance/task_detail.html:23
 #: maintenance/templates/maintenance/trigger_detail.html:21
 msgid "Status"
@@ -384,7 +397,7 @@ msgstr "Status"
 
 #: inventory/models.py:35 inventory/models.py:123
 #: inventory/templates/inventory/location_detail.html:73
-#: inventory/templates/inventory/object_detail.html:57
+#: inventory/templates/inventory/object_detail.html:59
 msgid "Owner"
 msgstr "Eigentümer"
 
@@ -394,7 +407,7 @@ msgstr "Der Eigentümer kann diesen Standort ansehen, ändern oder löschen."
 
 #: inventory/models.py:42 inventory/models.py:130
 #: inventory/templates/inventory/location_detail.html:81
-#: inventory/templates/inventory/object_detail.html:65
+#: inventory/templates/inventory/object_detail.html:67
 msgid "Management group"
 msgstr "Management Gruppe"
 
@@ -404,7 +417,7 @@ msgstr "Gruppenmitglieder können diesen Standort ansehen, ändern oder löschen
 
 #: inventory/models.py:51 inventory/models.py:139
 #: inventory/templates/inventory/location_detail.html:89
-#: inventory/templates/inventory/object_detail.html:73
+#: inventory/templates/inventory/object_detail.html:75
 msgid "Maintenance group"
 msgstr "Instandhaltungs Gruppe"
 
@@ -414,10 +427,12 @@ msgstr "Gruppenmitglieder können diesen Standort ansehen."
 
 #: inventory/models.py:58 inventory/models.py:146 inventory/models.py:214
 #: inventory/templates/inventory/location_detail.html:101
-#: inventory/templates/inventory/object_detail.html:85
-#: inventory/templates/inventory/sensor_detail.html:58 maintenance/models.py:37
-#: maintenance/models.py:103 maintenance/models.py:169
-#: maintenance/templates/maintenance/journal_detail.html:64
+#: inventory/templates/inventory/object_detail.html:87
+#: inventory/templates/inventory/sensor_detail.html:58 maintenance/models.py:43
+#: maintenance/models.py:116 maintenance/models.py:176
+#: maintenance/models.py:227
+#: maintenance/templates/maintenance/document_detail.html:59
+#: maintenance/templates/maintenance/journal_detail.html:79
 #: maintenance/templates/maintenance/task_detail.html:102
 #: maintenance/templates/maintenance/trigger_detail.html:106
 msgid "Created at"
@@ -427,15 +442,18 @@ msgstr "Erstellt"
 #: inventory/templates/inventory/location_detail.html:109
 #: inventory/templates/inventory/location_detail.html:178
 #: inventory/templates/inventory/location_list.html:43
-#: inventory/templates/inventory/object_detail.html:93
-#: inventory/templates/inventory/object_detail.html:168
-#: inventory/templates/inventory/object_detail.html:254
-#: inventory/templates/inventory/object_list.html:43
+#: inventory/templates/inventory/object_detail.html:95
+#: inventory/templates/inventory/object_detail.html:170
+#: inventory/templates/inventory/object_detail.html:256
+#: inventory/templates/inventory/object_detail.html:339
+#: inventory/templates/inventory/object_filter.html:43
 #: inventory/templates/inventory/sensor_detail.html:66
 #: inventory/templates/inventory/sensor_detail.html:141
-#: inventory/templates/inventory/sensor_list.html:43 maintenance/models.py:38
-#: maintenance/models.py:104 maintenance/models.py:170
-#: maintenance/templates/maintenance/journal_detail.html:72
+#: inventory/templates/inventory/sensor_filter.html:43 maintenance/models.py:44
+#: maintenance/models.py:117 maintenance/models.py:177
+#: maintenance/models.py:228
+#: maintenance/templates/maintenance/document_detail.html:67
+#: maintenance/templates/maintenance/journal_detail.html:87
 #: maintenance/templates/maintenance/task_detail.html:110
 #: maintenance/templates/maintenance/trigger_detail.html:114
 msgid "Updated at"
@@ -443,10 +461,12 @@ msgstr "Aktualisiert"
 
 #: inventory/models.py:62 inventory/models.py:150 inventory/models.py:218
 #: inventory/templates/inventory/location_detail.html:117
-#: inventory/templates/inventory/object_detail.html:101
-#: inventory/templates/inventory/sensor_detail.html:74 maintenance/models.py:41
-#: maintenance/models.py:107 maintenance/models.py:173
-#: maintenance/templates/maintenance/journal_detail.html:80
+#: inventory/templates/inventory/object_detail.html:103
+#: inventory/templates/inventory/sensor_detail.html:74 maintenance/models.py:47
+#: maintenance/models.py:120 maintenance/models.py:180
+#: maintenance/models.py:231
+#: maintenance/templates/maintenance/document_detail.html:75
+#: maintenance/templates/maintenance/journal_detail.html:95
 #: maintenance/templates/maintenance/task_detail.html:118
 #: maintenance/templates/maintenance/trigger_detail.html:122
 msgid "Created by"
@@ -454,10 +474,12 @@ msgstr "Erstellt von"
 
 #: inventory/models.py:69 inventory/models.py:157 inventory/models.py:225
 #: inventory/templates/inventory/location_detail.html:125
-#: inventory/templates/inventory/object_detail.html:109
-#: inventory/templates/inventory/sensor_detail.html:82 maintenance/models.py:48
-#: maintenance/models.py:114 maintenance/models.py:180
-#: maintenance/templates/maintenance/journal_detail.html:88
+#: inventory/templates/inventory/object_detail.html:111
+#: inventory/templates/inventory/sensor_detail.html:82 maintenance/models.py:54
+#: maintenance/models.py:127 maintenance/models.py:187
+#: maintenance/models.py:238
+#: maintenance/templates/maintenance/document_detail.html:83
+#: maintenance/templates/maintenance/journal_detail.html:103
 #: maintenance/templates/maintenance/task_detail.html:126
 #: maintenance/templates/maintenance/trigger_detail.html:130
 msgid "Updated by"
@@ -504,38 +526,41 @@ msgstr "Standortdetails"
 
 #: inventory/templates/inventory/location_detail.html:146
 #: inventory/templates/inventory/location_list.html:23
-#: inventory/templates/inventory/object_detail.html:130
-#: inventory/templates/inventory/object_list.html:23
+#: inventory/templates/inventory/object_detail.html:132
+#: inventory/templates/inventory/object_filter.html:23
 #: inventory/templates/inventory/sensor_detail.html:100
-#: inventory/templates/inventory/sensor_list.html:23
-#: maintenance/templates/maintenance/journal_detail.html:106
-#: maintenance/templates/maintenance/journal_list.html:23
+#: inventory/templates/inventory/sensor_filter.html:23
+#: maintenance/templates/maintenance/document_detail.html:101
+#: maintenance/templates/maintenance/journal_detail.html:121
+#: maintenance/templates/maintenance/journal_filter.html:23
 #: maintenance/templates/maintenance/task_detail.html:147
-#: maintenance/templates/maintenance/task_list.html:23
+#: maintenance/templates/maintenance/task_filter.html:23
 msgid "List"
 msgstr "Liste"
 
 #: inventory/templates/inventory/location_detail.html:181
 #: inventory/templates/inventory/location_list.html:46
-#: inventory/templates/inventory/object_detail.html:171
-#: inventory/templates/inventory/object_detail.html:257
-#: inventory/templates/inventory/object_list.html:46
+#: inventory/templates/inventory/object_detail.html:173
+#: inventory/templates/inventory/object_detail.html:259
+#: inventory/templates/inventory/object_detail.html:342
+#: inventory/templates/inventory/object_filter.html:46
 #: inventory/templates/inventory/sensor_detail.html:144
-#: inventory/templates/inventory/sensor_list.html:46
-#: maintenance/templates/maintenance/journal_list.html:46
-#: maintenance/templates/maintenance/task_list.html:46
+#: inventory/templates/inventory/sensor_filter.html:46
+#: maintenance/templates/maintenance/journal_filter.html:52
+#: maintenance/templates/maintenance/task_filter.html:46
 msgid "Action"
 msgstr "Aktion"
 
 #: inventory/templates/inventory/location_detail.html:204
 #: inventory/templates/inventory/location_list.html:72
-#: inventory/templates/inventory/object_detail.html:200
-#: inventory/templates/inventory/object_detail.html:280
-#: inventory/templates/inventory/object_list.html:76
+#: inventory/templates/inventory/object_detail.html:202
+#: inventory/templates/inventory/object_detail.html:282
+#: inventory/templates/inventory/object_detail.html:374
+#: inventory/templates/inventory/object_filter.html:76
 #: inventory/templates/inventory/sensor_detail.html:176
-#: inventory/templates/inventory/sensor_list.html:76
-#: maintenance/templates/maintenance/journal_list.html:74
-#: maintenance/templates/maintenance/task_list.html:74
+#: inventory/templates/inventory/sensor_filter.html:76
+#: maintenance/templates/maintenance/journal_filter.html:92
+#: maintenance/templates/maintenance/task_filter.html:74
 msgid "View"
 msgstr "Ansehen"
 
@@ -550,42 +575,42 @@ msgid "Location list"
 msgstr "Standortliste"
 
 #: inventory/templates/inventory/location_list.html:17
-#: inventory/templates/inventory/object_list.html:17
-#: inventory/templates/inventory/sensor_list.html:17
-#: maintenance/templates/maintenance/journal_list.html:17
-#: maintenance/templates/maintenance/task_list.html:17
+#: inventory/templates/inventory/object_filter.html:17
+#: inventory/templates/inventory/sensor_filter.html:17
+#: maintenance/templates/maintenance/journal_filter.html:17
+#: maintenance/templates/maintenance/task_filter.html:17
 msgid "Apply filter"
 msgstr "Filter anwenden"
 
 #: inventory/templates/inventory/location_list.html:97
-#: inventory/templates/inventory/object_list.html:101
-#: inventory/templates/inventory/sensor_list.html:101
-#: maintenance/templates/maintenance/journal_list.html:99
-#: maintenance/templates/maintenance/task_list.html:99
+#: inventory/templates/inventory/object_filter.html:101
+#: inventory/templates/inventory/sensor_filter.html:101
+#: maintenance/templates/maintenance/journal_filter.html:117
+#: maintenance/templates/maintenance/task_filter.html:99
 msgid "Showing page"
 msgstr "Seite"
 
 #: inventory/templates/inventory/location_list.html:99
-#: inventory/templates/inventory/object_list.html:103
-#: inventory/templates/inventory/sensor_list.html:103
-#: maintenance/templates/maintenance/journal_list.html:101
-#: maintenance/templates/maintenance/task_list.html:101
+#: inventory/templates/inventory/object_filter.html:103
+#: inventory/templates/inventory/sensor_filter.html:103
+#: maintenance/templates/maintenance/journal_filter.html:119
+#: maintenance/templates/maintenance/task_filter.html:101
 msgid "of"
 msgstr "von"
 
 #: inventory/templates/inventory/location_list.html:107
-#: inventory/templates/inventory/object_list.html:111
-#: inventory/templates/inventory/sensor_list.html:111
-#: maintenance/templates/maintenance/journal_list.html:109
-#: maintenance/templates/maintenance/task_list.html:109
+#: inventory/templates/inventory/object_filter.html:111
+#: inventory/templates/inventory/sensor_filter.html:111
+#: maintenance/templates/maintenance/journal_filter.html:127
+#: maintenance/templates/maintenance/task_filter.html:109
 msgid "Previous"
 msgstr "Vorherige"
 
 #: inventory/templates/inventory/location_list.html:113
-#: inventory/templates/inventory/object_list.html:117
-#: inventory/templates/inventory/sensor_list.html:117
-#: maintenance/templates/maintenance/journal_list.html:115
-#: maintenance/templates/maintenance/task_list.html:115
+#: inventory/templates/inventory/object_filter.html:117
+#: inventory/templates/inventory/sensor_filter.html:117
+#: maintenance/templates/maintenance/journal_filter.html:133
+#: maintenance/templates/maintenance/task_filter.html:115
 msgid "Next"
 msgstr "Nächste"
 
@@ -599,23 +624,40 @@ msgstr "Objekt löschen bestätigen"
 msgid "Object detail"
 msgstr "Objektdetails"
 
-#: inventory/templates/inventory/object_detail.html:162
+#: inventory/templates/inventory/object_detail.html:164
 msgid "Due on"
 msgstr "Fällig am"
 
-#: inventory/templates/inventory/object_detail.html:165
+#: inventory/templates/inventory/object_detail.html:167
 msgid "Overdue on"
 msgstr "Überfällig am"
+
+#: inventory/templates/inventory/object_detail.html:318
+#: maintenance/models.py:252
+msgid "Documents"
+msgstr "Dokumente"
+
+#: inventory/templates/inventory/object_detail.html:333
+#: maintenance/models.py:222
+#: maintenance/templates/maintenance/document_detail.html:33
+msgid "Content"
+msgstr "Inhalt"
+
+#: inventory/templates/inventory/object_detail.html:336
+#: maintenance/models.py:224
+#: maintenance/templates/maintenance/document_detail.html:41
+msgid "File"
+msgstr "Datei"
+
+#: inventory/templates/inventory/object_filter.html:6
+#: inventory/templates/inventory/object_filter.html:7
+msgid "Object list"
+msgstr "Objektliste"
 
 #: inventory/templates/inventory/object_form.html:4
 #: inventory/templates/inventory/object_form.html:5
 msgid "Object form"
 msgstr "Objektformular"
-
-#: inventory/templates/inventory/object_list.html:6
-#: inventory/templates/inventory/object_list.html:7
-msgid "Object list"
-msgstr "Objektliste"
 
 #: inventory/templates/inventory/sensor_confirm_delete.html:3
 #: inventory/templates/inventory/sensor_confirm_delete.html:4
@@ -632,140 +674,177 @@ msgid "Trigger"
 msgstr ""
 
 #: inventory/templates/inventory/sensor_detail.html:129
-#: maintenance/models.py:158
+#: maintenance/models.py:170
 #: maintenance/templates/maintenance/trigger_detail.html:58
 msgid "Sensor value"
 msgstr "Sensor Wert"
 
 #: inventory/templates/inventory/sensor_detail.html:132
-#: maintenance/models.py:155
+#: maintenance/models.py:168
 #: maintenance/templates/maintenance/trigger_detail.html:78
 msgid "Condition"
 msgstr "Bedingung"
 
 #: inventory/templates/inventory/sensor_detail.html:135
-#: maintenance/models.py:161
+#: maintenance/models.py:171
 #: maintenance/templates/maintenance/trigger_detail.html:86
 msgid "Warning value"
 msgstr "Warnung Wert"
 
 #: inventory/templates/inventory/sensor_detail.html:138
-#: maintenance/models.py:164
+#: maintenance/models.py:172
 #: maintenance/templates/maintenance/trigger_detail.html:94
 msgid "Alert value"
 msgstr "Alarm Wert"
+
+#: inventory/templates/inventory/sensor_filter.html:6
+#: inventory/templates/inventory/sensor_filter.html:7
+msgid "Sensor list"
+msgstr "Sensorliste"
 
 #: inventory/templates/inventory/sensor_form.html:4
 #: inventory/templates/inventory/sensor_form.html:5
 msgid "Sensor form"
 msgstr "Sensorformular"
 
-#: inventory/templates/inventory/sensor_list.html:6
-#: inventory/templates/inventory/sensor_list.html:7
-msgid "Sensor list"
-msgstr "Sensorliste"
-
-#: inventory/views.py:65 inventory/views.py:146 inventory/views.py:234
-#, python-format
-msgid "%(name)s was created successfully"
-msgstr "%(name)s erfolgreich erstellt"
-
 #: maintenance/apps.py:8
 msgid "Maintenance"
 msgstr "Instandhaltung"
 
-#: maintenance/models.py:22
+#: maintenance/models.py:28
 msgid "Inactive"
 msgstr "Inaktiv"
 
-#: maintenance/models.py:35
+#: maintenance/models.py:41
 #: maintenance/templates/maintenance/task_detail.html:42
 msgid "Due at"
 msgstr "Fällig am"
 
-#: maintenance/models.py:36
+#: maintenance/models.py:42
 #: maintenance/templates/maintenance/task_detail.html:50
 msgid "Overdue at"
 msgstr "Überfällig am"
 
-#: maintenance/models.py:93
-#: maintenance/templates/maintenance/journal_detail.html:32
+#: maintenance/models.py:105
+#: maintenance/templates/maintenance/journal_detail.html:33
+#: maintenance/templates/maintenance/journal_filter.html:40
 msgid "Notes"
 msgstr "Notizen"
 
-#: maintenance/models.py:98
-#: maintenance/templates/maintenance/journal_detail.html:44
-#: maintenance/templates/maintenance/journal_list.html:40
+#: maintenance/models.py:110
+#: maintenance/templates/maintenance/journal_detail.html:59
+#: maintenance/templates/maintenance/journal_filter.html:46
 msgid "Labor costs"
 msgstr "Arbeitskosten"
 
-#: maintenance/models.py:101
-#: maintenance/templates/maintenance/journal_detail.html:52
-#: maintenance/templates/maintenance/journal_list.html:43
+#: maintenance/models.py:113
+#: maintenance/templates/maintenance/journal_detail.html:67
+#: maintenance/templates/maintenance/journal_filter.html:49
 msgid "Material costs"
 msgstr "Materialkosten"
 
-#: maintenance/models.py:128
+#: maintenance/models.py:115
+msgid "Source"
+msgstr "Quelle"
+
+#: maintenance/models.py:141
 msgid "Journals"
 msgstr "Journale"
 
-#: maintenance/models.py:134
+#: maintenance/models.py:147
 msgid "equals"
 msgstr "gleich"
 
-#: maintenance/models.py:135
+#: maintenance/models.py:148
 msgid "not equals"
 msgstr "ungleich"
 
-#: maintenance/models.py:136
+#: maintenance/models.py:149
 msgid "less than"
 msgstr "kleiner als"
 
-#: maintenance/models.py:137
+#: maintenance/models.py:150
 msgid "less than or equal to"
 msgstr "kleiner als oder gleich"
 
-#: maintenance/models.py:138
+#: maintenance/models.py:151
 msgid "greater than"
 msgstr "grösser als"
 
-#: maintenance/models.py:139
+#: maintenance/models.py:152
 msgid "greater than or equal to"
 msgstr "grösser als oder gleich"
 
-#: maintenance/models.py:146
+#: maintenance/models.py:159
 msgid "name"
 msgstr "Name"
 
-#: maintenance/models.py:153
+#: maintenance/models.py:166
 #: maintenance/templates/maintenance/trigger_detail.html:70
 msgid "JSONPath expression"
 msgstr "JSONPath Ausdruck"
+
+#: maintenance/models.py:211
+msgid "Manual"
+msgstr "Anleitung"
+
+#: maintenance/models.py:212
+msgid "Receipt"
+msgstr "Quittung"
+
+#: maintenance/models.py:213
+msgid "Warranty"
+msgstr "Garantie"
+
+#: maintenance/models.py:226
+msgid "Type"
+msgstr "Art"
+
+#: maintenance/models.py:251
+#: maintenance/templates/maintenance/document_detail.html:19
+msgid "Document"
+msgstr "Dokument"
+
+#: maintenance/templates/maintenance/document_confirm_delete.html:3
+#: maintenance/templates/maintenance/document_confirm_delete.html:4
+msgid "Document confirm delete"
+msgstr "Dokument löschen bestätigen"
+
+#: maintenance/templates/maintenance/document_detail.html:4
+#: maintenance/templates/maintenance/document_detail.html:5
+#: maintenance/templates/maintenance/document_detail.html:12
+msgid "Document detail"
+msgstr "Dokumentdetails"
+
+#: maintenance/templates/maintenance/document_form.html:4
+#: maintenance/templates/maintenance/document_form.html:5
+msgid "Document form"
+msgstr "Dokumentformular"
 
 #: maintenance/templates/maintenance/journal_confirm_delete.html:3
 #: maintenance/templates/maintenance/journal_confirm_delete.html:4
 msgid "Journal confirm delete"
 msgstr "Journal löschen bestätigen"
 
-#: maintenance/templates/maintenance/journal_detail.html:3
 #: maintenance/templates/maintenance/journal_detail.html:4
-#: maintenance/templates/maintenance/journal_detail.html:11
+#: maintenance/templates/maintenance/journal_detail.html:5
+#: maintenance/templates/maintenance/journal_detail.html:12
 msgid "Journal detail"
 msgstr "Journaldetails"
+
+#: maintenance/templates/maintenance/journal_filter.html:6
+#: maintenance/templates/maintenance/journal_filter.html:7
+msgid "Journal list"
+msgstr "Journalliste"
+
+#: maintenance/templates/maintenance/journal_filter.html:34
+msgid "ID"
+msgstr ""
 
 #: maintenance/templates/maintenance/journal_form.html:4
 #: maintenance/templates/maintenance/journal_form.html:5
 msgid "Journal form"
 msgstr "Journalformular"
-
-#: maintenance/templates/maintenance/journal_list.html:6
-#: maintenance/templates/maintenance/journal_list.html:7
-msgid "Journal list"
-msgstr "Journalliste"
-
-#: maintenance/templates/maintenance/journal_list.html:34
-msgid "ID"
-msgstr ""
 
 #: maintenance/templates/maintenance/task_confirm_delete.html:3
 #: maintenance/templates/maintenance/task_confirm_delete.html:4
@@ -789,15 +868,15 @@ msgstr "Objekt Management Gruppe"
 msgid "Object maintenance group"
 msgstr "Objekt Instandhaltungs Gruppe"
 
+#: maintenance/templates/maintenance/task_filter.html:6
+#: maintenance/templates/maintenance/task_filter.html:7
+msgid "Task list"
+msgstr "Aufgabenliste"
+
 #: maintenance/templates/maintenance/task_form.html:4
 #: maintenance/templates/maintenance/task_form.html:5
 msgid "Task form"
 msgstr "Aufgabeformular"
-
-#: maintenance/templates/maintenance/task_list.html:6
-#: maintenance/templates/maintenance/task_list.html:7
-msgid "Task list"
-msgstr "Aufgabenliste"
 
 #: maintenance/templates/maintenance/trigger_confirm_delete.html:3
 #: maintenance/templates/maintenance/trigger_confirm_delete.html:4

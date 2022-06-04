@@ -1,5 +1,5 @@
 from django import forms
-from .models import Task, Journal
+from .models import Task, Journal, Document
 from inventory.models import Object
 
 
@@ -63,6 +63,33 @@ class JournalForm(forms.ModelForm):
             "image",
             "labor_costs",
             "material_costs",
+        ]
+
+    def __init__(self, *args, **kwargs) -> None:
+        self.request = kwargs.pop("request")
+        super().__init__(*args, **kwargs)
+
+        # all groups for user
+        groups = self.request.user.groups.values_list("pk", flat=True)
+        groups_as_list = list(groups)
+        object_queryset = (
+            Object.objects.filter(owner=self.request.user)
+            | Object.objects.filter(management_group__in=groups_as_list)
+            | Object.objects.filter(maintenance_group__in=groups_as_list)
+        )
+
+        self.fields["object"].queryset = object_queryset
+
+
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = [
+            "name",
+            "content",
+            "object",
+            "file",
+            "type",
         ]
 
     def __init__(self, *args, **kwargs) -> None:

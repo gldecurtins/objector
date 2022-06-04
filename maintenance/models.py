@@ -11,7 +11,13 @@ import pathlib
 def journal_image_upload_handler(instance, filename: str) -> str:
     file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
     file_suffix = pathlib.Path(filename).suffix
-    return f"journal_image/{file_name}{file_suffix}"
+    return f"object/{instance.object.id}/journal/{file_name}{file_suffix}"
+
+
+def document_file_upload_handler(instance, filename) -> str:
+    file_name = str(uuid.uuid1())  # uuid1 -> uuid + timestamp
+    file_suffix = pathlib.Path(filename).suffix
+    return f"object/{instance.object.id}/document/{file_name}{file_suffix}"
 
 
 class Task(RulesModel):
@@ -84,6 +90,12 @@ class Task(RulesModel):
 
 
 class Journal(RulesModel):
+    class Sources(models.TextChoices):
+        SENSOR = "sensor", _("Sensor")
+        TASK = "task", _("Task")
+        OBJECT = "object", _("Object")
+        LOCATION = "location", _("Location")
+
     object = models.ForeignKey(
         Object,
         verbose_name=_("Object"),
@@ -100,6 +112,7 @@ class Journal(RulesModel):
     material_costs = models.DecimalField(
         _("Material costs"), blank=True, null=True, decimal_places=2, max_digits=9
     )
+    source = models.CharField(_("Source"), max_length=8, choices=Sources.choices)
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
     created_by = models.ForeignKey(
@@ -191,3 +204,50 @@ class Trigger(RulesModel):
         elif self.status == Trigger.Statuses.AMBER:
             status_color = "amber"
         return status_color
+
+
+class Document(RulesModel):
+    class Types(models.TextChoices):
+        INSTRUCTIONS = "manual", _("Manual")
+        RECEIPT = "receipt", _("Receipt")
+        WARRANTY = "warranty", _("Warranty")
+
+    object = models.ForeignKey(
+        Object,
+        verbose_name=_("Object"),
+        related_name="document_object",
+        on_delete=models.CASCADE,
+    )
+    name = models.CharField(_("Name"), max_length=200)
+    content = models.TextField(_("Content"), blank=True)
+    file = models.FileField(
+        _("File"), upload_to=document_file_upload_handler, blank=True, null=True
+    )
+    type = models.CharField(_("Type"), max_length=8, choices=Types.choices)
+    created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("Created by"),
+        related_name="document_created_by",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("Updated by"),
+        related_name="document_updated_by",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+
+    def __str__(self) -> str:
+        return self.name
+
+    def get_absolute_url(self) -> str:
+        return f"/document/{self.id}"
+
+    class Meta:
+        verbose_name = _("Document")
+        verbose_name_plural = _("Documents")
+        ordering = ("-updated_at",)

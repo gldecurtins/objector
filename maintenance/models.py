@@ -112,7 +112,7 @@ class Journal(RulesModel):
     material_costs = models.DecimalField(
         _("Material costs"), blank=True, null=True, decimal_places=2, max_digits=9
     )
-    source = models.CharField(_("Source"), max_length=8, choices=Sources.choices)
+    source = models.CharField(_("Source"), max_length=8, choices=Sources.choices, blank=True)
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
     created_by = models.ForeignKey(
@@ -223,7 +223,7 @@ class Document(RulesModel):
     file = models.FileField(
         _("File"), upload_to=document_file_upload_handler, blank=True, null=True
     )
-    type = models.CharField(_("Type"), max_length=8, choices=Types.choices)
+    type = models.CharField(_("Type"), max_length=8, choices=Types.choices, blank=True)
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
     created_by = models.ForeignKey(

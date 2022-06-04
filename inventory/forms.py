@@ -6,9 +6,9 @@ class ObjectForm(forms.ModelForm):
     class Meta:
         model = Object
         fields = [
+            "location",
             "name",
             "description",
-            "location",
             "owner",
             "management_group",
             "maintenance_group",
@@ -32,10 +32,10 @@ class SensorForm(forms.ModelForm):
     class Meta:
         model = Sensor
         fields = [
+            "object",
             "name",
             "description",
             "image",
-            "object",
         ]
 
     def __init__(self, *args, **kwargs) -> None:

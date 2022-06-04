@@ -7,9 +7,9 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = [
+            "object",
             "name",
             "description",
-            "object",
             "due_at",
             "overdue_at",
             "status",
@@ -57,13 +57,7 @@ class TaskForm(forms.ModelForm):
 class JournalForm(forms.ModelForm):
     class Meta:
         model = Journal
-        fields = [
-            "object",
-            "notes",
-            "image",
-            "labor_costs",
-            "material_costs",
-        ]
+        fields = ["object", "notes", "image", "labor_costs", "material_costs"]
 
     def __init__(self, *args, **kwargs) -> None:
         self.request = kwargs.pop("request")
@@ -85,9 +79,9 @@ class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
         fields = [
+            "object",
             "name",
             "content",
-            "object",
             "file",
             "type",
         ]

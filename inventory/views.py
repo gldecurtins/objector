@@ -13,7 +13,7 @@ from django.views.generic import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rules.contrib.views import AutoPermissionRequiredMixin
 from .models import Location, Object, Sensor
-from maintenance.models import Task, Trigger
+from maintenance.models import Task, Trigger, Document
 from .forms import ObjectForm, SensorForm
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -174,6 +174,7 @@ class ObjectDetailView(AutoPermissionRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context["task_list"] = Task.objects.filter(object=self.object.id)
         context["sensor_list"] = Sensor.objects.filter(object=self.object.id)
+        context["document_list"] = Document.objects.filter(object=self.object.id)
         return context
 
 
@@ -250,10 +251,10 @@ class SensorUpdateView(AutoPermissionRequiredMixin, UpdateView):
     model = Sensor
     raise_exception = True
     fields = [
+        "object",
         "name",
         "description",
         "image",
-        "object",
         "webhook_authorization",
         "webhook_payload",
         "status",

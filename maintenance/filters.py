@@ -44,4 +44,4 @@ class JournalFilter(django_filters.FilterSet):
 
     class Meta:
         model = Journal
-        fields = ["object__location", "object"]
+        fields = ["object__location", "object", "source"]

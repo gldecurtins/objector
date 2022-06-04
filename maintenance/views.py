@@ -195,7 +195,7 @@ class TriggerDeleteView(AutoPermissionRequiredMixin, DeleteView):
 
 class DocumentCreateView(AutoPermissionRequiredMixin, CreateView):
     model = Document
-    form_class = JournalForm
+    form_class = DocumentForm
 
     def get_initial(self) -> dict:
         initial = {}

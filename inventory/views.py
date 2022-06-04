@@ -21,6 +21,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbid
 from django.views.generic.detail import SingleObjectMixin
 from jsonpath_ng import parse
 from .filters import LocationFilter, ObjectFilter, SensorFilter
+from django_filters.views import FilterView
 
 logger = logging.getLogger(__name__)
 
@@ -121,8 +122,9 @@ class LocationDeleteView(AutoPermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy("inventory:location-list")
 
 
-class ObjectListView(LoginRequiredMixin, ListView):
+class ObjectFilterView(LoginRequiredMixin, FilterView):
     model = Object
+    filterset_class = ObjectFilter
     paginate_by = 10
 
     def get_queryset(self):
@@ -134,14 +136,7 @@ class ObjectListView(LoginRequiredMixin, ListView):
             | Object.objects.filter(management_group__in=groups_as_list)
             | Object.objects.filter(maintenance_group__in=groups_as_list)
         )
-        filterset = ObjectFilter(self.request.GET, queryset=queryset)
-        return filterset.qs
-
-    def get_context_data(self, **kwargs):
-        context = super(ObjectListView, self).get_context_data(**kwargs)
-        filterset = ObjectFilter(self.request.GET, queryset=self.queryset)
-        context["filter"] = filterset
-        return context
+        return queryset
 
 
 class ObjectCreateView(AutoPermissionRequiredMixin, CreateView):
@@ -203,8 +198,9 @@ class ObjectDeleteView(AutoPermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy("inventory:object-list")
 
 
-class SensorListView(LoginRequiredMixin, ListView):
+class SensorFilterView(LoginRequiredMixin, FilterView):
     model = Sensor
+    filterset_class = SensorFilter
     paginate_by = 10
 
     def get_queryset(self):
@@ -216,14 +212,7 @@ class SensorListView(LoginRequiredMixin, ListView):
             | Sensor.objects.filter(object__management_group__in=groups_as_list)
             | Sensor.objects.filter(object__maintenance_group__in=groups_as_list)
         )
-        filterset = SensorFilter(self.request.GET, queryset=queryset)
-        return filterset.qs
-
-    def get_context_data(self, **kwargs):
-        context = super(SensorListView, self).get_context_data(**kwargs)
-        filterset = SensorFilter(self.request.GET, queryset=self.queryset)
-        context["filter"] = filterset
-        return context
+        return queryset
 
 
 class SensorCreateView(AutoPermissionRequiredMixin, CreateView):

@@ -12,10 +12,12 @@ from inventory.models import Sensor
 from .models import Task, Journal, Trigger
 from .forms import TaskForm, JournalForm
 from .filters import TaskFilter, JournalFilter
+from django_filters.views import FilterView
 
 
-class TaskListView(LoginRequiredMixin, ListView):
+class TaskFilterView(LoginRequiredMixin, FilterView):
     model = Task
+    filterset_class = TaskFilter
     paginate_by = 10
 
     def get_queryset(self):
@@ -27,14 +29,7 @@ class TaskListView(LoginRequiredMixin, ListView):
             | Task.objects.filter(object__management_group__in=groups_as_list)
             | Task.objects.filter(object__maintenance_group__in=groups_as_list)
         )
-        filterset = TaskFilter(self.request.GET, queryset=queryset)
-        return filterset.qs
-
-    def get_context_data(self, **kwargs):
-        context = super(TaskListView, self).get_context_data(**kwargs)
-        filterset = TaskFilter(self.request.GET, queryset=self.queryset)
-        context["filter"] = filterset
-        return context
+        return queryset
 
 
 class TaskCreateView(AutoPermissionRequiredMixin, CreateView):
@@ -86,8 +81,9 @@ class TaskDeleteView(AutoPermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy("maintenance:task-list")
 
 
-class JournalListView(LoginRequiredMixin, ListView):
+class JournalFilterView(LoginRequiredMixin, FilterView):
     model = Journal
+    filterset_class = JournalFilter
     paginate_by = 10
 
     def get_queryset(self):
@@ -99,14 +95,7 @@ class JournalListView(LoginRequiredMixin, ListView):
             | Journal.objects.filter(object__management_group__in=groups_as_list)
             | Journal.objects.filter(object__maintenance_group__in=groups_as_list)
         )
-        filterset = JournalFilter(self.request.GET, queryset=queryset)
-        return filterset.qs
-
-    def get_context_data(self, **kwargs):
-        context = super(JournalListView, self).get_context_data(**kwargs)
-        filterset = JournalFilter(self.request.GET, queryset=self.queryset)
-        context["filter"] = filterset
-        return context
+        return queryset
 
 
 class JournalCreate(AutoPermissionRequiredMixin, CreateView):

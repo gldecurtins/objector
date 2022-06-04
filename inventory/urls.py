@@ -19,7 +19,7 @@ urlpatterns = [
         views.LocationDeleteView.as_view(),
         name="location-delete",
     ),
-    path("object/", views.ObjectListView.as_view(), name="object-list"),
+    path("object/", views.ObjectFilterView.as_view(), name="object-list"),
     path("object/add/", views.ObjectCreateView.as_view(), name="object-create"),
     path("object/<int:pk>/", views.ObjectDetailView.as_view(), name="object-detail"),
     path(
@@ -33,7 +33,7 @@ urlpatterns = [
         name="object-delete",
     ),
     path("sensor/add/", views.SensorCreateView.as_view(), name="sensor-create"),
-    path("sensor/", views.SensorListView.as_view(), name="sensor-list"),
+    path("sensor/", views.SensorFilterView.as_view(), name="sensor-list"),
     path(
         "sensor/<int:pk>/",
         views.SensorDetailView.as_view(),

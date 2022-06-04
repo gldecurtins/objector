@@ -4,7 +4,7 @@ from . import views
 app_name = "maintenance"
 
 urlpatterns = [
-    path("task/", views.TaskListView.as_view(), name="task-list"),
+    path("task/", views.TaskFilterView.as_view(), name="task-list"),
     path(
         "task/add/",
         views.TaskCreateView.as_view(),
@@ -25,7 +25,7 @@ urlpatterns = [
         views.TaskDeleteView.as_view(),
         name="task-delete",
     ),
-    path("journal/", views.JournalListView.as_view(), name="journal-list"),
+    path("journal/", views.JournalFilterView.as_view(), name="journal-list"),
     path(
         "journal/add",
         views.JournalCreate.as_view(),

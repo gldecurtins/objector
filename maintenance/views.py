@@ -142,8 +142,7 @@ class JournalDeleteView(AutoPermissionRequiredMixin, DeleteView):
     raise_exception = True
 
     def get_success_url(self) -> str:
-        object_id = self.object.object.id
-        return reverse_lazy("inventory:object-detail", kwargs={"pk": object_id})
+        return reverse_lazy("maintenance:journal-list")
 
 
 class TriggerCreateView(AutoPermissionRequiredMixin, CreateView):

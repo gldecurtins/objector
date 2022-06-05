@@ -321,6 +321,13 @@ class SensorWebhookView(SingleObjectMixin, View):
             jsonpath_expression = parse(trigger.jsonpath_expression)
 
             for match in jsonpath_expression.find(self.object.webhook_payload):
+                if len(match.value) > 200:
+                    trigger_sensor_value = (
+                        "Error: Value to long. Check JSONPath expression."
+                    )
+                    trigger.status = Trigger.Statuses.RED
+                    sensor_status = Sensor.Statuses.RED
+                    break
 
                 logger.info(f"Match value: {match.value}")
                 logger.info(f"Trigger condition: {trigger.condition}")

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.core.mail import EmailMultiAlternatives
@@ -180,17 +181,15 @@ class Command(BaseCommand):
 
     def compile_task_content(self, task) -> str:
         sensor_content = ""
-        sensor_content += (
-            f"+ {_('Task')}: [{task.name}](https://objector.app/task/{task.pk}/)\n"
-        )
+        sensor_content += f"+ {_('Task')}: [{task.name}](https://{settings.DEFAULT_HOST}/task/{task.pk}/)\n"
         sensor_content += (
             f"+ {_('Object')}: "
-            f"[{task.object}](https://objector.app/object/{task.object.pk}/)\n"
+            f"[{task.object}](https://{settings.DEFAULT_HOST}/object/{task.object.pk}/)\n"
         )
         if task.object.location:
             sensor_content += (
                 f"+ {_('Location')}: "
-                f"[{task.object.location}](https://objector.app/location/{task.object.location.pk}/)\n"
+                f"[{task.object.location}](https://{settings.DEFAULT_HOST}/location/{task.object.location.pk}/)\n"
             )
         sensor_content += f"+ {_('Due at')}: {formats.localize(task.due_at)}\n"
         sensor_content += f"+ {_('Overdue at')}: {formats.localize(task.overdue_at)}\n"
@@ -200,15 +199,15 @@ class Command(BaseCommand):
 
     def compile_sensor_content(self, sensor) -> str:
         sensor_content = ""
-        sensor_content += f"### {_('Sensor')} [{sensor.name}](https://objector.app/sensor/{sensor.pk}/)\n"
+        sensor_content += f"### {_('Sensor')} [{sensor.name}](https:/{settings.DEFAULT_HOST}/sensor/{sensor.pk}/)\n"
         sensor_content += (
             f"+ {_('Object')}: "
-            f"[{sensor.object}](https://objector.app/object/{sensor.object.pk}/)\n"
+            f"[{sensor.object}](https://{settings.DEFAULT_HOST}/object/{sensor.object.pk}/)\n"
         )
         if sensor.object.location:
             sensor_content += (
                 f"+ {_('Location')}: "
-                f"[{sensor.object.location}](https://objector.app/location/{sensor.object.location.pk}/)\n"
+                f"[{sensor.object.location}](https://{settings.DEFAULT_HOST}/location/{sensor.object.location.pk}/)\n"
             )
         sensor_content += (
             f"+ {_('Updated at')}: {formats.localize(sensor.updated_at)}\n"
@@ -218,7 +217,8 @@ class Command(BaseCommand):
 
     def compile_trigger_content(self, trigger) -> str:
         trigger_content = ""
-        trigger_content += f"#### {_('Trigger')} [{trigger.name}](https://objector.app/trigger/{trigger.pk}/)\n"
+        trigger_content += f"#### {_('Trigger')}" \
+            f" [{trigger.name}](https://{settings.DEFAULT_HOST}/trigger/{trigger.pk}/)\n"
         trigger_content += f"+ {_('Sensor value')}: {trigger.sensor_value}\n"
         trigger_content += f"+ {_('Condition')}: {trigger.get_condition_display()}\n"
         if trigger.amber_value:

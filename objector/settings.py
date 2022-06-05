@@ -28,6 +28,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = bool(os.environ.get("DEBUG", False) == "True")
 
 ALLOWED_HOSTS = str(os.environ.get("ALLOWED_HOSTS", "127.0.0.1,localhost")).split(",")
+DEFAULT_HOST = str(os.environ.get("ALLOWED_HOSTS", "127.0.0.1,localhost")).split(",")[0]
 
 
 # Application definition
@@ -187,3 +188,5 @@ EMAIL_PORT = str(os.environ.get("EMAIL_PORT", None))
 EMAIL_HOST_USER = str(os.environ.get("EMAIL_HOST_USER", None))
 EMAIL_HOST_PASSWORD = str(os.environ.get("EMAIL_HOST_PASSWORD", None))
 EMAIL_SUBJECT_PREFIX = "[Objector] "
+SERVER_EMAIL = str(os.environ.get("SERVER_EMAIL", None))
+ADMINS = str(os.environ.get("ADMINS", None)).split(",")

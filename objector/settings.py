@@ -189,4 +189,4 @@ EMAIL_HOST_USER = str(os.environ.get("EMAIL_HOST_USER", None))
 EMAIL_HOST_PASSWORD = str(os.environ.get("EMAIL_HOST_PASSWORD", None))
 EMAIL_SUBJECT_PREFIX = "[Objector] "
 SERVER_EMAIL = str(os.environ.get("SERVER_EMAIL", None))
-ADMINS = str(os.environ.get("ADMINS", None)).split(",")
+ADMINS = str(os.environ.get("ADMINS", None)).split(";")

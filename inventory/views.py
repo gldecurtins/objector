@@ -329,20 +329,28 @@ class SensorWebhookView(SingleObjectMixin, View):
                     sensor_status = Sensor.Statuses.RED
                     break
 
-                logger.info(f"Match value: {match.value}")
+                logger.info(f"Match value: '{match.value}'")
+                logger.info(f"Match value type: {type(match.value)}")
                 logger.info(f"Trigger condition: {trigger.condition}")
-                logger.info(f"Trigger amber value: {trigger.amber_value}")
-                logger.info(f"Trigger red value: {trigger.red_value}")
-
+                logger.info(f"Trigger amber value: '{trigger.amber_value}'")
+                logger.info(f"Trigger amber value type: {type(trigger.amber_value)}")
+                logger.info(f"Trigger red value: '{trigger.red_value}'")
+                logger.info(f"Trigger red value type: {type(trigger.red_value)}")
                 if (
                     (
                         Trigger.Conditions.EQUALS == trigger.condition
-                        and match.value == trigger.red_value
+                        and (
+                            str(match.value) == str(trigger.red_value)
+                            or bool(match.value) == bool(trigger.red_value)
+                        )
                         and Trigger.Statuses.RED < trigger.status
                     )
                     or (
                         Trigger.Conditions.NOTEQUALS == trigger.condition
-                        and match.value != trigger.red_value
+                        and (
+                            str(match.value) != str(trigger.red_value)
+                            or bool(match.value) != bool(trigger.red_value)
+                        )
                         and Trigger.Statuses.RED < trigger.status
                     )
                     or (
@@ -373,12 +381,18 @@ class SensorWebhookView(SingleObjectMixin, View):
                 elif (
                     (
                         Trigger.Conditions.EQUALS == trigger.condition
-                        and match.value == trigger.amber_value
+                        and (
+                            str(match.value) == str(trigger.red_value)
+                            or bool(match.value) == bool(trigger.red_value)
+                        )
                         and Trigger.Statuses.AMBER < trigger.status
                     )
                     or (
                         Trigger.Conditions.NOTEQUALS == trigger.condition
-                        and match.value != trigger.amber_value
+                        and (
+                            str(match.value) != str(trigger.red_value)
+                            or bool(match.value) != bool(trigger.red_value)
+                        )
                         and Trigger.Statuses.AMBER < trigger.status
                     )
                     or (
@@ -413,4 +427,5 @@ class SensorWebhookView(SingleObjectMixin, View):
             trigger.save()
 
         logger.info(f"New sensor status: {sensor_status}")
+
         return sensor_status

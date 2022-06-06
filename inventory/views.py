@@ -313,7 +313,7 @@ class SensorWebhookView(SingleObjectMixin, View):
 
         if match_value and trigger_condition and trigger_value:
             try:
-                trigger_sensor_value = type(match_value)(trigger_value)
+                type_matched_trigger_value = type(match_value)(trigger_value)
             except ValueError:
                 trigger_sensor_value = "Error: Type mismatch. Matched value can't be compared to trigger value."
                 return trigger_sensor_value
@@ -327,27 +327,27 @@ class SensorWebhookView(SingleObjectMixin, View):
             elif (
                 (
                     Trigger.Conditions.EQUALS == trigger_condition
-                    and match_value == trigger_value
+                    and match_value == type_matched_trigger_value
                 )
                 or (
                     Trigger.Conditions.NOTEQUALS == trigger_condition
-                    and match_value != trigger_value
+                    and match_value != type_matched_trigger_value
                 )
                 or (
                     Trigger.Conditions.LESSTHAN == trigger_condition
-                    and match_value < trigger_value
+                    and match_value < type_matched_trigger_value
                 )
                 or (
                     Trigger.Conditions.LESSTHANOREQUALTO == trigger_condition
-                    and match_value <= trigger_value
+                    and match_value <= type_matched_trigger_value
                 )
                 or (
                     Trigger.Conditions.GREATERTHAN == trigger_condition
-                    and match_value > trigger_value
+                    and match_value > type_matched_trigger_value
                 )
                 or (
                     Trigger.Conditions.GREATERTHANOREQUALTO == trigger_condition
-                    and match_value >= trigger_value
+                    and match_value >= type_matched_trigger_value
                 )
             ):
                 trigger_sensor_value = str(match_value)

@@ -239,6 +239,25 @@ class Sensor(RulesModel):
     def get_absolute_url(self) -> str:
         return f"/sensor/{self.id}"
 
+    def save(self, *args, **kwargs):
+        self.set_sensor_status()
+        super().save(*args, **kwargs)
+
+    def set_sensor_status(self) -> None:
+        sensor_status = self.Statuses.GREEN
+
+        from maintenance.models import Trigger
+
+        triggers = Trigger.objects.filter(sensor=self.id)
+
+        for trigger in triggers:
+            trigger.set_trigger_status_and_sensor_value(self.webhook_payload)
+
+            if sensor_status > trigger.status:
+                sensor_status = trigger.status
+
+        self.status = sensor_status
+
     @property
     def status_color(self) -> str:
         status_color = "green"

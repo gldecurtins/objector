@@ -154,16 +154,16 @@
                   </div>
                 </td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
-                  {{ trigger.sensor_value }}
+                  {{ trigger.sensor_value|truncatechars:20 }}
                 </td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 hidden md:table-cell">
                   {{ trigger.get_condition_display }}
                 </td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 hidden md:table-cell">
-                  {{ trigger.amber_value }}
+                  {{ trigger.amber_value|truncatechars:20 }}
                 </td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 hidden md:table-cell">
-                  {{ trigger.red_value }}
+                  {{ trigger.red_value|truncatechars:20 }}
                 </td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 hidden md:table-cell">
                   {{ trigger.updated_at|naturaltime }}

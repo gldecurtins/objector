@@ -6,6 +6,7 @@ from rules.contrib.models import RulesModel
 from inventory.models import Object, Sensor
 import uuid
 import pathlib
+from jsonpath_ng import parse
 
 
 def journal_image_upload_handler(instance, filename: str) -> str:
@@ -112,7 +113,9 @@ class Journal(RulesModel):
     material_costs = models.DecimalField(
         _("Material costs"), blank=True, null=True, decimal_places=2, max_digits=9
     )
-    source = models.CharField(_("Source"), max_length=8, choices=Sources.choices, blank=True)
+    source = models.CharField(
+        _("Source"), max_length=8, choices=Sources.choices, blank=True
+    )
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
     created_by = models.ForeignKey(
@@ -204,6 +207,87 @@ class Trigger(RulesModel):
         elif self.status == Trigger.Statuses.AMBER:
             status_color = "amber"
         return status_color
+
+    def get_trigger_sensor_value(
+        self, match_value, trigger_condition: str, trigger_value: str
+    ) -> str:
+        trigger_sensor_value = ""
+        type_matched_trigger_value = match_value
+
+        if match_value and trigger_condition and trigger_value:
+            try:
+                type_matched_trigger_value = type(match_value)(trigger_value)
+            except ValueError:
+                trigger_sensor_value = "Error: Type mismatch. Matched value can't be compared to trigger value."
+
+            if len(str(match_value)) > 200:
+                trigger_sensor_value = (
+                    "Error: Sensor value to long. Check JSONPath expression."
+                )
+            elif (
+                (
+                    Trigger.Conditions.EQUALS == trigger_condition
+                    and match_value == type_matched_trigger_value
+                )
+                or (
+                    Trigger.Conditions.NOTEQUALS == trigger_condition
+                    and match_value != type_matched_trigger_value
+                )
+                or (
+                    Trigger.Conditions.LESSTHAN == trigger_condition
+                    and match_value < type_matched_trigger_value
+                )
+                or (
+                    Trigger.Conditions.LESSTHANOREQUALTO == trigger_condition
+                    and match_value <= type_matched_trigger_value
+                )
+                or (
+                    Trigger.Conditions.GREATERTHAN == trigger_condition
+                    and match_value > type_matched_trigger_value
+                )
+                or (
+                    Trigger.Conditions.GREATERTHANOREQUALTO == trigger_condition
+                    and match_value >= type_matched_trigger_value
+                )
+            ):
+                trigger_sensor_value = str(match_value)
+
+        return trigger_sensor_value
+
+    def set_trigger_status_and_sensor_value(self, object_webhook_payload: str) -> None:
+        trigger_status = self.Statuses.GREEN
+        trigger_sensor_value = ""
+        jsonpath_expression = parse(self.jsonpath_expression)
+
+        for match in jsonpath_expression.find(object_webhook_payload):
+            if trigger_status > self.Statuses.RED:
+                trigger_sensor_value_red = ""
+                trigger_sensor_value_red = self.get_trigger_sensor_value(
+                    match.value,
+                    self.condition,
+                    self.red_value,
+                )
+                if trigger_sensor_value_red:
+                    trigger_status = self.Statuses.RED
+                    trigger_sensor_value = trigger_sensor_value_red
+
+            if trigger_status > self.Statuses.AMBER:
+                trigger_sensor_value_amber = ""
+                trigger_sensor_value_amber = self.get_trigger_sensor_value(
+                    match.value,
+                    self.condition,
+                    self.amber_value,
+                )
+                if trigger_sensor_value_amber:
+                    trigger_status = self.Statuses.AMBER
+                    trigger_sensor_value = trigger_sensor_value_amber
+
+            if trigger_status == self.Statuses.GREEN:
+                trigger_sensor_value = match.value
+
+        self.status = trigger_status
+        self.sensor_value = trigger_sensor_value
+        self.save()
 
 
 class Document(RulesModel):

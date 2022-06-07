@@ -169,7 +169,7 @@
                   {{ trigger.updated_at|naturaltime }}
                 </td>
                 <td class="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 hidden lg:table-cell">
-                  <div class="ml-4 flex-shrink-0 flex space-x-4">
+                  <div class="ml-4 flex-shrink-0 flex space-x-4 justify-end">
                     {% has_perm 'maintenance.view_trigger' user trigger as can_view_trigger %}
                     {% if can_view_trigger %}
                     <a href="{% url 'maintenance:trigger-detail' trigger.id %}" class="text-indigo-600 hover:text-indigo-900">

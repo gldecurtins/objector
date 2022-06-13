@@ -166,7 +166,12 @@ class Trigger(RulesModel):
         related_name="trigger_sensor",
         on_delete=models.CASCADE,
     )
-    jsonpath_expression = models.CharField(_("JSONPath expression"), max_length=200)
+    jsonpath_expression = models.CharField(
+        _("JSONPath expression"),
+        max_length=200,
+        help_text='Use <a href="http://json2jsonpath.com" target="_blank">JSONPath generator</a>'
+        " with expected JSON payload.",
+    )
     condition = models.CharField(
         _("Condition"), max_length=2, choices=Conditions.choices
     )

@@ -8,7 +8,7 @@ gunicorn==20.1.0
 psycopg2==2.9.3
 dj-database-url==0.5.0
 django-storages==1.12.3
-boto3==1.24.23
+boto3==1.24.36
 django-cleanup==6.0.0
 Pillow==9.2.0
 jsonpath-ng==1.5.3

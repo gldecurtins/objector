@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:3.10.5
+FROM python:3.10.6
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/cache/apt/* && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
 COPY requirements.txt requirements-dev.txt /app/
-RUN pip install --upgrade pip
-RUN pip install --upgrade --no-cache-dir --requirement $REQUIREMENTS --disable-pip-version-check
+RUN pip install --root-user-action=ignore --upgrade pip
+RUN pip install --root-user-action=ignore --upgrade --no-cache-dir --requirement $REQUIREMENTS --disable-pip-version-check
 
 COPY . /app/

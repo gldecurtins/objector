@@ -7,7 +7,7 @@ rules==3.3
 gunicorn==20.1.0
 psycopg2==2.9.3
 dj-database-url==1.0.0
-django-storages==1.12.3
+django-storages==1.13.1
 boto3==1.24.66
 django-cleanup==6.0.0
 Pillow==9.2.0

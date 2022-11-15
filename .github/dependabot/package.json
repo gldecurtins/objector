@@ -1,6 +1,6 @@
 { "dependencies" :
   { "tailwindcss" : "3.2.4"
-  , "alpinejs" : "3.10.4"
+  , "alpinejs" : "3.10.5"
   , "leaflet" : "1.9.2"
   }
 }
